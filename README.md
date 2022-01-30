@@ -11,11 +11,36 @@ If you first come into contact with this project. You can do:
 [reference the Quick Start Guide](https://www.easy-eai.com/document_details/3/7)
 
 If you have extensive experience in embedded C development. You can do:  
-[reference the API development manual](https://www.easy-eai.com/document_details/3/7)
+[reference the API development manual](https://www.easy-eai.com/document_details/3/44)
 
+
+How to use：  
+Enter the corresponding Demo directory of this repository: ./build.sh   
+The relevant Demo will be generated under build/ in the specific Demo directory: test-xxx
 
 important update log:
 ---
+> 2022-01-30 : 
+> * Release easyeai-c-demo-0.1.0
+>   * peripheral_api
+> 	  * [new] audio Demo
+> 	  * [new] backlight Demo
+> 	  * [new] display Demo
+> 	  * [new] camera Demo
+> 	  * [new] socket Demo
+>   * common_api
+> 	  * [new] string operation Demo
+> 	  * [new] Linux system operation Demo
+> 	  * [new] base64 encode & decode Demo
+> 	  * [new] data check Demo
+> 	  * [new] encode QRCode Demo
+> 	  * [new] json parser Demo
+> 	  * [new] *.ini file operation Demo
+>   * netProtocol_api
+> 	  * [new] https Demo
+> 	  * [new] rtsp Demo
+>   * algorithm_api Demo
+> 	  * [new] decode QRCode Demo
+
 > 2021-10-28 : 
 > * create this project
-

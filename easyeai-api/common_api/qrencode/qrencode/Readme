@@ -1,0 +1,80 @@
+
+qrencode.h
+==========================================
+
+
+mask.h
+	qrinput.h
+		qrencode.h
+		bitstream.h
+qrspec.h
+	qrencode.h
+split.h
+	qrencode.h
+rscode.h
+
+
+
+
+cpp
+====================================
+bitstream.cpp
+	bitstream.h
+
+rscode.cpp
+	rscode.h
+	
+qrspec.cpp
+	qrspec.h
+		qrencode.h
+
+split.cpp
+	qrencode.h
+	qrinput.h
+		qrencode.h
+		bitstream.h
+	qrspec.h
+		qrencode.h
+	split.h
+		qrencode.h
+
+mask.cpp
+	mask.h
+		qrinput.h
+			qrencode.h
+			bitstream.h
+	qrspec.h
+		qrencode.h
+	qrencode.h
+	
+qrinput.cpp
+	qrspec.h
+		qrencode.h
+	qrinput.h
+		qrencode.h
+		bitstream.h
+	qrencode.h
+	bitstream.h
+	
+qrencode.cpp
+	qrencode.h
+	qrspec.h
+		qrencode.h
+	bitstream.h
+	qrinput.h
+		qrencode.h
+		bitstream.h
+	rscode.h
+	split.h
+		qrencode.h
+	mask.h
+		qrinput.h
+			qrencode.h
+			bitstream.h
+	
+
+
+
+
+
+
