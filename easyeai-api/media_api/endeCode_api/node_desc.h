@@ -65,6 +65,7 @@ typedef struct {
     uint32_t            dwSignalVout;  //解码通道ID
     VDEC_CHN_FORMAT_E   eVdecChnFormat;//编码类型(H.264/MPEG4...)
     uint8_t             bySubType;     //帧类型(1:I, 0:P, 2:B)
+    uint8_t             byIsEOS;       //末帧标记
     uint32_t            dwFrameIndex;  // 帧序号
     uint32_t            dwHeight;
     uint32_t            dwWidth;

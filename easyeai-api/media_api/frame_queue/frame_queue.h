@@ -38,6 +38,7 @@ extern "C" {
 #define MAX_VIDEO_CHN_NUMBER 8
 extern uint32_t create_video_frame_queue_pool(uint32_t channelNum);
 extern uint32_t push_node_to_video_channel(uint32_t videoChnId, VideoNodeDesc *pNodeDesc, uint8_t *pbyFrameData);
+extern uint32_t push_buff_to_video_channel(uint32_t videoChnId, uint8_t *pbyFrameData, uint32_t dwDataLen, uint8_t byIsEOS);
 extern uint32_t get_node_from_video_channel(uint32_t videoChnId, VideoNodeDesc *pNodeDesc, uint8_t *pbyFrameData);
 
 
