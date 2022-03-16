@@ -15,11 +15,15 @@
 
 
 使用方法：  
-进入具体的Demo目录执行：./build.sh    
-则会在具体的Demo目录的build/下生成相关的Demo：test-xxx
+[1] - 克隆本GitHub仓库   
+[2] - 进入具体的Demo目录执行：./build.sh    
+[3] - 则会在具体的Demo目录的build/下生成相关的Demo：test-xxx
 
 重要更新：
 ---
+> 2022-03-15 : 
+> * 更新easyeai-api-0.1.1
+
 > 2022-01-30 : 
 > * 发布easyeai-c-demo-0.1.0
 >   * 外设组件

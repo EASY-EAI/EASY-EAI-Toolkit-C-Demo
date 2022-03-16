@@ -15,11 +15,15 @@ If you have extensive experience in embedded C development. You can do:
 
 
 How to use：  
-Enter the corresponding Demo directory of this repository: ./build.sh   
-The relevant Demo will be generated under build/ in the specific Demo directory: test-xxx
+[1] - Clone this Git Storage to Local   
+[2] - Enter the corresponding Demo directory of this repository: ./build.sh   
+[3] - The relevant Demo will be generated under build/ in the specific Demo directory: test-xxx
 
 important update log:
 ---
+> 2022-03-15 : 
+> * update easyeai-api-0.1.1
+
 > 2022-01-30 : 
 > * Release easyeai-c-demo-0.1.0
 >   * peripheral_api
