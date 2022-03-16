@@ -26,16 +26,16 @@ set(api_inc
 	${CMAKE_SYSROOT}/usr/include/rkfacial
 	${toolkit_root}/algorithm_api/qrdecode
 	)
+# -L
+link_directories(${toolkit_root}/algorithm_api/qrdecode)
 
 #--------------------------
 # test-qrdecode
 #--------------------------
-
-link_directories(${toolkit_root}/algorithm_api/qrdecode)	#-L
-#link_directories(/home/developer/temp/api_test/easyeai-api/algorithm_api/qrdecode)
-link_libraries("/home/developer/temp/api_test/easyeai-api/algorithm_api/qrdecode/libqrdecode.a")
 add_executable(test-qrdecode test-qrdecode.cpp)		#-o
-target_link_libraries(test-qrdecode pthread zbar qrdecode -lopencv_calib3d 
+target_include_directories(test-qrdecode PRIVATE ${api_inc})	#-I
+target_link_libraries(test-qrdecode pthread qrdecode zbar  
+    -lopencv_calib3d 
     -lopencv_core 
     -lopencv_dnn 
     -lopencv_features2d 
@@ -52,4 +52,4 @@ target_link_libraries(test-qrdecode pthread zbar qrdecode -lopencv_calib3d
     -lopencv_videoio 
     -lopencv_video 
     -lopencv_videostab)	#-l
-target_include_directories(test-qrdecode PRIVATE ${api_inc})	#-I
+

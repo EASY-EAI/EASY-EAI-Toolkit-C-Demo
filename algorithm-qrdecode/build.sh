@@ -5,7 +5,7 @@ set -e
 SHELL_FOLDER=$(cd "$(dirname "$0")";pwd)
 cd $SHELL_FOLDER
 
-if [ "$1" = "clean" ]; then
+if [ "$1" = "clear" ]; then
 	rm -rf build
 	exit 0
 fi
