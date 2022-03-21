@@ -28,11 +28,25 @@ set(api_inc
 	)
 
 #--------------------------
-# test-system-opt
+# test-timepara-opt
 #--------------------------
 link_directories(${toolkit_root}/common_api/system_opt) #-L
-add_executable(test-system-opt test-system-opt.c) #-o
-target_link_libraries(test-system-opt stdc++ pthread system_opt) #-l
-target_include_directories(test-system-opt PRIVATE ${api_inc}) #-I
+add_executable(test-timepara-opt test-timepara-opt.c) #-o
+target_link_libraries(test-timepara-opt stdc++ pthread system_opt) #-l
+target_include_directories(test-timepara-opt PRIVATE ${api_inc}) #-I
 
+#--------------------------
+# test-netpara-opt
+#--------------------------
+link_directories(${toolkit_root}/common_api/system_opt) #-L
+add_executable(test-netpara-opt test-netpara-opt.c) #-o
+target_link_libraries(test-netpara-opt stdc++ pthread system_opt) #-l
+target_include_directories(test-netpara-opt PRIVATE ${api_inc}) #-I
 
+#--------------------------
+# test-thread-opt
+#--------------------------
+link_directories(${toolkit_root}/common_api/system_opt) #-L
+add_executable(test-thread-opt test-thread-opt.c) #-o
+target_link_libraries(test-thread-opt stdc++ pthread system_opt) #-l
+target_include_directories(test-thread-opt PRIVATE ${api_inc}) #-I
