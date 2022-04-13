@@ -12,8 +12,8 @@
  * 
  */
 
-#ifndef _TCPSOCKET_H
-#define _TCPSOCKET_H
+#ifndef TCPSOCKET_H
+#define TCPSOCKET_H
 
 #include <stdio.h>
 #include <stdlib.h>

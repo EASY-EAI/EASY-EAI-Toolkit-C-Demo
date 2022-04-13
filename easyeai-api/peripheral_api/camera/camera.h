@@ -12,8 +12,8 @@
  * 
  */
 
-#ifndef __CAMERA_H__
-#define __CAMERA_H__
+#ifndef CAMERA_H
+#define CAMERA_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -28,6 +28,7 @@ extern "C" {
 int usbcamera_init(int bus, int port, int width, int height, int rot);
 void usbcamera_exit(int bus, int port);
 int usbcamera_getframe(int bus, int port, char *pbuf);
+void usbcamera_preset_fps(int fps);
 
 /* rgb camera */
 int rgbcamera_init(int width, int height, int rot);

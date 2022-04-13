@@ -23,19 +23,16 @@ set(toolkit_root ${CMAKE_CURRENT_SOURCE_DIR}/../easyeai-api)
 
 # -I
 set(api_inc
-	${CMAKE_CURRENT_SOURCE_DIR}/rkmedia
+	${toolkit_root}/peripheral_api/audio
 	)
 
-#--------------------------
-# rkmedia_ao_test
-#--------------------------
-add_executable(rkmedia_ao_test rkmedia_ao_test.c)				#-o
-target_link_libraries(rkmedia_ao_test pthread easymedia)		#-l
-target_include_directories(rkmedia_ao_test PRIVATE ${api_inc})	#-I
+link_directories(${toolkit_root}/peripheral_api/audio)        #-L
+add_executable(test_ao test_ao.c)				#-o
+target_link_libraries(test_ao pthread easymedia audio)		#-l
+target_include_directories(test_ao PRIVATE ${api_inc})	#-I
 
-#--------------------------
-# rkmedia_ai_test
-#--------------------------
-add_executable(rkmedia_ai_test rkmedia_ai_test.c)				#-o
-target_link_libraries(rkmedia_ai_test pthread easymedia)		#-l
-target_include_directories(rkmedia_ai_test PRIVATE ${api_inc})	#-I
+link_directories(${toolkit_root}/peripheral_api/audio)        #-L
+add_executable(test_ai test_ai.c)				#-o
+target_link_libraries(test_ai pthread easymedia audio)		#-l
+target_include_directories(test_ai PRIVATE ${api_inc})	#-I
+

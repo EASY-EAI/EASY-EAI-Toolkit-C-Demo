@@ -12,8 +12,8 @@
  * 
  */
 
-#ifndef __BACKLIGHT_H__
-#define __BACKLIGHT_H__
+#ifndef BACKLIGHT_H
+#define BACKLIGHT_H
 
 #ifdef __cplusplus
 extern "C" {

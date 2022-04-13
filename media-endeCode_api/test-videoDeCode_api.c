@@ -10,9 +10,25 @@
 
 #include "mpp_mem.h"
 
+#define FILE_PATH "./pic.nv12"
+int writeFrameToFile(const char *filePath, void *pData, uint32_t dataLen)
+{
+	FILE *fp = fopen (filePath, "w");
+	if(NULL == fp){
+		printf("file<%s> open error \n", filePath);
+		return -1;
+	}	
+	if(1 != fwrite(pData, dataLen, 1, fp)){
+		printf("file<%s> write error \n", filePath);
+		return -1;
+	}	
+	fclose(fp);
+	return 0;
+}
+
 void readFrameToDecodeQueue(uint32_t chnId, const char *filename)
 {
-    RK_S32 frame_num = 0; //如果frame_num小于0,则是无限循环解码方式
+    bool loop_flag = false; //如果loop_flag为true,则是无限循环解码方式
 	bool bIsEndOfStream = false;
 	FILE *pFileinput_fp = NULL;
     size_t fileBuf_size  = MEM_BLOCK_SIZE_256K;
@@ -44,7 +60,7 @@ void readFrameToDecodeQueue(uint32_t chnId, const char *filename)
 
 					/*  取数据异常*/
 					if (!fileBuf_size || dataLen != fileBuf_size || feof(pFileinput_fp)) {
-						if (frame_num < 0) {
+						if (true == loop_flag) {
 							clearerr(pFileinput_fp);	//清除ferror（fp）的返回值
 							rewind(pFileinput_fp);		//让文件内部指针回到文件开头
 							bIsEndOfStream = false;	//码流未结束
@@ -79,6 +95,10 @@ int32_t VideoFrameHandle(void *pRecObj, VideoFrameData *pFrame)
 {
 	frame_count++;
 	printf("[frame][%d] -- [width x height] = %u x %u, size = %u\n", frame_count, pFrame->width, pFrame->height, pFrame->buf_size);
+	if(250 == frame_count){
+		// 可用该命令播放：mplayer -demuxer rawvideo -rawvideo w=720:h=576:format=nv12 pic.nv12 -loop 0
+		writeFrameToFile(FILE_PATH, pFrame->pBuf, pFrame->buf_size);
+	}
 	return 0;
 }
 

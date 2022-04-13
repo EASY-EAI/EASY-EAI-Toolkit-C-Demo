@@ -32,7 +32,11 @@ struct qrcode_info {
     char type[20];
 };
 
-
+/* 
+ * 二维码检测运行函数
+ * src:输入参数, Opencv Mat格式图像
+ * p_info：输出参数, 二维码检测的结果输出
+ */
 int qr_decode(cv::Mat src, struct qrcode_info *p_info);
 
 
