@@ -23,7 +23,7 @@ set(toolkit_root ${CMAKE_CURRENT_SOURCE_DIR}/../easyeai-api)
 
 # -I
 set(api_inc
-	${CMAKE_SYSROOT}/usr/include/rkfacial
+	${CMAKE_SYSROOT}/usr/include/rkmedia
 	${toolkit_root}/peripheral_api/camera
 	${toolkit_root}/peripheral_api/display
 	)
@@ -32,6 +32,15 @@ set(api_inc
 # test-display
 #--------------------------
 link_directories(${toolkit_root}/peripheral_api/display)	#-L
-add_executable(test-display test-display.c)		#-o
-target_link_libraries(test-display pthread rkfacial easymedia drm rga rkisp_api display)	#-l
+add_executable(test-display test-display.c)			#-o
+target_link_libraries(test-display pthread easymedia display)	#-l
 target_include_directories(test-display PRIVATE ${api_inc})	#-I
+
+
+#--------------------------
+# test-display-pro
+#--------------------------
+link_directories(${toolkit_root}/peripheral_api/display)		#-L
+add_executable(test-display-pro test-display-pro.c)			#-o
+target_link_libraries(test-display-pro pthread easymedia display)	#-l
+target_include_directories(test-display-pro PRIVATE ${api_inc})		#-I

@@ -21,6 +21,20 @@ How to use：
 
 important update log:
 ---
+> 2022-05-25 : 
+> * Release easyeai-c-demo-0.1.3
+> * update easyeai-api-0.1.3
+>   * algorithm_api
+> 	  * [new] geometry Demo
+> 	  * [new] helmet_detect Demo
+> 	  * [update] face_detect Demo
+>   * peripheral_api
+> 	  * [update] display Demo
+>   * common_api
+> 	  * [update] Linux system operation Demo
+>   * media_api
+> 	  * [update] stream media encode & decode Demo
+>
 > 2022-04-13 : 
 > * Release easyeai-c-demo-0.1.2
 > * update easyeai-api-0.1.2

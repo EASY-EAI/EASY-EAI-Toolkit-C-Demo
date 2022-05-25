@@ -32,7 +32,7 @@ set(api_inc
 #--------------------------
 link_directories(${toolkit_root}/netProtocol_api/https) #-L
 add_executable(test-https test-https.c) #-o
-target_link_libraries(test-https https crypto ssl pthread stdc++) #-l
+target_link_libraries(test-https https crypto ssl stdc++) #-l
 target_include_directories(test-https PRIVATE ${api_inc}) #-I
 
 

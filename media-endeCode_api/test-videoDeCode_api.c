@@ -78,8 +78,8 @@ void readFrameToDecodeQueue(uint32_t chnId, const char *filename)
 			}
 
 			if(dataLen){
-				//成功取流，送流进入  解码器的输入队列
-				push_buff_to_video_channel(chnId, (uint8_t *)pBuf, dataLen, (uint8_t)bIsEndOfStream);
+				//成功取流，送流进入解码器的输入队列
+				push_buff_to_video_channel(chnId, (uint8_t *)pBuf, VDEC_CHN_FORMAT_H264, dataLen, (uint8_t)bIsEndOfStream);
 			}
 		}
 		// 4.取流完毕关闭文件
@@ -115,15 +115,11 @@ int main(int argc, char* argv[])
 		return -1;
 	}
 	
-	// 获取文件解码类型
-    MppCodingType type = MPP_VIDEO_CodingAVC;
-	//name_to_coding_type(argv[1], &type);
-	
 	// 1.创建解码器
 	create_decoder(8);
 	
 	// 2.向解码器申请解码通道
-	if(0 == create_decMedia_channel(&channel, type)){
+	if(0 == create_decMedia_channel(&channel)){
 		printf("create channel OK, chn = %u\n", channel);
 		
 		// 3.往成功申请的通道绑定解码输出处理函数

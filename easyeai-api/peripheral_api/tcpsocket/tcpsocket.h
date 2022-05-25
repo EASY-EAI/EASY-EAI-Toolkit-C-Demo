@@ -15,6 +15,10 @@
 #ifndef TCPSOCKET_H
 #define TCPSOCKET_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -49,4 +53,8 @@ int tcp_server(const char *host, const char *service);
 void tcp_close(int socket_fd);
 int tcp_recv(int socket_fd, void *buf, int size);
 int tcp_send(int socket_fd, const void *buf, int size);
+
+#ifdef __cplusplus
+}
+#endif
 #endif

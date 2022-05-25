@@ -19,14 +19,48 @@
 extern "C" {
 #endif
 
-#include <rga/RgaApi.h>
+#include "rkmedia/rkmedia_api.h"
 
-/* 默认输入RGB888，可通过disp_set_format修改*/
+typedef struct disp_win {
+	int enable;
+	int win_x;
+	int win_y;
+	int win_w;
+	int win_h;
+	int rotation;	//顺时针旋转输入图像角度，支持90、180、270、0度
+	IMAGE_TYPE_E in_fmt;
+	int in_w;		//输入图像宽度
+	int in_h;		//输入图像高度
+	int HorStride;	//输入图像水平步长
+	int VirStride;	//输入图像垂直步长
+	/* 如果不设置crop系列参数，则默认拉伸原图铺满整个win ;
+	 *设置crop则先裁切再把裁切后的图像铺满整个win，以便保持图像宽高比例
+	 */
+	int crop_x;		//裁切起始X坐标(基于旋转前图像的坐标系)
+	int crop_y;		//裁切起始Y坐标(基于旋转前图像的坐标系)
+	int crop_w;		//裁切后的图像宽度(以旋转前的图像为参考)
+	int crop_h;		//裁切后的图像高度(以旋转前的图像为参考)
+} disp_win_t;
+
+typedef struct disp_screen {
+    int screen_width;
+	int screen_height;
+	int uiLayer_enable;	//使能后UI可以显示在图像上面
+	disp_win_t wins[VMIX_MAX_CHN_NUM];
+} disp_screen_t;
+
+/* 公共api */
 void disp_preset_uiLayer(int enable);
-int disp_init(int width, int height);
+
+/* 适合初次使用 */
+int disp_init(int width, int height); //默认输入RGB888
 void disp_exit(void);
-void disp_commit(void *ptr, int x_off, int y_off);
-void disp_set_format(RgaSURF_FORMAT fmt);
+void disp_commit(void *ptr, int data_len);
+
+/* pro */
+int disp_init_pro(disp_screen_t *screen);
+void disp_exit_pro(void);
+void disp_commit_pro(void *ptr, int chn, int data_len);
 
 
 #ifdef __cplusplus

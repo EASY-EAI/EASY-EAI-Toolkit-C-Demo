@@ -1,6 +1,7 @@
 
 #include <opencv2/opencv.hpp>
 #include <stdio.h>
+#include <sys/time.h>
 #include "face_detect.h"
 
 using namespace cv;
@@ -14,6 +15,10 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
+	struct timeval start;
+	struct timeval end;
+	float time_use=0;
+
 	rknn_context ctx;
 	std::vector<det> result;
 
@@ -22,7 +27,12 @@ int main(int argc, char **argv)
 	
 	face_detect_init(&ctx, "face_detect.model");
 
+	gettimeofday(&start,NULL); 
 	face_detect_run(ctx, image, result);
+
+	gettimeofday(&end,NULL);
+	time_use=(end.tv_sec-start.tv_sec)*1000000+(end.tv_usec-start.tv_usec);//Œ¢√Î
+	printf("time_use is %f\n",time_use/1000);
 
 	printf("face num:%d\n",result.size());
 
