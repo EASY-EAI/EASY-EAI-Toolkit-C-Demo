@@ -40,6 +40,8 @@ typedef struct disp_win {
 	int crop_y;		//裁切起始Y坐标(基于旋转前图像的坐标系)
 	int crop_w;		//裁切后的图像宽度(以旋转前的图像为参考)
 	int crop_h;		//裁切后的图像高度(以旋转前的图像为参考)
+
+	MEDIA_BUFFER_POOL mbp;
 } disp_win_t;
 
 typedef struct disp_screen {

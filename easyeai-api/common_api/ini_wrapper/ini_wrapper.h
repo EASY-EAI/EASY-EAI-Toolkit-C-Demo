@@ -13,8 +13,8 @@
  */
 
  
-#ifndef __INI_WRAPPER_H__
-#define __INI_WRAPPER_H__
+#ifndef INI_WRAPPER_H
+#define INI_WRAPPER_H
 
 #include <stdint.h>
 

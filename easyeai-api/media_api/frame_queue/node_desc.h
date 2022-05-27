@@ -21,7 +21,7 @@
 #include <stdbool.h>
 
 //定义每个内存块的大小
-#define     MEM_BLOCK_SIZE_5M            	0x500000
+#define     MEM_BLOCK_SIZE_5M               0x500000
 #define     MEM_BLOCK_SIZE_2560K            0x280000
 #define     MEM_BLOCK_SIZE_2304K            0x260000
 #define     MEM_BLOCK_SIZE_2048K            0x200000

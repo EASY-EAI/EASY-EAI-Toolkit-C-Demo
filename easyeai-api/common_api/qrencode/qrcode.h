@@ -14,8 +14,8 @@
  * License file for more details.
  * 
  */
-#ifndef __QRCODE_H__
-#define __QRCODE_H__
+#ifndef QRCODE_H
+#define QRCODE_H
 
 #include <stdint.h>
 
@@ -28,4 +28,4 @@ extern long StrToQRCode(const char *file, const char *pStr);
 #ifdef __cplusplus
 }
 #endif
-#endif /* __QRCODE_H__ */
+#endif /* QRCODE_H */

@@ -42,9 +42,9 @@ extern int32_t push_buff_to_video_channel(uint32_t videoChnId, uint8_t *pbyFrame
 extern int32_t get_node_from_video_channel(uint32_t videoChnId, VideoNodeDesc *pNodeDesc, uint8_t *pbyFrameData);
 
 
-extern int32_t create_audio_frame_queue_pool(uint32_t channelNum);
-extern int32_t push_node_to_audio_channel(uint32_t audioChnId, AudioNodeDesc *pNodeDesc, uint8_t *pbyFrameData);
-extern int32_t get_node_from_audio_channel(uint32_t audioChnId, AudioNodeDesc *pNodeDesc, uint8_t *pbyFrameData);
+//extern int32_t create_audio_frame_queue_pool(uint32_t channelNum);
+//extern int32_t push_node_to_audio_channel(uint32_t audioChnId, AudioNodeDesc *pNodeDesc, uint8_t *pbyFrameData);
+//extern int32_t get_node_from_audio_channel(uint32_t audioChnId, AudioNodeDesc *pNodeDesc, uint8_t *pbyFrameData);
 
 
 

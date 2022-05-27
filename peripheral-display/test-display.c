@@ -25,7 +25,7 @@ int main()
 
 	signal(SIGINT, sigterm_handler);
 
-	/* 1¡¢×¼±¸Í¼ÏñÊı¾İ */
+	/* 1ã€å‡†å¤‡å›¾åƒæ•°æ® */
 	pbuf = (char *)malloc(IMAGE_SIZE);
 	if (!pbuf) {
 		printf("malloc error: %s, %d\n", __func__, __LINE__);
@@ -45,14 +45,14 @@ int main()
 		return -1;
 	}
 
-	/* 2¡¢³õÊ¼»¯ÏÔÊ¾ */
+	/* 2ã€åˆå§‹åŒ–æ˜¾ç¤º */
 	ret = disp_init(DISP_WIDTH, DISP_HEIGHT); //RGB888 default
 	if (ret) {
 		printf("disp_init() error func:%s, line:%d\n", __func__, __LINE__);
 		goto exit1;
 	}
 
-	/* 3¡¢Ìá½»ÏÔÊ¾ */
+	/* 3ã€æäº¤æ˜¾ç¤º */
 	disp_commit(pbuf, IMAGE_SIZE);
 
 	g_run++;

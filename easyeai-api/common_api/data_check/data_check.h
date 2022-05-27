@@ -13,8 +13,8 @@
  */
 
  
-#ifndef __DATA_CHECK_H__
-#define __DATA_CHECK_H__
+#ifndef DATA_CHECK_H
+#define DATA_CHECK_H
 
 #include <stdint.h>
 
