@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <signal.h>
+#include <stdlib.h>
 
 #include <disp.h>
 #include <camera.h>
-#include <rga/RgaApi.h>
 
 #define CAMERA_WIDTH	720
 #define CAMERA_HEIGHT	1280

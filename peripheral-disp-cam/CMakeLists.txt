@@ -34,7 +34,7 @@ set(api_inc
 link_directories(${toolkit_root}/peripheral_api/display)	#-L
 link_directories(${toolkit_root}/peripheral_api/camera)		#-L
 add_executable(test-disp-cam test-disp-cam.c)			#-o
-target_link_libraries(test-disp-cam pthread rkfacial easymedia rga rkisp_api display camera)	#-l
+target_link_libraries(test-disp-cam pthread rkaiq rga easymedia display camera)	#-l
 target_include_directories(test-disp-cam PRIVATE ${api_inc})	#-I
 
 #--------------------------
@@ -43,5 +43,5 @@ target_include_directories(test-disp-cam PRIVATE ${api_inc})	#-I
 link_directories(${toolkit_root}/peripheral_api/display)	#-L
 link_directories(${toolkit_root}/peripheral_api/camera)		#-L
 add_executable(test-disp-pro-cam test-disp-pro-cam.c)		#-o
-target_link_libraries(test-disp-pro-cam pthread rkfacial easymedia rga rkisp_api display camera)	#-l
+target_link_libraries(test-disp-pro-cam pthread rkaiq rga easymedia display camera)	#-l
 target_include_directories(test-disp-pro-cam PRIVATE ${api_inc})	#-I

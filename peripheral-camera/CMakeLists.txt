@@ -23,9 +23,7 @@ set(toolkit_root ${CMAKE_CURRENT_SOURCE_DIR}/../easyeai-api)
 
 # -I
 set(api_inc
-	${CMAKE_SYSROOT}/usr/include/rkfacial
 	${toolkit_root}/peripheral_api/camera
-	${toolkit_root}/peripheral_api/display
 	)
 
 #--------------------------
@@ -33,7 +31,7 @@ set(api_inc
 #--------------------------
 link_directories(${toolkit_root}/peripheral_api/camera)	#-L
 add_executable(test-usb-cam test-usb-cam.c)		#-o
-target_link_libraries(test-usb-cam pthread rkfacial easymedia drm rga rkisp_api camera)	#-l
+target_link_libraries(test-usb-cam pthread rkfacial easymedia rga camera)	#-l
 target_include_directories(test-usb-cam PRIVATE ${api_inc})	#-I
 
 #--------------------------
@@ -41,7 +39,7 @@ target_include_directories(test-usb-cam PRIVATE ${api_inc})	#-I
 #--------------------------
 link_directories(${toolkit_root}/peripheral_api/camera)	#-L
 add_executable(test-multi-usb-cam test-multi-usb-cam.c)		#-o
-target_link_libraries(test-multi-usb-cam pthread rkfacial easymedia drm rga rkisp_api camera)	#-l
+target_link_libraries(test-multi-usb-cam pthread rkfacial easymedia rga camera)	#-l
 target_include_directories(test-multi-usb-cam PRIVATE ${api_inc})	#-I
 
 #--------------------------
@@ -49,7 +47,7 @@ target_include_directories(test-multi-usb-cam PRIVATE ${api_inc})	#-I
 #--------------------------
 link_directories(${toolkit_root}/peripheral_api/camera)	#-L
 add_executable(test-mipi-rgb test-mipi-rgb.c)		#-o
-target_link_libraries(test-mipi-rgb pthread rkfacial easymedia drm rga rkisp_api camera)	#-l
+target_link_libraries(test-mipi-rgb pthread easymedia rga camera rkaiq)	#-l
 target_include_directories(test-mipi-rgb PRIVATE ${api_inc})	#-I
 
 #--------------------------
@@ -57,5 +55,5 @@ target_include_directories(test-mipi-rgb PRIVATE ${api_inc})	#-I
 #--------------------------
 link_directories(${toolkit_root}/peripheral_api/camera)	#-L
 add_executable(test-mipi-ir test-mipi-ir.c)		#-o
-target_link_libraries(test-mipi-ir pthread rkfacial easymedia drm rga rkisp_api camera)	#-l
+target_link_libraries(test-mipi-ir pthread easymedia rga camera rkaiq)	#-l
 target_include_directories(test-mipi-ir PRIVATE ${api_inc})	#-I
