@@ -16,7 +16,7 @@
 #define JSON_PARSER_H
 
 #include <stdint.h>
-
+#include <stdbool.h>
 
 #if defined(__cplusplus)
 extern "C" {
@@ -25,15 +25,29 @@ extern "C" {
 extern int32_t get_int32_from_json(const char *json_str, const char *key);
 extern int32_t get_string_from_json(const char *json_str, const char *key, char *data, uint32_t dataLen);
 extern int32_t get_object_from_json(const char *json_str, const char *key, char *data, uint32_t dataLen);
+extern int32_t get_list_from_json(const char *json_str, const char *key, char *data, uint32_t dataLen);
 
 extern int32_t get_list_size_from_json(const char *json_str, const char *list_key);
 extern int32_t get_int32_from_list(const char *json_str, const char *list_name, int pos, const char *key);
 extern int32_t get_string_from_list(const char *json_str, const char *list_name, int pos, const char *key, char *data, uint32_t dataLen);
 
-extern void clear_json_cache();
-//type为空，默认按string处理
-extern void add_json_cache(const char *key, const char *type, const char *value);
-extern int32_t create_json_string(char *json_string, uint32_t dataLen);
+
+
+extern void *create_json_object();
+extern void  add_null_to_object(void *pObj, const char * const key);
+extern void  add_bool_to_object(void *pObj, const char * const key, bool bTorF);
+extern void  add_number_to_object(void *pObj, const char * const key, double number);
+extern void  add_string_to_object(void *pObj, const char * const key, const char * const string);
+extern void *add_object_to_object(void *pParentObj, const char * const subObjName);
+extern void  add_object_to_object2(void *pParentObj, const char * const subObjName, void *pSubObj);
+extern void  add_object_to_object3(void *pParentObj, const char * const subObjName, char *pSubObjSrt);
+extern void *add_list_to_object(void *pParentObj, const char * const listName);
+extern void  add_item_to_list(void *pList, void *pItem);
+extern char *object_data(void *pObject);
+// 说明：
+//     1、该接口类似于free。
+//     2、free掉某个JSON对象的话，挂在它下面的子对象也会全部被free掉。因此只用free掉根节点即可
+extern int32_t delete_json_object(void *pObject);
 
 #if defined(__cplusplus)
 }

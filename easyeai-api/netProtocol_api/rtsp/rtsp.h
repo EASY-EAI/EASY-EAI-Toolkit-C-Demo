@@ -44,10 +44,12 @@ typedef struct {
 	char rtspUrl[128];
 	char userName[32];
 	char password[32];
+    bool bUseTcpConnect;    // 默认为false[使用UDP连接]，但使用UDP链接会因丢包导致解码失败(直到下一个IDR帧)。
     bool bOutputTestRecordFile; /* 除了该标志为true以外，还需要确保存在/tmp/rtspRecFiles目录 */
 
     bool bIsRunning;
     bool bSkipNOIFrame;
+    bool bHaveGetSPSInfo;   //h265 get resolution from sps frame flag
 	void *pAuthenticator;
 	pid_t rtspClientPid;
     

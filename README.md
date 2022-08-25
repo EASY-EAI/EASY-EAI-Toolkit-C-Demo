@@ -21,6 +21,15 @@ How to use：
 
 important update log:
 ---
+> 2022-08-25 : 
+> * Release easyeai-c-demo-0.2.0
+> * update easyeai-api-0.2.0
+>   * peripheral_api
+> 	  * [new] pwm Demo
+> 	  * [update] camera Demo
+>   * common_api
+> 	  * [update] json parser Demo
+>
 > 2022-05-25 : 
 > * Release easyeai-c-demo-0.1.3
 > * update easyeai-api-0.1.3

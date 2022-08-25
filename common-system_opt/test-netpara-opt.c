@@ -21,7 +21,7 @@ int main(void)
 		printf("get ip  succ: %s\n", ip);
 	}
 	
-	set_net_ipv4("192.168.1.151", "255.255.255.0", "192.168.1.1");
+	set_net_ipv4("eth0","192.168.1.151", "255.255.255.0", "192.168.1.1");
     if(0 == get_local_Ip("eth0", ip, MAX_IP_LEN)) {
 		printf("set ip  succ: %s\n", ip);
 	}

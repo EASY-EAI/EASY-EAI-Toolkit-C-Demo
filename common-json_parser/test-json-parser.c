@@ -37,8 +37,7 @@ int main(void)
 \"name\": \"gzlmo\"\
 }\
 }";
-	
-	
+
 	printf("======================================= json string ================================\n");
 	printf("%s\n", strJson);
 	printf("======================================= json string ================================\n");
@@ -83,16 +82,32 @@ int main(void)
 			printf("=== md5: %s\n", md5);
 		}
 	}
-	
-	printf("\n\n===========  start to create json string ==================\n");	
-	add_json_cache("name","string","gzlmo");	//正常使用
-	add_json_cache("id","number","0");			//正常使用
-	add_json_cache("version","number","");		//非正常使用，value为0
-	add_json_cache("","string","66667");		//非正常使用，该条json不会被加入缓存
-	add_json_cache("pwd","","787729");			//非正常使用，type默认为string
-	char newJsonStr[2048] = {0};
-	create_json_string(newJsonStr, sizeof(newJsonStr));
-	printf("newJsonStr = %s\n",newJsonStr);
-	
+
+
+
+	void *obj =  create_json_object();
+	void *item1 =  create_json_object();
+	add_string_to_object(item1,"text","我是一个字符串数据1");
+	add_bool_to_object(item1,"state1",false);
+	add_bool_to_object(item1,"state2",true);
+	add_null_to_object(item1,"state3");
+	add_object_to_object2(obj,"data1",item1);
+
+	void * MyList = add_list_to_object(obj,"TypeList");
+	void *item2 =  create_json_object();
+	add_string_to_object(item2,"type","001");
+	add_string_to_object(item2,"name","小明");
+	add_item_to_list(MyList,item2);
+	void *item3 =  create_json_object();
+	add_string_to_object(item3,"type","002");
+	add_string_to_object(item3,"name","小王");
+	add_item_to_list(MyList,item3);
+
+	char *json_data = object_data(obj);
+	printf("======================================= start to create json string ================================\n");
+	printf("%s\n", json_data);
+	printf("======================================= end to create json string ================================\n");
+	delete_json_object(obj);
+
 	return 0;
 }

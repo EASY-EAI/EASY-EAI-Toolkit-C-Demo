@@ -21,6 +21,15 @@
 
 重要更新：
 ---
+> 2022-08-25 : 
+> * 发布 easyeai-c-demo-0.2.0
+> * 更新 easyeai-api-0.2.0
+>   * 外设组件
+> 	  * [新增] pwm Demo
+> 	  * [更新] 摄像头 Demo
+>   * 通用组件
+> 	  * [更新] json格式处理 Demo
+>
 > 2022-05-25 : 
 > * 发布 easyeai-c-demo-0.1.3
 > * 更新 easyeai-api-0.1.3

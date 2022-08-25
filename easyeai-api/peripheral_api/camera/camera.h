@@ -30,15 +30,62 @@ void usbcamera_exit(int bus, int port);
 int usbcamera_getframe(int bus, int port, char *pbuf);
 void usbcamera_preset_fps(int fps);
 
+/* support format:
+RK_FORMAT_RGBA_8888
+RK_FORMAT_RGBX_8888
+RK_FORMAT_RGB_888
+RK_FORMAT_BGRA_8888
+RK_FORMAT_RGB_565
+RK_FORMAT_RGBA_5551
+RK_FORMAT_RGBA_4444
+RK_FORMAT_BGR_888
+
+RK_FORMAT_YCbCr_422_SP
+RK_FORMAT_YCbCr_422_P
+RK_FORMAT_YCbCr_420_SP
+RK_FORMAT_YCbCr_420_P
+
+RK_FORMAT_YCrCb_422_SP
+RK_FORMAT_YCrCb_422_P
+RK_FORMAT_YCrCb_420_SP
+RK_FORMAT_YCrCb_420_P
+
+RK_FORMAT_BPP1
+RK_FORMAT_BPP2
+RK_FORMAT_BPP4
+RK_FORMAT_BPP8
+
+RK_FORMAT_Y4
+RK_FORMAT_YCbCr_400
+
+RK_FORMAT_BGRX_8888
+
+RK_FORMAT_YVYU_422
+RK_FORMAT_YVYU_420
+RK_FORMAT_VYUY_422
+RK_FORMAT_VYUY_420
+RK_FORMAT_YUYV_422
+RK_FORMAT_YUYV_420
+RK_FORMAT_UYVY_422
+RK_FORMAT_UYVY_420
+
+RK_FORMAT_YCbCr_420_SP_10B
+RK_FORMAT_YCrCb_420_SP_10B
+RK_FORMAT_YCbCr_422_10b_SP
+RK_FORMAT_YCrCb_422_10b_SP
+*/
+
 /* rgb camera */
 int rgbcamera_init(int width, int height, int rot);
 void rgbcamera_exit(void);
 int rgbcamera_getframe(char *pbuf);
+void rgbcamera_set_format(int format);
 
 /* ir camera */
 int ircamera_init(int width, int height, int rot);
 void ircamera_exit(void);
 int ircamera_getframe(char *pbuf);
+void ircamera_set_format(int format);
 
 #ifdef __cplusplus
 }

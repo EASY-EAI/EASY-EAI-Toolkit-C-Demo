@@ -26,7 +26,7 @@ extern "C" {
 #endif
 
 //network parameter config api
-extern int32_t set_net_ipv4(const char *ip, const char *mask, const char *gateway);
+extern int32_t set_net_ipv4(const char *device, const char *ip, const char *mask, const char *gateway);
 
 extern int32_t get_local_Ip(const char *device, char *ip, int ip_len);
 extern int32_t get_local_Mac(const char *device, char *mac, int mac_len);
@@ -63,6 +63,7 @@ extern int32_t CreateNormalThread(ThreadEntryPtrType entry, void *para, pthread_
 extern int32_t exec_cmd_by_system(const char *cmd);
 extern int32_t exec_cmd_by_popen(const char *cmd, char *result);
 // IPC
+#define IPCSERVER_PORT 7000 //IPC服务器占用端口(注意：此值仅用于开发参考，不可以对其进行修改)
 typedef struct {
     char msgHeader[8];
     int32_t srcClientId;
@@ -73,11 +74,13 @@ typedef struct {
 }IPC_MSG_t;
 typedef	int32_t (*IPC_Client_CB)(void *, IPC_MSG_t *);
 
-extern int32_t IPC_server_create(int port, int clientMaxNum);
+extern int32_t IPC_server_create(int clientMaxNum);
 extern int32_t IPC_client_create();
-extern int32_t IPC_client_init(int32_t srvPort, int32_t cliId);
+extern int32_t IPC_client_init(int32_t cliId);
 extern int32_t IPC_client_unInit();
 extern int32_t IPC_client_set_callback(void *pObj, IPC_Client_CB func);
+extern int32_t IPC_client_query_registered_client(int32_t dstCliId);
+extern int32_t IPC_client_dstClient_is_registered();
 extern int32_t IPC_client_sendData(int32_t tagId, int32_t type, void *data, int32_t dataLen);
 
 #if defined(__cplusplus)
