@@ -27,7 +27,7 @@ typedef struct disp_win {
 	int win_y;
 	int win_w;
 	int win_h;
-	int rotation;	//顺时针旋转输入图像角度，支持90、180、270、0度
+	int rotation;	//顺时针旋转输入图像角度，支持90、180、270、0度(若旋转和裁切搭配使用，处理顺序为先裁切后旋转)
 	IMAGE_TYPE_E in_fmt;
 	int in_w;		//输入图像宽度
 	int in_h;		//输入图像高度

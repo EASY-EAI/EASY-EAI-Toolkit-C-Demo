@@ -82,7 +82,7 @@ int32_t VideoHandle(void *pCapturer, VideoNodeDesc *pNodeDesc, uint8_t *pData)
 int main(void)
 {
 	const char *testProgName = "myRtsp";
-	const char *testRtspUrl = "rtsp://192.168.1.65";
+	const char *testRtspUrl = "rtsp://192.168.1.67";
 	const char *testRtspUserName = "admin";
 	const char *testRtspPassword = "a12345678";
 	

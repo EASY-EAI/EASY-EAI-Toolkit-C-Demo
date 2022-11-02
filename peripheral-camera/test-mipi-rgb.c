@@ -6,7 +6,7 @@
 
 #define CAMERA_WIDTH	720
 #define CAMERA_HEIGHT	1280
-#define	IMGRATIO		1.5
+#define	IMGRATIO	3
 #define	IMAGE_SIZE		(CAMERA_WIDTH*CAMERA_HEIGHT*IMGRATIO)
 
 int main()
@@ -21,9 +21,7 @@ int main()
 		printf("error: %s, %d\n", __func__, __LINE__);
 		goto exit3;
 	}
-
-	rgbcamera_set_format(RK_FORMAT_YCbCr_420_SP);
-
+	
 	pbuf = (char *)malloc(IMAGE_SIZE);
 	if (!pbuf) {
 		printf("error: %s, %d\n", __func__, __LINE__);
@@ -43,7 +41,7 @@ int main()
 
 	/* tips: 可以在Ubuntu下用mplayer播放录制图像
 	*	adb pull /tmp/photo
-	*	mplayer -demuxer rawvideo -rawvideo w=720:h=1280:format=nv12 photo -loop 0
+	*	mplayer -demuxer rawvideo -rawvideo w=720:h=1280:format=bgr24 photo -loop 0
 	*/
 	fp = fopen("/tmp/photo", "w");
 	if (!fp) {

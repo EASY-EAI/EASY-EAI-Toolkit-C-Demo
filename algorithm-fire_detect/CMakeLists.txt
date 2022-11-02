@@ -21,14 +21,35 @@ add_definitions(-Wall)
 
 set(toolkit_root ${CMAKE_CURRENT_SOURCE_DIR}/../easyeai-api)
 
-#--------------------------
-# canecho
-#--------------------------
-add_executable(canecho canecho.c)	#-o
-target_link_libraries(canecho pthread)	#-l
+# -I
+set(api_inc
+	${CMAKE_SYSROOT}/usr/include/rkfacial
+	${toolkit_root}/algorithm_api/fire_detect
+	)
+# -L
+link_directories(${toolkit_root}/algorithm_api/fire_detect)
 
 #--------------------------
-# tst-raw-sendto
+# test-person-detect
 #--------------------------
-add_executable(tst-raw-sendto tst-raw-sendto.c)	#-o
-target_link_libraries(tst-raw-sendto pthread)	#-l
+add_executable(test-fire-detect test-fire-detect.cpp)		#-o
+target_include_directories(test-fire-detect PRIVATE ${api_inc})	#-I
+target_link_libraries(test-fire-detect pthread fire_detect rknn_api
+    -lopencv_calib3d 
+    -lopencv_core 
+    -lopencv_dnn 
+    -lopencv_features2d 
+    -lopencv_flann 
+    -lopencv_highgui 
+    -lopencv_imgcodecs 
+    -lopencv_imgproc 
+    -lopencv_ml 
+    -lopencv_objdetect 
+    -lopencv_photo 
+    -lopencv_shape 
+    -lopencv_stitching 
+    -lopencv_superres 
+    -lopencv_videoio 
+    -lopencv_video 
+    -lopencv_videostab)	#-l
+

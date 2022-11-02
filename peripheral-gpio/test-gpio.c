@@ -27,7 +27,7 @@ int main(int argc, char **argv)
 		goto close_chip;
 	}
 
-	ret = gpiod_line_request_output(line, CONSUMER, 0, 0);
+	ret = gpiod_line_request_output(line, CONSUMER, 0);
 	if (ret < 0) {
 		perror("Request line as output failed\n");
 		goto release_line;

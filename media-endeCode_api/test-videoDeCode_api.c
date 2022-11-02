@@ -1,25 +1,60 @@
 #include <sys/time.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <aio.h>
 
 #include "frame_queue.h"
 #include "endeCode_api.h"
 
 #include "mpp_mem.h"
 
-#define FILE_PATH "./pic.nv12"
-int writeFrameToFile(const char *filePath, void *pData, uint32_t dataLen)
+#define PHOTO_FILE "./photo.nv12"
+#define VIDEO_FILE "./video.nv12"
+
+static struct aiocb g_wd = {0};
+static int g_VideoFd = -1;
+// 由于保存录像文件不能堵塞解码帧输出，因此需要异步写入文件
+int saveOneFrameInVideo(void *pData, uint32_t dataLen)
 {
-	FILE *fp = fopen (filePath, "w");
+    if(g_VideoFd < 0){
+	    g_VideoFd = open(VIDEO_FILE, O_CREAT|O_WRONLY, 0755);
+        bzero(&g_wd,sizeof(g_wd));
+        g_wd.aio_fildes = g_VideoFd;
+        g_wd.aio_offset = 0;
+    }
+    
+	if(g_VideoFd < 0){
+		printf("file<%s> open error \n", VIDEO_FILE);
+		return -1;
+	}
+
+    // 由于这里是直接写入，没有针对pts的处理，因此含有B帧的码流，视频会出现跳帧现象。
+    g_wd.aio_buf = pData;
+    g_wd.aio_nbytes =  dataLen;
+    if(aio_write(&g_wd) < 0){
+		printf("file<%s> write error \n", VIDEO_FILE);
+		return -1;
+	}
+    g_wd.aio_offset += dataLen;
+
+	return 0;
+}
+int saveOneFrameInPhoto(void *pData, uint32_t dataLen)
+{
+	FILE *fp = fopen (PHOTO_FILE, "wb");
 	if(NULL == fp){
-		printf("file<%s> open error \n", filePath);
+		printf("file<%s> open error \n", PHOTO_FILE);
 		return -1;
 	}	
 	if(1 != fwrite(pData, dataLen, 1, fp)){
-		printf("file<%s> write error \n", filePath);
+		printf("file<%s> write error \n", PHOTO_FILE);
 		return -1;
 	}	
 	fclose(fp);
@@ -94,17 +129,23 @@ static int frame_count = 0;
 int32_t VideoFrameHandle(void *pRecObj, VideoFrameData *pFrame)
 {
 	frame_count++;
-	printf("[frame][%d] -- [width x height] = %u x %u, size = %u\n", frame_count, pFrame->width, pFrame->height, pFrame->buf_size);
+	printf("[frame][%03d] -- [stride[width x height]] = [%u x %u[%u x %u]], pts[%lld] size = %u\n", frame_count, 
+        pFrame->hor_stride, pFrame->ver_stride, 
+        pFrame->width, pFrame->height, 
+        pFrame->pts,
+        pFrame->buf_size);
+    
 	if(250 == frame_count){
 		// 可用该命令播放：mplayer -demuxer rawvideo -rawvideo w=720:h=576:format=nv12 pic.nv12 -loop 0
-		writeFrameToFile(FILE_PATH, pFrame->pBuf, pFrame->buf_size);
+		saveOneFrameInPhoto(pFrame->pBuf, pFrame->buf_size);
 	}
+    saveOneFrameInVideo(pFrame->pBuf, pFrame->buf_size);
 	return 0;
 }
 
 int main(int argc, char* argv[])
 {
-	int32_t count = 3;
+	int32_t count = 20;
 	uint32_t channel = 0;
 	
 	if(argc < 2){
@@ -124,15 +165,18 @@ int main(int argc, char* argv[])
 		
 		// 3.往成功申请的通道绑定解码输出处理函数
 		set_decMedia_channel_callback(channel, VideoFrameHandle, NULL);
-		
+
+        //sleep(2);
 		// 4.从文件读入数据
 		readFrameToDecodeQueue(channel, argv[1]);
 		
-		// 5.等待一段时间后，关闭解码通道
+		// 5.等待一段时间[建议20s以上，否则解码尚未结束就销毁通道了]后，关闭解码通道
+		//     异步IO写入数据到文件比较耗时，这里给予时间充分等待
 		while(1){
 			if(count <= 0)
 				break;
-			
+
+		    printf("count down %d ...\n", count);
 			sleep(1);
 			count--;
 		}
@@ -141,6 +185,15 @@ int main(int argc, char* argv[])
 		printf("close channel ...\n");
 		close_decMedia_channel(channel);
 	}
+    
+    while(aio_error(&g_wd) != 0) {
+        usleep(100*1000);
+    }
+    printf("\nVideo file Asynchronous Write Complete, framsize = %d\n", aio_return(&g_wd));
+
+    if(0 < g_VideoFd){
+        close(g_VideoFd);
+    }
 
 	return 0;
 }

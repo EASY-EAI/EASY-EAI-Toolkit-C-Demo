@@ -11,6 +11,7 @@ If you first come into contact with this project. You can do:
 [reference the Quick Start Guide](https://www.easy-eai.com/document_details/3/133)
 
 If you have extensive experience in embedded C development. You can do:  
+[update the application development environment first](https://www.easy-eai.com/document_details/3/135)  
 [reference the API development manual](https://www.easy-eai.com/document_details/3/129)
 
 
@@ -21,6 +22,28 @@ How to use：
 
 important update log:
 ---
+> 2022-11-02 : 
+> * Release easyeai-c-demo-0.2.1
+> * update easyeai-api-0.2.1
+>   * algorithm_api
+> 	  * [new] body pose detect Demo
+> 	  * [new] fire detect Demo
+> 	  * [new] site safety Demo
+>   * common_api
+> 	  * [new] Interprocess Communication Demo
+> 	  * [new] font engine Demo
+>   * media_api
+> 	  * [new] enCoder Demo
+>   * netProtocol_api
+> 	  * [new] rtsp server Demo
+>   * peripheral_api
+> 	  * [new] can Demo
+> 	  * [new] iic Demo
+> 	  * [new] spi Demo
+> 	  * [new] touch screen Demo
+> 	  * [new] watch dog Demo
+> 	  * [update] gpio Demo
+>
 > 2022-08-25 : 
 > * Release easyeai-c-demo-0.2.0
 > * update easyeai-api-0.2.0

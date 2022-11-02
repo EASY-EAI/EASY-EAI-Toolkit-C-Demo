@@ -47,16 +47,15 @@ int main(int argc, char **argv)
 	helmet_detect_init(&ctx, "./helmet_detect.model");
 
 	/* 算法运行 */
-	cv::Mat src, rgb_img;
+	cv::Mat src;
 	src = cv::imread("test.jpg", 1);
-	cv::cvtColor(src, rgb_img, CV_BGR2RGB);
 
 	struct timeval start;
 	struct timeval end;
 	float time_use=0;
 
 	gettimeofday(&start,NULL); 
-	helmet_detect_run(ctx, rgb_img, &detect_result_group);
+	helmet_detect_run(ctx, src, &detect_result_group);
 
 	gettimeofday(&end,NULL);
 	time_use=(end.tv_sec-start.tv_sec)*1000000+(end.tv_usec-start.tv_usec);//微秒

@@ -33,6 +33,7 @@
 #define     MEM_BLOCK_SIZE_32K              0x8000
 #define     MEM_BLOCK_SIZE_4K               (4 * 1024)
 
+
 //解码帧压缩算法类型
 typedef enum
 {
@@ -64,7 +65,7 @@ typedef	struct
 typedef struct {
     uint32_t            dwSignalVout;  //解码通道ID
     VDEC_CHN_FORMAT_E   eVdecChnFormat;//编码类型(H.264/MPEG4...)
-    uint8_t             bySubType;     //帧类型(1:I, 0:P, 2:B)
+    uint8_t             bySubType;     //帧类型(1:I帧, 0:非I帧)
     uint8_t             byIsEOS;       //末帧标记
     uint32_t            dwFrameIndex;  // 帧序号
     uint32_t            dwHeight;

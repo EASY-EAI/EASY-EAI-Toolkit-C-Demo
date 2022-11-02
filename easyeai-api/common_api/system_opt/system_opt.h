@@ -28,8 +28,10 @@ extern "C" {
 //network parameter config api
 extern int32_t set_net_ipv4(const char *device, const char *ip, const char *mask, const char *gateway);
 
-extern int32_t get_local_Ip(const char *device, char *ip, int ip_len);
 extern int32_t get_local_Mac(const char *device, char *mac, int mac_len);
+extern int32_t get_local_Ip(const char *device, char *ip, int ip_len);
+extern int32_t get_local_NetMask(const char *device, char *netMask, int netMask_len);
+extern int32_t get_local_GateWay(const char *device, char *gateWay, int gateWay_len);
 
 extern bool ipv4_str_to_bin(char *strIP, char *binIP);
 extern bool mac_str_to_bin(char *strMac, char *binMac);
@@ -82,6 +84,10 @@ extern int32_t IPC_client_set_callback(void *pObj, IPC_Client_CB func);
 extern int32_t IPC_client_query_registered_client(int32_t dstCliId);
 extern int32_t IPC_client_dstClient_is_registered();
 extern int32_t IPC_client_sendData(int32_t tagId, int32_t type, void *data, int32_t dataLen);
+
+// It is used to set the internal print output callback function of the toolikit interface --- (just ignore)
+// 用于设置该Toolikit接口的内部打印输出回调函数 --- (无须关心)
+extern void setSystemOpt_print(int32_t (* )(char const *filePath, int lineNum, char const *funcName, int logLevel, char const *logCon, va_list args));
 
 #if defined(__cplusplus)
 }

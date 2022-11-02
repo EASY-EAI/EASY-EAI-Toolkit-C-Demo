@@ -11,7 +11,8 @@
 [查阅入门(快速上手)指南](https://www.easy-eai.com/document_details/3/133)
 
 如果您具备丰富的嵌入式C语言开发经验，您可以：  
-[直接查阅API开发手册](https://www.easy-eai.com/document_details/3/129)
+[直接先更新应用开发环境](https://www.easy-eai.com/document_details/3/135)  
+[再查阅API开发手册](https://www.easy-eai.com/document_details/3/129)
 
 
 使用方法：  
@@ -21,6 +22,28 @@
 
 重要更新：
 ---
+> 2022-11-02 : 
+> * 发布 easyeai-c-demo-0.2.1
+> * 更新 easyeai-api-0.2.1
+>   * 算法组件
+> 	  * [新增] 人体骨骼点检测 Demo
+> 	  * [新增] 火焰检测 Demo
+> 	  * [新增] 工地常见目标检测 Demo
+>   * 通用组件
+> 	  * [新增] 进程间通信 Demo
+> 	  * [更新] 字库引擎 Demo
+>   * 媒体组件
+> 	  * [新增] 编码器 Demo
+>   * 网络协议组件
+> 	  * [新增] rtsp服务器 Demo
+>   * 外设组件
+> 	  * [新增] can Demo
+> 	  * [新增] iic Demo
+> 	  * [新增] spi Demo
+> 	  * [新增] 触摸屏 Demo
+> 	  * [新增] 看门狗 Demo
+> 	  * [更新] gpio Demo
+>
 > 2022-08-25 : 
 > * 发布 easyeai-c-demo-0.2.0
 > * 更新 easyeai-api-0.2.0

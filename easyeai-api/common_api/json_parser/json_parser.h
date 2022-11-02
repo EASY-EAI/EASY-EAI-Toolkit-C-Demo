@@ -28,6 +28,7 @@ extern int32_t get_object_from_json(const char *json_str, const char *key, char 
 extern int32_t get_list_from_json(const char *json_str, const char *key, char *data, uint32_t dataLen);
 
 extern int32_t get_list_size_from_json(const char *json_str, const char *list_key);
+extern int32_t get_object_from_list(const char *json_str, const char *list_name, int pos, char *data, uint32_t dataLen);
 extern int32_t get_int32_from_list(const char *json_str, const char *list_name, int pos, const char *key);
 extern int32_t get_string_from_list(const char *json_str, const char *list_name, int pos, const char *key, char *data, uint32_t dataLen);
 
@@ -41,12 +42,15 @@ extern void  add_string_to_object(void *pObj, const char * const key, const char
 extern void *add_object_to_object(void *pParentObj, const char * const subObjName);
 extern void  add_object_to_object2(void *pParentObj, const char * const subObjName, void *pSubObj);
 extern void  add_object_to_object3(void *pParentObj, const char * const subObjName, char *pSubObjSrt);
-extern void *add_list_to_object(void *pParentObj, const char * const listName);
+extern void *create_list_object();
 extern void  add_item_to_list(void *pList, void *pItem);
+extern void *add_list_to_object(void *pParentObj, const char * const listName);
+extern void  add_list_to_object2(void *pParentObj, const char * const listName, void *pListObj);
 extern char *object_data(void *pObject);
+extern void  free_data(char *pData);
 // 说明：
 //     1、该接口类似于free。
-//     2、free掉某个JSON对象的话，挂在它下面的子对象也会全部被free掉。因此只用free掉根节点即可
+//     2、free掉某个JSON对象(含数组对象)的话，挂在它下面的子对象也会全部被free掉。因此只用free掉根节点即可
 extern int32_t delete_json_object(void *pObject);
 
 #if defined(__cplusplus)

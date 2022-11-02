@@ -41,7 +41,7 @@ int main()
 
 	/* tips: 可以在Ubuntu下用mplayer播放录制图像
 	*	adb pull /tmp/photo
-	*	mplayer -demuxer rawvideo -rawvideo w=720:h=1280:format=rgb24 photo -loop 0
+	*	mplayer -demuxer rawvideo -rawvideo w=720:h=1280:format=bgr24 photo -loop 0
 	*/
 	fp = fopen("/tmp/photo", "w");
 	if (!fp) {

@@ -33,7 +33,7 @@ link_directories(${toolkit_root}/common_api/font_engine)
 #--------------------------
 add_executable(test-font_engine test-font_engine.cpp) #-o
 target_include_directories(test-font_engine PRIVATE ${api_inc}) #-I
-target_link_libraries(test-font_engine font_engine freetype bz2 stdc++ 
+target_link_libraries(test-font_engine font_engine iconv freetype bz2 stdc++ 
     -lopencv_calib3d 
     -lopencv_core 
     -lopencv_dnn 

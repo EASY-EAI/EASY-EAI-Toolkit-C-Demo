@@ -43,7 +43,7 @@ static void *thread_start(void *arg)
 	}
 
 	/* tips: 可以在Ubuntu下用mplayer播放录制图像
-	*	mplayer -demuxer rawvideo -rawvideo w=1280:h=720:format=rgb24 photo%d -loop 0
+	*	mplayer -demuxer rawvideo -rawvideo w=1280:h=720:format=bgr24 photo%d -loop 0
 	*/
 	sprintf(path, "/tmp/photo%d", cam_num);
 	fp = fopen(path, "w");

@@ -26,6 +26,7 @@
 extern "C" {
 #endif
 
+
 /*
  * 注意：对live555的API封装出RtspClient，使用全局变量。因此该套接口不允许在同一进程中开启多路Rtsp流。
  * 若需要开启多路Rtsp流：
@@ -61,6 +62,10 @@ typedef struct {
     int32_t sStreamDecType; // 码流格式类型
 	uint8_t byCheckSDPSps;
 } RTSP_Chn_t;
+
+// It is used to set the internal print output callback function of the toolikit interface --- (just ignore)
+// 用于设置该Toolikit接口的内部打印输出回调函数 --- (无须关心)
+extern void setRTSP_print(int32_t (* )(char const *filePath, int lineNum, char const *funcName, int logLevel, char const *logCon, va_list args));
 
 /*********************************************************************
 Function:  set_rtsp_client_printf
@@ -113,14 +118,27 @@ parameter:
         [必填] userName：服务器的登录用户名
         [必填] password：服务器的登录密码
 Return:
-	0：成功
-	-1：失败
+	成功：[不返回]
+	失败：-1
 ********************************************************************/
 extern int32_t create_rtsp_client_channel(RTSP_Chn_t *pChnInfo);
 extern int32_t close_rtsp_client_channel(RTSP_Chn_t *pChnInfo);
 
 
 //Server
+/*********************************************************************
+Function:  create_rtsp_Server
+Description:
+	创建rtsp客户端。
+	注意：一旦调用该函数，本进程将会阻塞在live555事件循环。
+Example:
+parameter:
+    port: 指定给rtsp服务的网络断开(默认要填554)。
+Return:
+	成功：[不返回]
+	失败：-1
+********************************************************************/
+extern int32_t create_rtsp_Server(uint16_t port);
 
 #if defined(__cplusplus)
 }
