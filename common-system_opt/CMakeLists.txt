@@ -21,6 +21,8 @@ add_definitions(-Wall)
 
 set(toolkit_root ${CMAKE_CURRENT_SOURCE_DIR}/../easyeai-api)
 
+# -L
+link_directories(${toolkit_root}/common_api/system_opt)
 # -I
 set(api_inc
 	${CMAKE_SYSROOT}/usr/include/rkfacial
@@ -31,34 +33,34 @@ set(api_inc
 # test-timepara-opt
 #--------------------------
 add_executable(test-timepara-opt test-timepara-opt.c) #-o
-target_link_libraries(test-timepara-opt  system_opt log_manager pthread ini stdc++) #-l
+target_link_libraries(test-timepara-opt  system_opt pthread ini stdc++) #-l
 target_include_directories(test-timepara-opt PRIVATE ${api_inc}) #-I
 
 #--------------------------
 # test-netpara-opt
 #--------------------------
 add_executable(test-netpara-opt test-netpara-opt.c) #-o
-target_link_libraries(test-netpara-opt system_opt log_manager pthread ini stdc++) #-l
+target_link_libraries(test-netpara-opt system_opt pthread ini stdc++) #-l
 target_include_directories(test-netpara-opt PRIVATE ${api_inc}) #-I
 
 #--------------------------
 # test-thread-opt
 #--------------------------
 add_executable(test-thread-opt test-thread-opt.c) #-o
-target_link_libraries(test-thread-opt system_opt log_manager pthread ini stdc++) #-l
+target_link_libraries(test-thread-opt system_opt pthread ini stdc++) #-l
 target_include_directories(test-thread-opt PRIVATE ${api_inc}) #-I
 
 #--------------------------
 # test-IPC-opt_Client
 #--------------------------
 add_executable(test-IPC-opt_Client test-IPC-opt_Client.c) #-o
-target_link_libraries(test-IPC-opt_Client system_opt log_manager pthread ini stdc++) #-l
+target_link_libraries(test-IPC-opt_Client system_opt pthread ini stdc++) #-l
 target_include_directories(test-IPC-opt_Client PRIVATE ${api_inc}) #-I
 
 #--------------------------
 # test-IPC-opt_Server
 #--------------------------
 add_executable(test-IPC-opt_Server test-IPC-opt_Server.c) #-o
-target_link_libraries(test-IPC-opt_Server system_opt log_manager pthread ini stdc++) #-l
+target_link_libraries(test-IPC-opt_Server system_opt pthread ini stdc++) #-l
 target_include_directories(test-IPC-opt_Server PRIVATE ${api_inc}) #-I
 

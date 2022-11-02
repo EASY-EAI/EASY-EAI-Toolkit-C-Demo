@@ -20,17 +20,6 @@ typedef struct{
     int data_c;
 } Data_t;
 
-static void waittingTargetClientReady(int32_t cliId)
-{
-    while(1){
-        IPC_client_query_registered_client(cliId);
-        if(IPC_client_dstClient_is_registered())
-            break;
-        usleep(200*1000);
-    }
-    return ;
-}
-
 int serverHanndle(void *pObj, IPC_MSG_t *pMsg)
 {
     Data_t *pData = (Data_t *)pObj;

@@ -3,7 +3,6 @@
 #include <fcntl.h>
 #include <string.h>
 #include "system_opt.h"
-#include "log_manager.h"
 
 #define CLITNE_ID_BASE   1000
 #define SERVER_CLI_ID  (CLITNE_ID_BASE+1)
@@ -46,8 +45,6 @@ int clientHanndle(void *pObj, IPC_MSG_t *pMsg)
 
 int main()
 {
-    log_manager_init("./logCfg", "ipcServer");
-    setSystemOpt_print(printLog);
     /*新建服务端*/
     int ret = IPC_server_create(20);
     if(-1 == ret){
