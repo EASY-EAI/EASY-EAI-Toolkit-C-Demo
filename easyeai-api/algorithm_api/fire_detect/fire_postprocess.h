@@ -5,7 +5,7 @@
 
 #define FIRE_NAME_MAX_SIZE 16
 #define FIRE_NUMB_MAX_SIZE 200
-#define FIRE_CLASS_NUM     3
+#define FIRE_CLASS_NUM     1
 #define FIRE_PROP_BOX_SIZE     (5+FIRE_CLASS_NUM)
 
 typedef struct _FIRE_BOX_RECT

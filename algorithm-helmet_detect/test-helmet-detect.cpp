@@ -66,12 +66,12 @@ int main(int argc, char **argv)
 	{
 		helmet_detect_result_t *det_result = &(detect_result_group.results[i]);
 		
-		/*
-		if( det_result->prop < 0.3 )
+		
+		if( det_result->prop < 0.5 )
 		{
 			continue;
 		}
-		*/
+		
 
 		printf("%s @ (%d %d %d %d) %f\n",
 			   det_result->name,

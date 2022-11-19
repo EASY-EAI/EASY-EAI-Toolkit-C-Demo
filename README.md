@@ -22,6 +22,19 @@ How to use：
 
 important update log:
 ---
+> 2022-11-19 : 
+> * update easyeai-c-demo-0.2.1
+>   * algorithm
+> 	  * [new] moving detect Demo
+> 	  * [del] site safety Demo
+>   * peripheral
+> 	  * [update] network TCP Demo
+> 	  * [update] network UDP Demo
+> * update easyeai-api-0.2.1
+>   * algorithm_api
+> 	  * [new] moving detect
+> 	  * [update] fire detect
+>
 > 2022-11-02 : 
 > * Release easyeai-c-demo-0.2.1
 > * update easyeai-api-0.2.1

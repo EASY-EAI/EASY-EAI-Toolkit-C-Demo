@@ -32,9 +32,9 @@ extern int32_t utf8_to_gbk(const char *utf8Str, char *gbkStr, int32_t bufLen);
 extern int32_t utf8_to_unicode(const char *utf8Str, char *uniCodeStr, int32_t uniCodeLen);
 
 typedef struct {
-	char fontLib[128];   // ×ÖÌå [*.ttf]
-	char textCodec[64];  // ×Ö·û¼¯ [utf8]
-	uint32_t fontSize;   // ×ÖÌå´óĞ¡
+	char fontLib[128];   // å­—ä½“ [*.ttf]
+	char textCodec[64];  // å­—ç¬¦é›† [utf8]
+	uint32_t fontSize;   // å­—ä½“å¤§å°
 }Font_t;
 
 typedef struct {

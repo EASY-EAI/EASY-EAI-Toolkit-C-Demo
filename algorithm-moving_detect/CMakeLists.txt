@@ -24,17 +24,17 @@ set(toolkit_root ${CMAKE_CURRENT_SOURCE_DIR}/../easyeai-api)
 # -I
 set(api_inc
 	${CMAKE_SYSROOT}/usr/include/rkfacial
-	${toolkit_root}/algorithm_api/site_safety
+	${toolkit_root}/algorithm_api/moving_detect
 	)
 # -L
-link_directories(${toolkit_root}/algorithm_api/site_safety)
+link_directories(${toolkit_root}/algorithm_api/moving_detect)
 
 #--------------------------
-# test-site-safet
+# test-moving-detect
 #--------------------------
-add_executable(test-site-safety test-site-safety.cpp)		#-o
-target_include_directories(test-site-safety PRIVATE ${api_inc})	#-I
-target_link_libraries(test-site-safety pthread site_safety rknn_api
+add_executable(test-moving-detect test-moving-detect.cpp)		#-o
+target_include_directories(test-moving-detect PRIVATE ${api_inc})	#-I
+target_link_libraries(test-moving-detect pthread moving_detect rknn_api
     -lopencv_calib3d 
     -lopencv_core 
     -lopencv_dnn 

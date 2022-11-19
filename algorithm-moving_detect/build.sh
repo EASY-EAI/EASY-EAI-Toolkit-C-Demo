@@ -16,4 +16,4 @@ cd build
 cmake ..
 make -j24
 
-cp test-site-safety ../test-site-safety-release
+cp test-moving-detect ../test-moving-detect-release
