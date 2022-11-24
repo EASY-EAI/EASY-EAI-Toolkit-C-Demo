@@ -8,7 +8,7 @@
 #define HELMET_CLASS_NUM     2
 #define HELMET_PROP_BOX_SIZE     (5+HELMET_CLASS_NUM)
 
-typedef struct _HELMET_BOX_RECT
+typedef struct
 {
     int left;
     int right;
@@ -16,7 +16,7 @@ typedef struct _HELMET_BOX_RECT
     int bottom;
 } HELMET_BOX_RECT;
 
-typedef struct _helmet_detect_result_t
+typedef struct
 {
     char name[HELMET_NAME_MAX_SIZE];
     int class_index;
@@ -24,7 +24,7 @@ typedef struct _helmet_detect_result_t
     float prop;
 } helmet_detect_result_t;
 
-typedef struct _helmet_detect_result_group_t
+typedef struct
 {
     int id;
     int count;

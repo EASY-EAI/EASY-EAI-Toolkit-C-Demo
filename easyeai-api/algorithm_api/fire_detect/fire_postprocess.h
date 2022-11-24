@@ -8,7 +8,7 @@
 #define FIRE_CLASS_NUM     1
 #define FIRE_PROP_BOX_SIZE     (5+FIRE_CLASS_NUM)
 
-typedef struct _FIRE_BOX_RECT
+typedef struct
 {
     int left;
     int right;
@@ -16,7 +16,7 @@ typedef struct _FIRE_BOX_RECT
     int bottom;
 } FIRE_BOX_RECT;
 
-typedef struct __fire_detect_result_t
+typedef struct
 {
     char name[FIRE_NAME_MAX_SIZE];
     int class_index;
@@ -24,7 +24,7 @@ typedef struct __fire_detect_result_t
     float prop;
 } fire_detect_result_t;
 
-typedef struct _detect_result_group_t
+typedef struct
 {
     int id;
     int count;

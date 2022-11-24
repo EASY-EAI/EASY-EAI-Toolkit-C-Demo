@@ -22,6 +22,14 @@ How to use：
 
 important update log:
 ---
+> 2022-11-24 : 
+> * update easyeai-c-demo-0.2.1
+>   * algorithm
+> 	  * [new] face mask judgement Demo
+> * update easyeai-api-0.2.1
+>   * algorithm_api
+> 	  * [new] face mask judgement
+>
 > 2022-11-19 : 
 > * update easyeai-c-demo-0.2.1
 >   * algorithm

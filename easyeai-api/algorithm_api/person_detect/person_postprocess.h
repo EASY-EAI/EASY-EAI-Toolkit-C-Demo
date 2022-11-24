@@ -5,10 +5,10 @@
 
 #define PERSON_NAME_MAX_SIZE 16
 #define PERSON_NUMB_MAX_SIZE 200
-#define PERSON_CLASS_NUM     80
+#define PERSON_CLASS_NUM     1
 #define PERSON_PROP_BOX_SIZE     (5+PERSON_CLASS_NUM)
 
-typedef struct _PERSON_BOX_RECT
+typedef struct
 {
     int left;
     int right;
@@ -16,7 +16,7 @@ typedef struct _PERSON_BOX_RECT
     int bottom;
 } PERSON_BOX_RECT;
 
-typedef struct __person_detect_result_t
+typedef struct
 {
     char name[PERSON_NAME_MAX_SIZE];
     int class_index;
@@ -24,7 +24,7 @@ typedef struct __person_detect_result_t
     float prop;
 } person_detect_result_t;
 
-typedef struct _detect_result_group_t
+typedef struct
 {
     int id;
     int count;
