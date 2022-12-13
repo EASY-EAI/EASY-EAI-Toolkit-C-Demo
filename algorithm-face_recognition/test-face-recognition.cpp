@@ -44,7 +44,7 @@ int main(int argc, char **argv)
 	ret = face_detect_init(&detect_ctx, "./face_detect.model");
 	if( ret < 0)
 	{
-		printf("face_detect fail! ret=%d\n", ret);
+		printf("face_detect_init fail! ret=%d\n", ret);
 		return -1;
 	}
 

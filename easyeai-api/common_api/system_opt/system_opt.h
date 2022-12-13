@@ -36,6 +36,7 @@ extern int32_t get_local_GateWay(const char *device, char *gateWay, int gateWay_
 extern bool ipv4_str_to_bin(char *strIP, char *binIP);
 extern bool mac_str_to_bin(char *strMac, char *binMac);
 
+extern bool address_invaild(const char *addr_IPv4);
 extern bool compare_IpAddr(char *addr1, char *addr2);
 
 extern char* netAddrToStr(uint64_t netAddr);

@@ -53,6 +53,8 @@ int main(int argc, char **argv)
 
 	imwrite("result.jpg", image);
 
+	face_detect_release(ctx);
+
     return 0;
 }
 
