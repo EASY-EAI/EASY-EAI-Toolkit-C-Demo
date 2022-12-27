@@ -76,12 +76,13 @@ int main(int argc, char **argv)
 			scales_y = (float)src.rows/368;
 
 			printf("[ID:%d %s,probability:%f x:%d, y:%d]\n", detectedKeypoints[i][j].id, keypointsMapping[detectedKeypoints[i][j].id], detectedKeypoints[i][j].probability, detectedKeypoints[i][j].point.x, detectedKeypoints[i][j].point.y);
-
+			/*
 			if( detectedKeypoints[i][j].id == 0)
 			{
 				cv::circle(src, cv::Point( detectedKeypoints[i][j].point.x * scales_x, detectedKeypoints[i][j].point.y * scales_y), 4, colors[i], -1, cv::LINE_AA);
 			}
-			//cv::circle(src, cv::Point( detectedKeypoints[i][j].point.x * scales_x, detectedKeypoints[i][j].point.y * scales_y), 4, colors[i], -1, cv::LINE_AA);
+			*/
+			cv::circle(src, cv::Point( detectedKeypoints[i][j].point.x * scales_x, detectedKeypoints[i][j].point.y * scales_y), 4, colors[i], -1, cv::LINE_AA);
 			
 		}
 	}

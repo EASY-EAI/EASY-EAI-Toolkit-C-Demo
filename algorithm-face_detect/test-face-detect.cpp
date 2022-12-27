@@ -24,7 +24,7 @@ int main(int argc, char **argv)
 
 	Mat image;
 	image = cv::imread(argv[1], 1);	
-	
+
 	face_detect_init(&ctx, "face_detect.model");
 
 	gettimeofday(&start,NULL); 
@@ -55,6 +55,6 @@ int main(int argc, char **argv)
 
 	face_detect_release(ctx);
 
-    return 0;
+	return 0;
 }
 

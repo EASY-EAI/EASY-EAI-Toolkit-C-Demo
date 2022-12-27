@@ -24,17 +24,21 @@ set(toolkit_root ${CMAKE_CURRENT_SOURCE_DIR}/../easyeai-api)
 # -I
 set(api_inc
 	${CMAKE_SYSROOT}/usr/include/rkfacial
-	${toolkit_root}/algorithm_api/face_landmark98
+	${toolkit_root}/algorithm_api/face_detect
+	${toolkit_root}/algorithm_api/face_alignment
+	${toolkit_root}/algorithm_api/face_landmark98	
 	)
 # -L
-link_directories(${toolkit_root}/algorithm_api/face_landmark98)
+link_directories(${toolkit_root}/algorithm_api/face_detect
+		 ${toolkit_root}/algorithm_api/face_alignment 
+		${toolkit_root}/algorithm_api/face_landmark98)
 
 #--------------------------
 # test-face-recognition
 #--------------------------
 add_executable(test-face-landmark98 test-face-landmark98.cpp)		#-o
 target_include_directories(test-face-landmark98 PRIVATE ${api_inc})	#-I
-target_link_libraries(test-face-landmark98 face_landmark98 pthread rknn_api
+target_link_libraries(test-face-landmark98 face_detect face_alignment face_landmark98 pthread rknn_api
     -lopencv_calib3d 
     -lopencv_core 
     -lopencv_dnn 
