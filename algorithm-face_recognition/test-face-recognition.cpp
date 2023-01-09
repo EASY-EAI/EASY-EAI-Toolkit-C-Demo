@@ -13,21 +13,15 @@
 using namespace cv;
 
 
-double what_time_is_it_now()
-{
-    struct timeval time;
-    if (gettimeofday(&time,NULL)){
-        return 0;
-    }
-    return (double)time.tv_sec + (double)time.tv_usec * .000001;
-}
-
 int main(int argc, char **argv)
 {
 	rknn_context detect_ctx, recognition_ctx;
 	std::vector<det> result1, result2;
 	int ret;
-	double start_time,end_time;
+	struct timeval start;
+	struct timeval end;
+	float time_use=0;
+
 
 	if( argc != 3)
 	{
@@ -83,10 +77,11 @@ int main(int argc, char **argv)
 	/* 人脸识别执行 */
 	float feature_1[512], feature_2[512];
 
-	start_time=what_time_is_it_now();
+	gettimeofday(&start,NULL); 
 	face_recognition_run(recognition_ctx, &face_algin_1, &feature_1);
-	end_time=what_time_is_it_now();
-	printf("face_recognition_run use time: %f\n",end_time - start_time);
+	gettimeofday(&end,NULL);
+	time_use=(end.tv_sec-start.tv_sec)*1000000+(end.tv_usec-start.tv_usec);//微秒
+	printf("time_use is %f\n",time_use/1000);
 
 	face_recognition_run(recognition_ctx, &face_algin_2, &feature_2);
 

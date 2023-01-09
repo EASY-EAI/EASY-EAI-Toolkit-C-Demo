@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 #include <string.h>
-#include "system_opt.h"
+#include "network.h"
 
 int main(void)
 {

@@ -22,6 +22,20 @@ How to use：
 
 important update log:
 ---
+> 2023-01-09 : 
+> * Release easyeai-c-demo-0.2.2
+> * update easyeai-api-0.2.2
+>   * algorithm
+> 	  * [new] face_pose_estimation Demo
+> 	  * [update] face landmark98 Demo
+> 	  * [update] face_recognition Demo
+>   * media_api
+> 	  * [update] stream media encode & decode Demo
+>   * netProtocol_api
+> 	  * [update] rtsp Demo
+>   * peripheral
+> 	  * [new] netwrk Demo
+>
 > 2022-11-24 : 
 > * update easyeai-c-demo-0.2.1
 >   * algorithm

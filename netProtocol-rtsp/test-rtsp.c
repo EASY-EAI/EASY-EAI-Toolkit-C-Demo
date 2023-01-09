@@ -17,13 +17,13 @@ void open_record_file(char *fileName)
 	printf("==== Start Recode file[%s] ====\n", fileName);
 }
 
-int write_frame_to_file(VideoNodeDesc *pNodeDesc, uint8_t *pData)
+int write_frame_to_file(RTSPVideoDesc_t *pNodeDesc, uint8_t *pData)
 {
 	int ret = 0;
 	if(NULL == g_RecordFp)
 		return -1;
 	
-	ret = fwrite(pData, 1, pNodeDesc->dwDataLen, g_RecordFp);
+	ret = fwrite(pData, 1, pNodeDesc->dataLen, g_RecordFp);
 	
 	return ret;
 }
@@ -59,13 +59,13 @@ void myPrintFunction(const char *strMsg)
 	printf("[myPrintFunction]----%s", strMsg);
 }
 
-int32_t VideoHandle(void *pCapturer, VideoNodeDesc *pNodeDesc, uint8_t *pData)
+int32_t VideoHandle(void *pCapturer, RTSPVideoDesc_t *pNodeDesc, uint8_t *pData)
 {	
-	if(1 == pNodeDesc->bySubType){	
+	if(1 == pNodeDesc->frameType){	
 		if(0 == g_IFrame_cout){
 			open_record_file_by_time(get_time_stamp());
 		}
-		printf("--- [%d] Iframe --- Width = %u, Height = %u\n", g_IFrame_cout, pNodeDesc->dwWidth, pNodeDesc->dwHeight);
+		printf("--- [%d] Iframe --- Width = %u, Height = %u\n", g_IFrame_cout, pNodeDesc->frameWidth, pNodeDesc->frameHeight);
 		g_IFrame_cout++;
 	}
 	

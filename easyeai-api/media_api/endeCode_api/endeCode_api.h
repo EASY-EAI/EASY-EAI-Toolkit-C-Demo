@@ -26,6 +26,7 @@
 extern "C" {
 #endif
 
+// =======================        [Common]        =======================
 typedef enum {
   VFRAME_TYPE_UNKNOW = 0,
   VFRAME_TYPE_GRAY8,
@@ -122,6 +123,9 @@ extern int32_t create_decoder(uint32_t maxChnNum);
 extern int32_t create_decMedia_channel(uint32_t *u32ChannelId);
 extern int32_t close_decMedia_channel(uint32_t u32ChannelId);
 extern int32_t set_decMedia_channel_callback(uint32_t u32ChannelId, VideoFrameCB pFunc, void *pRecObj);
+extern int32_t push_node_in_decMedia_channel(uint32_t u32ChannelId, VideoNodeDesc *pNodeDesc, uint8_t *pData);
+extern int32_t push_buff_in_decMedia_channel(uint32_t u32ChannelId, uint8_t *pData, VDEC_CHN_FORMAT_E vFmt, uint32_t dataLen, uint8_t isEOS);
+
 
     
 //extern int32_t create_decMedia_audio_channel(uint32_t *u32ChannelId);

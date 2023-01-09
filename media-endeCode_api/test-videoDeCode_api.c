@@ -10,7 +10,6 @@
 #include <errno.h>
 #include <aio.h>
 
-#include "frame_queue.h"
 #include "endeCode_api.h"
 
 #include "mpp_mem.h"
@@ -82,7 +81,7 @@ void readFrameToDecodeQueue(uint32_t chnId, const char *filename)
 	if (NULL == pBuf) {
 		perror("video_dec_test malloc file stream buffer failed\n");
 	}
-	
+    
 	// 3.取码流
 	if(pFileinput_fp){
 		
@@ -114,7 +113,7 @@ void readFrameToDecodeQueue(uint32_t chnId, const char *filename)
 
 			if(dataLen){
 				//成功取流，送流进入解码器的输入队列
-				push_buff_to_video_channel(chnId, (uint8_t *)pBuf, VDEC_CHN_FORMAT_H264, dataLen, (uint8_t)bIsEndOfStream);
+				push_buff_in_decMedia_channel(chnId, (uint8_t *)pBuf, VDEC_CHN_FORMAT_H264, dataLen, (uint8_t)bIsEndOfStream);
 			}
 		}
 		// 4.取流完毕关闭文件

@@ -20,7 +20,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "node_desc.h"
+#include "rtsp_data.h"
 
 #if defined(__cplusplus)
 extern "C" {
@@ -36,11 +36,10 @@ extern "C" {
 
 //Client
 typedef	void (*printMessage)(const char *);
-typedef	int32_t (*RtspClientVideoCB)(void *, VideoNodeDesc *, uint8_t *);
 
 
 typedef struct {
-    uint32_t uDecChn;       // 被绑定的解码通道
+    uint16_t uDecChn;       // 被绑定的解码通道
 	char progName[128];
 	char rtspUrl[128];
 	char userName[32];
@@ -126,6 +125,16 @@ extern int32_t close_rtsp_client_channel(RTSP_Chn_t *pChnInfo);
 
 
 //Server
+typedef struct{
+    bool bEnable;
+    char strName[16];
+    RtspServerVideoHooks videoHooks;
+    RtspServerAudioHooks audioHooks;
+}Stream_t;
+typedef struct{
+    uint16_t port;
+    Stream_t stream[1];
+}RtspServer_t;
 /*********************************************************************
 Function:  create_rtsp_Server
 Description:
@@ -138,7 +147,7 @@ Return:
 	成功：[不返回]
 	失败：-1
 ********************************************************************/
-extern int32_t create_rtsp_Server(uint16_t port);
+extern int32_t create_rtsp_Server(RtspServer_t srv);
 
 #if defined(__cplusplus)
 }

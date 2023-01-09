@@ -37,13 +37,6 @@ target_link_libraries(test-timepara-opt  system_opt pthread ini stdc++) #-l
 target_include_directories(test-timepara-opt PRIVATE ${api_inc}) #-I
 
 #--------------------------
-# test-netpara-opt
-#--------------------------
-add_executable(test-netpara-opt test-netpara-opt.c) #-o
-target_link_libraries(test-netpara-opt system_opt pthread ini stdc++) #-l
-target_include_directories(test-netpara-opt PRIVATE ${api_inc}) #-I
-
-#--------------------------
 # test-thread-opt
 #--------------------------
 add_executable(test-thread-opt test-thread-opt.c) #-o

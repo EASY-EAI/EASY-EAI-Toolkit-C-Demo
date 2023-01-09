@@ -92,6 +92,7 @@ int main(void)
     wp.out_fmt = VCODING_TYPE_AVC;
     wp.width   = FRAME_WIDTH;
     wp.height  = FRAME_HEIGHT;
+    wp.out_fps = 25;
 	ret = set_encMedia_channel_workPara(encodeChn_Id, &wp, NULL);
     if(ret){
         goto exit1;

@@ -37,6 +37,10 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
+	struct timeval start;
+	struct timeval end;
+	float time_use=0;
+
 	rknn_context detect_ctx, landmark_ctx;
 	std::vector<det> result;
 	int ret;
@@ -78,14 +82,20 @@ int main(int argc, char **argv)
 
 		cv::Mat roi_img, reize_img;
 		roi_img = src(cv::Rect(x, y, max,max));
-        roi_img = roi_img.clone();
+		roi_img = roi_img.clone();
 
 		resize(roi_img, reize_img, Size(256,256), 0, 0, INTER_AREA);
 		float ratio;
 		ratio = (float)max/256;
 
+		gettimeofday(&start,NULL); 
+
 		std::vector<KeyPointType> keyPoints;
 		face_landmark98_run(landmark_ctx, &reize_img, &keyPoints);
+		
+		gettimeofday(&end,NULL);
+		time_use = (end.tv_sec-start.tv_sec)*1000000+(end.tv_usec-start.tv_usec);//微秒
+		printf("time_use is %f\n",time_use/1000);
 
 		for(int n = 0; n < 98; n++)
 		{
