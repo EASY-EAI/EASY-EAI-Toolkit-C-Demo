@@ -39,7 +39,7 @@ set(api_inc
 #--------------------------
 link_directories(${toolkit_root}/peripheral_api/tcpsocket)	#-L
 add_executable(tcpclient tcpclient.c)		#-o
-target_link_libraries(tcpclient tcpsocket pthread)	#-l
+target_link_libraries(tcpclient pthread)	#-l
 target_include_directories(tcpclient PRIVATE ${api_inc})	#-I
 
 #--------------------------
@@ -47,5 +47,5 @@ target_include_directories(tcpclient PRIVATE ${api_inc})	#-I
 #--------------------------
 link_directories(${toolkit_root}/peripheral_api/tcpsocket)	#-L
 add_executable(tcpserver tcpserver.c)		#-o
-target_link_libraries(tcpserver tcpsocket pthread)	#-l
+target_link_libraries(tcpserver pthread)	#-l
 target_include_directories(tcpserver PRIVATE ${api_inc})	#-I
