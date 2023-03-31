@@ -6,15 +6,11 @@ MESSAGE("current project: " ${CURRENT_FOLDER})
 set(CMAKE_SYSTEM_NAME Linux)
 set(CMAKE_CROSSCOMPILING TRUE)
 
-set(CMAKE_C_COMPILER "arm-linux-gnueabihf-gcc")
-set(CMAKE_CXX_COMPILER "arm-linux-gnueabihf-g++")
+cmake_host_system_information(RESULT arch_value QUERY OS_PLATFORM)
 
-# find host dir and set CMAKE_TOOLCHAIN_FILE before call project
-execute_process(COMMAND which ${CMAKE_C_COMPILER} 
-                OUTPUT_VARIABLE gcc_full_path)
-get_filename_component(gcc_full_dir ${gcc_full_path} DIRECTORY)
-set(HOST_DIR "${gcc_full_dir}/..")
-set(CMAKE_TOOLCHAIN_FILE "${HOST_DIR}/share/buildroot/toolchainfile.cmake")
+if(NOT "${arch_value}" STREQUAL "armv7l")
+   include ($ENV{HOME}/configs/cross.cmake)
+endif()
 
 project(${CURRENT_FOLDER})
 add_definitions(-Wall)
@@ -30,9 +26,11 @@ set(api_inc
 #--------------------------
 # test-rtsp
 #--------------------------
+link_directories(${toolkit_root}/common_api/log_manager)
 link_directories(${toolkit_root}/netProtocol_api/rtsp) #-L
+
 add_executable(test-rtsp test-rtsp.c) #-o
-target_link_libraries(test-rtsp rtsp liveMedia groupsock BasicUsageEnvironment UsageEnvironment crypto ssl stdc++) #-l
+target_link_libraries(test-rtsp rtsp    log_manager  ini pthread stdc++) #-l
 target_include_directories(test-rtsp PRIVATE ${api_inc}) #-I
 
 

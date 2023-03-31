@@ -126,11 +126,10 @@ extern int32_t set_decMedia_channel_callback(uint32_t u32ChannelId, VideoFrameCB
 extern int32_t push_node_in_decMedia_channel(uint32_t u32ChannelId, VideoNodeDesc *pNodeDesc, uint8_t *pData);
 extern int32_t push_buff_in_decMedia_channel(uint32_t u32ChannelId, uint8_t *pData, VDEC_CHN_FORMAT_E vFmt, uint32_t dataLen, uint8_t isEOS);
 
-
-    
-//extern int32_t create_decMedia_audio_channel(uint32_t *u32ChannelId);
-//extern int32_t close_decMedia_audio_channel(uint32_t u32ChannelId);
-//extern int32_t set_decMedia_audio_channel_callback(uint32_t u32ChannelId, AudioFrameCB pFunc, void *pRecObj);
+extern int32_t create_decMedia_audio_channel(uint32_t *u32ChannelId);
+extern int32_t close_decMedia_audio_channel(uint32_t u32ChannelId);
+extern int32_t set_decMedia_audio_channel_callback(uint32_t u32ChannelId, AudioFrameCB pFunc, void *pRecObj);
+extern int32_t push_node_in_decMedia_audio_channel(uint32_t u32ChannelId, AudioNodeDesc *pNodeDesc, uint8_t *pData);
 
     
 // =======================        [EnCode]        =======================
@@ -199,11 +198,6 @@ extern int32_t push_frame_to_encMedia_channel(uint32_t u32ChannelId, void *pData
 //extern int32_t create_encMedia_audio_channel(uint32_t *u32ChannelId);
 //extern int32_t close_encMedia_audio_channel(uint32_t u32ChannelId);
 //extern int32_t set_encMedia_audio_channel_callback(uint32_t u32ChannelId, AudioStreamCB pFunc, void *pRecObj);
-
-
-// It is used to set the internal print output callback function of the toolikit interface --- (just ignore)
-// 用于设置该Toolikit接口的内部打印输出回调函数 --- (无须关心)
-extern void setEnDeCoder_print(int32_t (* )(char const *filePath, int lineNum, char const *funcName, int logLevel, char const *logCon, va_list args));
 
 #if defined(__cplusplus)
 }

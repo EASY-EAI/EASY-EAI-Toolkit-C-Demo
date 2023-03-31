@@ -8,6 +8,7 @@ cd $SHELL_FOLDER
 # clear
 if [ "$1" = "clear" ]; then
 	rm -rf build
+	rm Release/test-* -f
 	exit 0
 fi
 
@@ -19,4 +20,7 @@ cmake ..
 make -j24
 
 # release
-mv test-* ../Release
+chmod 777 test-*
+mkdir -p "../Release" && mv test-* ../Release
+
+cp ../Release/* $SYSROOT/userdata/Demo

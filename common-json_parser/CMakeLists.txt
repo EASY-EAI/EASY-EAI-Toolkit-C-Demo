@@ -6,15 +6,11 @@ MESSAGE("current project: " ${CURRENT_FOLDER})
 set(CMAKE_SYSTEM_NAME Linux)
 set(CMAKE_CROSSCOMPILING TRUE)
 
-set(CMAKE_C_COMPILER "arm-linux-gnueabihf-gcc")
-set(CMAKE_CXX_COMPILER "arm-linux-gnueabihf-g++")
+cmake_host_system_information(RESULT arch_value QUERY OS_PLATFORM)
 
-# find host dir and set CMAKE_TOOLCHAIN_FILE before call project
-execute_process(COMMAND which ${CMAKE_C_COMPILER} 
-                OUTPUT_VARIABLE gcc_full_path)
-get_filename_component(gcc_full_dir ${gcc_full_path} DIRECTORY)
-set(HOST_DIR "${gcc_full_dir}/..")
-set(CMAKE_TOOLCHAIN_FILE "${HOST_DIR}/share/buildroot/toolchainfile.cmake")
+if(NOT "${arch_value}" STREQUAL "armv7l")
+   include ($ENV{HOME}/configs/cross.cmake)
+endif()
 
 project(${CURRENT_FOLDER})
 add_definitions(-Wall)
@@ -32,7 +28,7 @@ set(api_inc
 #--------------------------
 link_directories(${toolkit_root}/common_api/json_parser) #-L
 add_executable(test-json-parser test-json-parser.c) #-o
-target_link_libraries(test-json-parser stdc++ pthread json_parser) #-l
+target_link_libraries(test-json-parser json_parser stdc++ pthread ) #-l
 target_include_directories(test-json-parser PRIVATE ${api_inc}) #-I
 
 

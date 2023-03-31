@@ -31,8 +31,8 @@ typedef enum
 
 typedef enum
 {
-    AUDIO_TYPE_G711_A, //G.711 A律
-    AUDIO_TYPE_G711_U, //G.711 μ律
+    AUDIO_TYPE_G711_A, //G.711 A律(PCMA)
+    AUDIO_TYPE_G711_U, //G.711 μ律(PCMU)
     AUDIO_TYPE_G726,   //G.726
     AUDIO_TYPE_AAC_ADTS, //AAC ADTS封装
     AUDIO_TYPE_AAC_MPEG4_GENERIC, //AAC MPEG4 Generic(裸数据)
@@ -42,32 +42,33 @@ typedef enum
 typedef struct {
     uint16_t        videoChnId;  //视频通道号
     VDEC_FORMAT_E   frameFormat; //帧格式
-    uint8_t         frameType;   //帧类型(1:I帧, 0:非I帧)
+    uint8_t         frameType;   //帧类型(0:未知, 1:I帧, 2:P帧, 3:B帧)
     uint8_t         frameRate;   //帧率
     uint32_t        frameIndex;  //帧序号
     uint32_t        frameWidth;  //源画面宽度
     uint32_t        frameHeight; //源画面高度
     uint32_t        dataLen;     //帧数据长度
-    uint64_t        timeStamp;   //编码输出时间戳，单位毫秒
+    uint64_t        timeStamp;   //pts播放时间戳，单位毫秒
     uint64_t        recTimeStamp;//接收时间戳，单位毫秒
 }RTSPVideoDesc_t;
 
 #define MAX_CONFIG_SIZE 64
 typedef struct {
-    AUDIO_TYPE_E    ePayloadType;
-    uint32_t        dwStreamId;     //随机数，用于识别信号流
-    uint32_t        dwSampleRateHz; //采样率，单位Hz，例如8000
-    uint16_t        wProfile;       // rtsp SDP profile
-    uint32_t        dwBitRate;      //比特率，单位bps, 例如64000
-    uint64_t        ddwTimestamp;
-    uint32_t        dwFrameIndex;
-    int8_t          strConfig[MAX_CONFIG_SIZE + 1];  //rtsp SDP config
-    uint32_t        dwDataLen;
+    uint16_t        audioChnId;  //音频通道号
+    AUDIO_TYPE_E    frameFormat;
+    uint32_t        frameIndex;
+    uint32_t        sampleRateHz;//采样率，单位Hz，例如8000
+    uint32_t        bitRate;     //比特率，单位bps, 例如64000
+    uint32_t        dataLen;     //帧数据长度
+    uint64_t        timeStamp;   //pts播放时间戳，单位毫秒
+    uint16_t        profile;     // rtsp SDP profile
+    char            strConfig[MAX_CONFIG_SIZE + 1];  //rtsp SDP config
 }RTSPAudioDesc_t;
 
 // Client
 //============
 typedef	int32_t (*RtspClientVideoCB)(void *, RTSPVideoDesc_t *, uint8_t *);
+typedef	int32_t (*RtspClientAudioCB)(void *, RTSPAudioDesc_t *, uint8_t *);
 // ==========================================================================================
 
 

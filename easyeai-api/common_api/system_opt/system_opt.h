@@ -24,6 +24,24 @@
 #if defined(__cplusplus)
 extern "C" {
 #endif
+//system resource view api
+typedef struct cpu_occupy_ //定义一个cpu occupy的结构体
+{
+    char name[20];
+    uint32_t user;
+    uint32_t nice;
+    uint32_t system;
+    uint32_t idle;
+    uint32_t iowait;
+    uint32_t irq;
+    uint32_t softirq;
+}cpu_occupy_t;
+extern double cpu_tempture();
+extern double npu_tempture();
+extern void   get_cpu_occupy(cpu_occupy_t *cpust);
+extern double cal_cpu_occupy(cpu_occupy_t *o, cpu_occupy_t *n);
+extern double memory_usage();
+extern double partition_usage(const char *path);
 
 //system time parameter config api
 // be used for debug
@@ -45,33 +63,11 @@ extern uint8_t calc_week_day(int y,int m, int d);
 // thread
 typedef	void *(*ThreadEntryPtrType)(void *);
 extern int32_t CreateNormalThread(ThreadEntryPtrType entry, void *para, pthread_t *pid);
+extern int32_t CreateJoinThread(ThreadEntryPtrType entry, void *para, pthread_t *pid);
+extern int32_t WaitExitThread(pthread_t pid);
 // process
 extern int32_t exec_cmd_by_system(const char *cmd);
 extern int32_t exec_cmd_by_popen(const char *cmd, char *result);
-// IPC
-#define IPCSERVER_PORT 7000 //IPC服务器占用端口(注意：此值仅用于开发参考，不可以对其进行修改)
-typedef struct {
-    char msgHeader[8];
-    int32_t srcClientId;
-    int32_t dstClientId;
-    int32_t msgType;
-    int32_t msgLen;
-    void *payload;
-}IPC_MSG_t;
-typedef	int32_t (*IPC_Client_CB)(void *, IPC_MSG_t *);
-
-extern int32_t IPC_server_create(int clientMaxNum);
-extern int32_t IPC_client_create();
-extern int32_t IPC_client_init(int32_t cliId);
-extern int32_t IPC_client_unInit();
-extern int32_t IPC_client_set_callback(void *pObj, IPC_Client_CB func);
-extern int32_t IPC_client_query_registered_client(int32_t dstCliId);
-extern int32_t IPC_client_dstClient_is_registered();
-extern int32_t IPC_client_sendData(int32_t tagId, int32_t type, void *data, int32_t dataLen);
-
-// It is used to set the internal print output callback function of the toolikit interface --- (just ignore)
-// 用于设置该Toolikit接口的内部打印输出回调函数 --- (无须关心)
-extern void setSystemOpt_print(int32_t (* )(char const *filePath, int lineNum, char const *funcName, int logLevel, char const *logCon, va_list args));
 
 #if defined(__cplusplus)
 }

@@ -27,10 +27,6 @@
 extern "C" {
 #endif
 
-// It is used to set the internal print output callback function of the toolikit interface --- (just ignore)
-// 用于设置该Toolikit接口的内部打印输出回调函数 --- (无须关心)
-extern void setFrameQueue_print(int32_t (* )(char const *filePath, int lineNum, char const *funcName, int logLevel, char const *logCon, va_list args));
-
 /*
  * 注意：
  * 1、本队列为H264、H265、AAC传输专用共享内存队列，不适合用作其他用途。
@@ -51,9 +47,9 @@ extern int32_t get_node_from_video_channel(uint32_t videoChnId, VideoNodeDesc *p
 
 
 extern int32_t create_audio_frame_queue_pool(uint32_t channelNum);
-extern bool    audio_channel_is_empty(uint32_t videoChnId);
-extern int32_t flush_audio_channel(uint32_t videoChnId);
-//extern int32_t push_node_to_audio_channel(uint32_t audioChnId, AudioNodeDesc *pNodeDesc, uint8_t *pbyFrameData);
+extern bool    audio_channel_is_empty(uint32_t audioChnId);
+extern int32_t flush_audio_channel(uint32_t audioChnId);
+extern int32_t push_node_to_audio_channel(uint32_t audioChnId, AudioNodeDesc *pNodeDesc, uint8_t *pbyFrameData);
 extern int32_t get_node_from_audio_channel(uint32_t audioChnId, AudioNodeDesc *pNodeDesc, uint8_t *pbyFrameData);
 
 

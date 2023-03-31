@@ -22,6 +22,12 @@ How to use：
 
 important update log:
 ---
+> 2023-03-31 : 
+> * Release easyeai-c-demo-1.0.0
+>   * Adapting ubuntu firmware
+>   * Adapting easyeai-api v1.0.0
+>   * Incompatible buildroot firmware(The c-demo for the buildroot firmware version is located in the buildroot branch of this repository)
+>
 > 2023-01-09 : 
 > * Release easyeai-c-demo-0.2.2
 > * update easyeai-api-0.2.2

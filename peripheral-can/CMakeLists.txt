@@ -12,17 +12,10 @@ if("${arch_value}" STREQUAL "armv7l")
 	set(CMAKE_C_COMPILER "gcc")
 	set(CMAKE_CXX_COMPILER "g++")
 else()
-	set(CMAKE_CROSSCOMPILING TRUE)
-	set(CMAKE_C_COMPILER "arm-linux-gnueabihf-gcc")
-	set(CMAKE_CXX_COMPILER "arm-linux-gnueabihf-g++")
-
-	# find host dir and set CMAKE_TOOLCHAIN_FILE before call project
-	execute_process(COMMAND which ${CMAKE_C_COMPILER} OUTPUT_VARIABLE gcc_full_path)
-	get_filename_component(gcc_full_dir ${gcc_full_path} DIRECTORY)
-	set(HOST_DIR "${gcc_full_dir}/..")
-	set(CMAKE_TOOLCHAIN_FILE "${HOST_DIR}/share/buildroot/toolchainfile.cmake")
+	include ($ENV{HOME}/configs/cross.cmake)
 endif()
-
+	
+	
 project(${CURRENT_FOLDER})
 
 add_definitions(-Wall)
@@ -38,12 +31,15 @@ set(api_inc
    ${CMAKE_SYSROOT}/usr/include/rkfacial
    ${toolkit_root}/peripheral_api/iic
 )
-link_directories(${toolkit_root}/peripheral_api/iic) #-L
-add_executable(test_can-reception test-can-reception.c) #-o
-target_link_libraries(test_can-reception stdc++ iic) #-l
-target_include_directories(test_can-reception PRIVATE ${api_inc}) #-I
 
+set(can_reception test-can_reception)
 link_directories(${toolkit_root}/peripheral_api/iic) #-L
-add_executable(test_can-send test-can-send.c) #-o
-target_link_libraries(test_can-send stdc++ iic) #-l
-target_include_directories(test_can-send PRIVATE ${api_inc}) #-I
+add_executable(${can_reception} test-can_reception.c) #-o
+target_link_libraries(${can_reception} stdc++ iic) #-l
+target_include_directories(${can_reception} PRIVATE ${api_inc}) #-I
+
+set(can_send test-can_send)
+link_directories(${toolkit_root}/peripheral_api/iic) #-L
+add_executable(${can_send} test-can_send.c) #-o
+target_link_libraries(${can_send} stdc++ iic) #-l
+target_include_directories(${can_send} PRIVATE ${api_inc}) #-I

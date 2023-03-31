@@ -63,9 +63,9 @@ int main(void)
     create_encoder(MAXCHNNUM);
 	create_encMedia_channel(&encodeChn_Id);
 	if((0 <= encodeChn_Id) && (encodeChn_Id < MAXCHNNUM)){
-		printf("decode channel create succ, channel Id = %u \n", encodeChn_Id);
+		printf("encode channel create succ, channel Id = %u \n", encodeChn_Id);
 	}else{
-		printf("decode channel create faild !\n");
+		printf("encode channel create faild !\n");
         goto exit3;
 	}
 

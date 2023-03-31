@@ -6,15 +6,11 @@ MESSAGE("current project: " ${CURRENT_FOLDER})
 set(CMAKE_SYSTEM_NAME Linux)
 set(CMAKE_CROSSCOMPILING TRUE)
 
-set(CMAKE_C_COMPILER "arm-linux-gnueabihf-gcc")
-set(CMAKE_CXX_COMPILER "arm-linux-gnueabihf-g++")
+cmake_host_system_information(RESULT arch_value QUERY OS_PLATFORM)
 
-# find host dir and set CMAKE_TOOLCHAIN_FILE before call project
-execute_process(COMMAND which ${CMAKE_C_COMPILER} 
-                OUTPUT_VARIABLE gcc_full_path)
-get_filename_component(gcc_full_dir ${gcc_full_path} DIRECTORY)
-set(HOST_DIR "${gcc_full_dir}/..")
-set(CMAKE_TOOLCHAIN_FILE "${HOST_DIR}/share/buildroot/toolchainfile.cmake")
+if(NOT "${arch_value}" STREQUAL "armv7l")
+   include ($ENV{HOME}/configs/cross.cmake)
+endif()
 
 project(${CURRENT_FOLDER})
 add_definitions(-Wall)
@@ -23,6 +19,7 @@ set(toolkit_root ${CMAKE_CURRENT_SOURCE_DIR}/../easyeai-api)
 
 # -L
 link_directories(${toolkit_root}/common_api/system_opt)
+
 # -I
 set(api_inc
 	${CMAKE_SYSROOT}/usr/include/rkfacial
@@ -43,17 +40,4 @@ add_executable(test-thread-opt test-thread-opt.c) #-o
 target_link_libraries(test-thread-opt system_opt pthread ini stdc++) #-l
 target_include_directories(test-thread-opt PRIVATE ${api_inc}) #-I
 
-#--------------------------
-# test-IPC-opt_Client
-#--------------------------
-add_executable(test-IPC-opt_Client test-IPC-opt_Client.c) #-o
-target_link_libraries(test-IPC-opt_Client system_opt pthread ini stdc++) #-l
-target_include_directories(test-IPC-opt_Client PRIVATE ${api_inc}) #-I
-
-#--------------------------
-# test-IPC-opt_Server
-#--------------------------
-add_executable(test-IPC-opt_Server test-IPC-opt_Server.c) #-o
-target_link_libraries(test-IPC-opt_Server system_opt pthread ini stdc++) #-l
-target_include_directories(test-IPC-opt_Server PRIVATE ${api_inc}) #-I
 

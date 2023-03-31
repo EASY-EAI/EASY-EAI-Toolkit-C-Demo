@@ -12,16 +12,10 @@ if("${arch_value}" STREQUAL "armv7l")
 	set(CMAKE_C_COMPILER "gcc")
 	set(CMAKE_CXX_COMPILER "g++")
 else()
-	set(CMAKE_CROSSCOMPILING TRUE)
-	set(CMAKE_C_COMPILER "arm-linux-gnueabihf-gcc")
-	set(CMAKE_CXX_COMPILER "arm-linux-gnueabihf-g++")
-
-	# find host dir and set CMAKE_TOOLCHAIN_FILE before call project
-	execute_process(COMMAND which ${CMAKE_C_COMPILER} OUTPUT_VARIABLE gcc_full_path)
-	get_filename_component(gcc_full_dir ${gcc_full_path} DIRECTORY)
-	set(HOST_DIR "${gcc_full_dir}/..")
-	set(CMAKE_TOOLCHAIN_FILE "${HOST_DIR}/share/buildroot/toolchainfile.cmake")
+	include ($ENV{HOME}/configs/cross.cmake)
 endif()
+	
+	
 
 project(${CURRENT_FOLDER})
 
@@ -37,15 +31,17 @@ set(api_inc
 #--------------------------
 # client
 #--------------------------
+set(udpclient test-udpclient)
 link_directories(${toolkit_root}/peripheral_api/tcpsocket)	#-L
-add_executable(udpclient udpclient.c)		#-o
-target_link_libraries(udpclient pthread)	#-l
-target_include_directories(udpclient PRIVATE ${api_inc})	#-I
+add_executable(${udpclient} test-udpclient.c)		#-o
+target_link_libraries(${udpclient} tcpsocket pthread)	#-l
+target_include_directories(${udpclient} PRIVATE ${api_inc})	#-I
 
 #--------------------------
 # server
 #--------------------------
+set(udpserver test-udpserver)
 link_directories(${toolkit_root}/peripheral_api/tcpsocket)	#-L
-add_executable(udpserver udpserver.c)		#-o
-target_link_libraries(udpserver pthread)	#-l
-target_include_directories(udpserver PRIVATE ${api_inc})	#-I
+add_executable(${udpserver} test-udpserver.c)		#-o
+target_link_libraries(${udpserver} tcpsocket pthread)	#-l
+target_include_directories(${udpserver} PRIVATE ${api_inc})	#-I

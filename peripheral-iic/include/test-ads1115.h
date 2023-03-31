@@ -161,7 +161,7 @@ CRL[7:0] (R/W)
 #define ADS1115_REG_CONFIG_COMP_QUE_THR         (0x2U << 0)
 #define ADS1115_REG_CONFIG_COMP_QUE_DIS         (0x3U << 0)
 
-void ads1115_config_register(uint32_t mfd,uint8_t pointADD,uint8_t configH,uint8_t configL);
+int32_t ads1115_config_register(uint32_t mfd,uint8_t pointADD,uint8_t configH,uint8_t configL);
 int16_t ads1115_read_data(uint32_t mfd);
 double ads1115_get_voltage_val(uint32_t mfd, uint8_t pointADD,uint8_t configH,uint8_t configL);
 

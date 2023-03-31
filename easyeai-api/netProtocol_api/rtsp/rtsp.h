@@ -51,6 +51,7 @@ typedef struct {
     bool bSkipNOIFrame;
     bool bHaveGetSPSInfo;   //h265 get resolution from sps frame flag
 	void *pAuthenticator;
+    uint16_t rtspSupOPTIONS;
 	pid_t rtspClientPid;
     
     uint32_t uWidth;        // 实际宽度
@@ -84,24 +85,30 @@ Return:
 extern void set_rtsp_client_printf(printMessage pPrintFunc);
 
 /*********************************************************************
-Function:  set_rtsp_client_video_callback
+Function:  set_rtsp_client_callback
 Description:
 	设置rtsp取流回调函数，rtsp客户端从服务器获取的码流数据会送入回调函数
 Example:
-    int32_t video_handle(void *pCapturer, VideoNodeDesc_t *pNodeDesc, uint8_t *pData)
+    int32_t video_handle(void *pCapturer, RTSPVideoDesc_t *pNodeDesc, uint8_t *pData)
     {
     	printf("Width = %u, Height = %u\n", pNodeDesc->u32_Width, pNodeDesc->u32_Height);
     	return 0;
     }
-    set_rtsp_client_video_callback(video_handle, NULL);
+    int32_t audio_handle(void *pCapturer, RTSPAudioDesc_t *pNodeDesc, uint8_t *pData)
+    {
+    	printf("Width = %u, Height = %u\n", pNodeDesc->u32_Width, pNodeDesc->u32_Height);
+    	return 0;
+    }
+    set_rtsp_client_callback(video_handle, audio_handle, NULL);
 parameter:
-    pCBFunc: 回调函数入口。
-    *para:   回调函数的传入参数，可以为解码器等指针，也可以为NULL。
+    pVideoCBFunc: 视频回调函数入口。
+    pAudioCBFunc: 音频回调函数入口。
+    *para:   回调函数的传入参数，可以为取流器等指针，也可以为NULL。
 Return:
 	0：成功
 	-1：失败
 ********************************************************************/
-extern int32_t set_rtsp_client_video_callback(RtspClientVideoCB pCBFunc, void *para);
+extern int32_t set_rtsp_client_callback(RtspClientVideoCB pVideoCBFunc, RtspClientAudioCB pAudioCBFunc, void *para);
 
 /*********************************************************************
 Function:  create_rtsp_client_channel

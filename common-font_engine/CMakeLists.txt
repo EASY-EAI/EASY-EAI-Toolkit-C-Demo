@@ -6,34 +6,33 @@ MESSAGE("current project: " ${CURRENT_FOLDER})
 set(CMAKE_SYSTEM_NAME Linux)
 set(CMAKE_CROSSCOMPILING TRUE)
 
-set(CMAKE_C_COMPILER "arm-linux-gnueabihf-gcc")
-set(CMAKE_CXX_COMPILER "arm-linux-gnueabihf-g++")
+cmake_host_system_information(RESULT arch_value QUERY OS_PLATFORM)
+message(STATUS "architecture: " ${arch_value})
 
-# find host dir and set CMAKE_TOOLCHAIN_FILE before call project
-execute_process(COMMAND which ${CMAKE_C_COMPILER} 
-                OUTPUT_VARIABLE gcc_full_path)
-get_filename_component(gcc_full_dir ${gcc_full_path} DIRECTORY)
-set(HOST_DIR "${gcc_full_dir}/..")
-set(CMAKE_TOOLCHAIN_FILE "${HOST_DIR}/share/buildroot/toolchainfile.cmake")
+if(NOT "${arch_value}" STREQUAL "armv7l")
+	include ($ENV{HOME}/configs/cross.cmake)
+endif()
 
 project(${CURRENT_FOLDER})
 add_definitions(-Wall)
 
 set(toolkit_root ${CMAKE_CURRENT_SOURCE_DIR}/../easyeai-api)
 
+find_package(OpenCV REQUIRED)
 # -I
 set(api_inc
 	${toolkit_root}/common_api/font_engine
+	${OpenCV_INCLUDE_DIRS}
 	)
 # -L
 link_directories(${toolkit_root}/common_api/font_engine)
 
 #--------------------------
-# test-font_engine
+# test-font_engine freetype bz2 stdc++
 #--------------------------
 add_executable(test-font_engine test-font_engine.cpp) #-o
 target_include_directories(test-font_engine PRIVATE ${api_inc}) #-I
-target_link_libraries(test-font_engine font_engine iconv freetype bz2 stdc++ 
+target_link_libraries(test-font_engine font_engine freetype
     -lopencv_calib3d 
     -lopencv_core 
     -lopencv_dnn 

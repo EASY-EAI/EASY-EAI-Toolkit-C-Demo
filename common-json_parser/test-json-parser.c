@@ -103,7 +103,7 @@ int main(void)
 	add_string_to_object(item3,"name","小王");
 	add_item_to_list(MyList,item3);
 
-	char *json_data = object_data(obj);
+	char *json_data = object_data(obj,false);
 	printf("======================================= start to create json string ================================\n");
 	printf("%s\n", json_data);
 	printf("======================================= end to create json string ================================\n");

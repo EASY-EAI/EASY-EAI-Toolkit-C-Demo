@@ -6,15 +6,12 @@ MESSAGE("current project: " ${CURRENT_FOLDER})
 set(CMAKE_SYSTEM_NAME Linux)
 set(CMAKE_CROSSCOMPILING TRUE)
 
-set(CMAKE_C_COMPILER "arm-linux-gnueabihf-gcc")
-set(CMAKE_CXX_COMPILER "arm-linux-gnueabihf-g++")
 
-# find host dir and set CMAKE_TOOLCHAIN_FILE before call project
-execute_process(COMMAND which ${CMAKE_C_COMPILER} 
-                OUTPUT_VARIABLE gcc_full_path)
-get_filename_component(gcc_full_dir ${gcc_full_path} DIRECTORY)
-set(HOST_DIR "${gcc_full_dir}/..")
-set(CMAKE_TOOLCHAIN_FILE "${HOST_DIR}/share/buildroot/toolchainfile.cmake")
+cmake_host_system_information(RESULT arch_value QUERY OS_PLATFORM)
+
+if(NOT "${arch_value}" STREQUAL "armv7l")
+   include ($ENV{HOME}/configs/cross.cmake)
+endif()
 
 project(${CURRENT_FOLDER})
 add_definitions(-Wall)
@@ -32,24 +29,8 @@ link_directories(${toolkit_root}/algorithm_api/body_pose_detect)
 #--------------------------
 # test-body-pose-detect
 #--------------------------
+find_package(OpenCV REQUIRED)   
 add_executable(test-body-pose-detect test-body-pose-detect.cpp)		#-o
-target_include_directories(test-body-pose-detect PRIVATE ${api_inc})	#-I
-target_link_libraries(test-body-pose-detect pthread body_pose_detect rknn_api
-    -lopencv_calib3d 
-    -lopencv_core 
-    -lopencv_dnn 
-    -lopencv_features2d 
-    -lopencv_flann 
-    -lopencv_highgui 
-    -lopencv_imgcodecs 
-    -lopencv_imgproc 
-    -lopencv_ml 
-    -lopencv_objdetect 
-    -lopencv_photo 
-    -lopencv_shape 
-    -lopencv_stitching 
-    -lopencv_superres 
-    -lopencv_videoio 
-    -lopencv_video 
-    -lopencv_videostab)	#-l
+target_include_directories(test-body-pose-detect PRIVATE ${api_inc} ${OpenCV_INCLUDE_DIRS})	#-I
+target_link_libraries(test-body-pose-detect pthread body_pose_detect rknn_api ${OpenCV_LIBS} )
 

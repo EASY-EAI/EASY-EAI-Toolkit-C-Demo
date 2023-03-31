@@ -15,3 +15,6 @@ mkdir build
 cd build
 cmake ..
 make -j24
+
+chmod 777 test-*
+cp test-* $SYSROOT/userdata/Demo

@@ -45,14 +45,14 @@ typedef enum
 
 typedef enum
 {
-    AUDIO_PAYLOAD_TYPE_G711_A, //G.711 A律
-    AUDIO_PAYLOAD_TYPE_G711_U, //G.711 μ律
-    AUDIO_PAYLOAD_TYPE_G726,   //G.726
-    AUDIO_PAYLOAD_TYPE_AAC_ADTS, //AAC ADTS封装
-    AUDIO_PAYLOAD_TYPE_AAC_MPEG4_GENERIC, //AAC MPEG4 Generic(裸数据)
-    AUDIO_PAYLOAD_TYPE_INVALID,
+    ADEC_CHN_FORMAT_G711_A, //G.711 A律(PCMA)
+    ADEC_CHN_FORMAT_G711_U, //G.711 μ律(PCMU)
+    ADEC_CHN_FORMAT_G726,   //G.726
+    ADEC_CHN_FORMAT_AAC_ADTS, //AAC ADTS封装
+    ADEC_CHN_FORMAT_AAC_MPEG4_GENERIC, //AAC MPEG4 Generic(裸数据)
+    ADEC_CHN_FORMAT_INVALID,
 }
-AUDIO_PAYLOAD_TYPE_E;
+ADEC_CHN_FORMAT_E;
 
 typedef	struct
 {
@@ -81,15 +81,15 @@ typedef struct {
 
 #define MAX_CONFIG_SIZE 64
 typedef struct {
-    AUDIO_PAYLOAD_TYPE_E ePayloadType;
     uint32_t            dwStreamId;     //随机数，用于识别信号流
-    uint32_t            dwSampleRateHz; //采样率，单位Hz，例如8000
-    uint16_t            wProfile;       // rtsp SDP profile
-    uint32_t            dwBitRate;      //比特率，单位bps, 例如64000
-    uint64_t            ddwTimestamp;
+    ADEC_CHN_FORMAT_E   ePayloadType;
     uint32_t            dwFrameIndex;
-    int8_t              strConfig[MAX_CONFIG_SIZE + 1];  //rtsp SDP config
+    uint32_t            dwSampleRateHz; //采样率，单位Hz，例如8000
+    uint32_t            dwBitRate;      //比特率，单位bps, 例如64000
     uint32_t            dwDataLen;
+    uint64_t            ddwTimeStamp;
+    uint16_t            wProfile;       // rtsp SDP profile
+    int8_t              strConfig[MAX_CONFIG_SIZE + 1];  //rtsp SDP config
 }AudioNodeDesc;
 
 

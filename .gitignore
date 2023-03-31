@@ -4,6 +4,7 @@ build/
 _build/
 build-output/
 cmake-out/
+*/Release/test-*
 
 # Backup files for Emacs
 *~

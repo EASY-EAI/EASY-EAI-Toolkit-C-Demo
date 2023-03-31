@@ -12,17 +12,10 @@ if("${arch_value}" STREQUAL "armv7l")
 	set(CMAKE_C_COMPILER "gcc")
 	set(CMAKE_CXX_COMPILER "g++")
 else()
-	set(CMAKE_CROSSCOMPILING TRUE)
-	set(CMAKE_C_COMPILER "arm-linux-gnueabihf-gcc")
-	set(CMAKE_CXX_COMPILER "arm-linux-gnueabihf-g++")
-
-	# find host dir and set CMAKE_TOOLCHAIN_FILE before call project
-	execute_process(COMMAND which ${CMAKE_C_COMPILER} OUTPUT_VARIABLE gcc_full_path)
-	get_filename_component(gcc_full_dir ${gcc_full_path} DIRECTORY)
-	set(HOST_DIR "${gcc_full_dir}/..")
-	set(CMAKE_TOOLCHAIN_FILE "${HOST_DIR}/share/buildroot/toolchainfile.cmake")
+	include ($ENV{HOME}/configs/cross.cmake)
 endif()
-
+	
+	
 project(${CURRENT_FOLDER})
 
 add_definitions(-Wall)
@@ -38,8 +31,10 @@ set(api_inc
    ${CMAKE_SYSROOT}/usr/include/rkfacial
    ${toolkit_root}/peripheral_api/pwm
 )
+
+set(pwmTag test-pwm)
 link_directories(${toolkit_root}/peripheral_api/pwm) #-L
-add_executable(test_pwm test_pwm.c) #-o
-target_link_libraries(test_pwm pwm stdc++) #-l
-target_include_directories(test_pwm PRIVATE ${api_inc}) #-I
+add_executable(${pwmTag} test-pwm.c) #-o
+target_link_libraries(${pwmTag} pwm stdc++) #-l
+target_include_directories(${pwmTag} PRIVATE ${api_inc}) #-I
 

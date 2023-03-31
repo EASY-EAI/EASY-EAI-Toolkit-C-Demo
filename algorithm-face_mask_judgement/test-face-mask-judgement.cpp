@@ -28,6 +28,10 @@ using namespace cv;
 int main(int argc, char **argv)
 {
 
+	struct timeval start;
+	struct timeval end;
+	float time_use=0;
+
 	if( argc != 2)
 	{
 		printf("./test-face-mask-judgement xxx.jpg \n");
@@ -75,7 +79,12 @@ int main(int argc, char **argv)
 		face_algin = face_alignment(src, points);
 
 		/* 人脸戴口罩判断运行 */
+		gettimeofday(&start,NULL); 
 		face_mask_judgement_run(mask_judge_ctx, &face_algin, mask_result);
+		gettimeofday(&end,NULL);
+		time_use=(end.tv_sec-start.tv_sec)*1000000+(end.tv_usec-start.tv_usec);//微秒
+		printf("person %d\n", i);
+		printf("time_use is %f\n",time_use/1000);
 		printf("normal_face possibility:%f\n", mask_result[0]);
 		printf("masked_face possibility:%f\n", mask_result[1]);		
 		
