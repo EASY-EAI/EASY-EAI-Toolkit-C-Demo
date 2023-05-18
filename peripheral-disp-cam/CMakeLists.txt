@@ -14,8 +14,8 @@ if("${arch_value}" STREQUAL "armv7l")
 else()
 	include ($ENV{HOME}/configs/cross.cmake)
 endif()
-	
-	
+
+
 project(${CURRENT_FOLDER})
 
 add_definitions(-Wall)
@@ -35,7 +35,7 @@ set(api_inc
 link_directories(${toolkit_root}/peripheral_api/display)	#-L
 link_directories(${toolkit_root}/peripheral_api/camera)		#-L
 add_executable(test-disp-cam test-disp-cam.c)			#-o
-target_link_libraries(test-disp-cam camera easymedia rkaiq rga display pthread)	#-l
+target_link_libraries(test-disp-cam display camera easymedia rkaiq rockchip_mpp rga pthread)	#-l
 target_include_directories(test-disp-cam PRIVATE ${api_inc})	#-I
 
 #--------------------------
@@ -44,5 +44,5 @@ target_include_directories(test-disp-cam PRIVATE ${api_inc})	#-I
 link_directories(${toolkit_root}/peripheral_api/display)	#-L
 link_directories(${toolkit_root}/peripheral_api/camera)		#-L
 add_executable(test-disp-pro-cam test-disp-pro-cam.c)		#-o
-target_link_libraries(test-disp-pro-cam camera easymedia rkaiq rga display pthread)	#-l
+target_link_libraries(test-disp-pro-cam display camera easymedia rkaiq rockchip_mpp rga pthread)	#-l
 target_include_directories(test-disp-pro-cam PRIVATE ${api_inc})	#-I

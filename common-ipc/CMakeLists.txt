@@ -24,18 +24,24 @@ link_directories(${toolkit_root}/common_api/ipc)
 
 # -I
 set(api_inc
-	${CMAKE_SYSROOT}/usr/include/rkfacial
 	${toolkit_root}/common_api/system_opt
 	${toolkit_root}/common_api/log_manager
 	${toolkit_root}/common_api/ipc
 	)
 
 #--------------------------
-# test-IPC-opt_Client
+# test-IPC-opt_AClient
 #--------------------------
-add_executable(test-IPC-opt_Client test-IPC-opt_Client.c) #-o
-target_link_libraries(test-IPC-opt_Client ipc system_opt log_manager pthread ini stdc++) #-l
-target_include_directories(test-IPC-opt_Client PRIVATE ${api_inc}) #-I
+add_executable(test-IPC-opt_AClient test-IPC-opt_AClient.c) #-o
+target_link_libraries(test-IPC-opt_AClient ipc system_opt log_manager pthread ini stdc++) #-l
+target_include_directories(test-IPC-opt_AClient PRIVATE ${api_inc}) #-I
+
+#--------------------------
+# test-IPC-opt_BClient
+#--------------------------
+add_executable(test-IPC-opt_BClient test-IPC-opt_BClient.c) #-o
+target_link_libraries(test-IPC-opt_BClient ipc system_opt log_manager pthread ini stdc++) #-l
+target_include_directories(test-IPC-opt_BClient PRIVATE ${api_inc}) #-I
 
 #--------------------------
 # test-IPC-opt_Server

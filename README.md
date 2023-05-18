@@ -2,154 +2,154 @@
 <br/>
 
 
-[中文](README_CN.md)
+[English](README_EN.md)
 
 <br />
 <br />
 
-If you first come into contact with this project. You can do:  
-[reference the Quick Start Guide](https://www.easy-eai.com/document_details/3/133)
+如果您初次接触本项目，您可以：  
+[查阅入门(快速上手)指南](https://www.easy-eai.com/document_details/3/133)
 
-If you have extensive experience in embedded C development. You can do:  
-[update the application development environment first](https://www.easy-eai.com/document_details/3/135)  
-[reference the API development manual](https://www.easy-eai.com/document_details/3/129)
+如果您具备丰富的嵌入式C语言开发经验，您可以：  
+[直接先更新应用开发环境](https://www.easy-eai.com/document_details/3/135)  
+[再查阅API开发手册](https://www.easy-eai.com/document_details/3/129)
 
 
-How to use：  
-[1] - Clone this Git Storage to Local   
-[2] - Enter the corresponding Demo directory of this repository: ./build.sh   
-[3] - The relevant Demo will be generated under build/ in the specific Demo directory: test-xxx
+使用方法：  
+[1] - 克隆本GitHub仓库   
+[2] - 进入具体的Demo目录执行：./build.sh    
+[3] - 则会在具体的Demo目录的build/下生成相关的Demo：test-xxx
 
-important update log:
+重要更新：
 ---
 > 2023-03-31 : 
-> * Release easyeai-c-demo-1.0.0
->   * Adapting ubuntu firmware
->   * Adapting easyeai-api v1.0.0
->   * Incompatible buildroot firmware(The c-demo for the buildroot firmware version is located in the buildroot branch of this repository)
+> * 发布easyeai-c-demo-1.0.0
+>   * 匹配 ubuntu 系统固件
+>   * 匹配 easyeai-api v1.0.0
+>   * 不兼容buildroot系统固件(buildroot版本的c-demo在本仓库的buildroot分支内)
 >
 > 2023-01-09 : 
-> * Release easyeai-c-demo-0.2.2
-> * update easyeai-api-0.2.2
->   * algorithm
-> 	  * [new] face_pose_estimation Demo
-> 	  * [update] face landmark98 Demo
-> 	  * [update] face_recognition Demo
->   * media_api
-> 	  * [update] stream media encode & decode Demo
->   * netProtocol_api
-> 	  * [update] rtsp Demo
->   * peripheral
-> 	  * [new] netwrk Demo
+> * 发布 easyeai-c-demo-0.2.2
+> * 更新 easyeai-api-0.2.2
+>   * 算法组件
+> 	  * [新增] 人脸姿态估计Demo
+> 	  * [更新] 人脸98点Demo
+> 	  * [更新] 人脸识别Demo
+>   * 多媒体组件
+> 	  * [更新] 解码器&编码器 Demo
+>   * 网络协议组件
+> 	  * [更新] rtsp Demo
+>   * 外设组件
+> 	  * [新增] 网络配置 Demo
 >
 > 2022-11-24 : 
-> * update easyeai-c-demo-0.2.1
->   * algorithm
-> 	  * [new] face mask judgement Demo
-> * update easyeai-api-0.2.1
->   * algorithm_api
-> 	  * [new] face mask judgement
+> * 更新 easyeai-c-demo-0.2.1
+>   * 算法组件
+> 	  * [新增] 口罩识别Demo
+> * 更新 easyeai-api-0.2.1
+>   * 算法组件
+> 	  * [新增] 口罩识别
 >
 > 2022-11-19 : 
-> * update easyeai-c-demo-0.2.1
->   * algorithm
-> 	  * [new] moving detect Demo
-> 	  * [del] site safety Demo
->   * peripheral
-> 	  * [update] network TCP Demo
-> 	  * [update] network UDP Demo
-> * update easyeai-api-0.2.1
->   * algorithm_api
-> 	  * [new] moving detect
-> 	  * [update] fire detect
+> * 更新 easyeai-c-demo-0.2.1
+>   * 算法组件
+> 	  * [新增] 移动监测 Demo
+> 	  * [删除] 工地常见目标检测 Demo
+>   * 外设组件
+> 	  * [更新] 网络通信 TCP Demo
+> 	  * [更新] 网络通信 UDP Demo
+> * 更新 easyeai-api-0.2.1
+>   * 算法组件
+> 	  * [新增] 移动监测
+> 	  * [更新] 火焰监测
 >
 > 2022-11-02 : 
-> * Release easyeai-c-demo-0.2.1
-> * update easyeai-api-0.2.1
->   * algorithm_api
-> 	  * [new] body pose detect Demo
-> 	  * [new] fire detect Demo
-> 	  * [new] site safety Demo
->   * common_api
-> 	  * [new] Interprocess Communication Demo
-> 	  * [new] font engine Demo
->   * media_api
-> 	  * [new] enCoder Demo
->   * netProtocol_api
-> 	  * [new] rtsp server Demo
->   * peripheral_api
-> 	  * [new] can Demo
-> 	  * [new] iic Demo
-> 	  * [new] spi Demo
-> 	  * [new] touch screen Demo
-> 	  * [new] watch dog Demo
-> 	  * [update] gpio Demo
+> * 发布 easyeai-c-demo-0.2.1
+> * 更新 easyeai-api-0.2.1
+>   * 算法组件
+> 	  * [新增] 人体骨骼点检测 Demo
+> 	  * [新增] 火焰检测 Demo
+> 	  * [新增] 工地常见目标检测 Demo
+>   * 通用组件
+> 	  * [新增] 进程间通信 Demo
+> 	  * [更新] 字库引擎 Demo
+>   * 媒体组件
+> 	  * [新增] 编码器 Demo
+>   * 网络协议组件
+> 	  * [新增] rtsp Demo
+>   * 外设组件
+> 	  * [新增] can Demo
+> 	  * [新增] iic Demo
+> 	  * [新增] spi Demo
+> 	  * [新增] 触摸屏 Demo
+> 	  * [新增] 看门狗 Demo
+> 	  * [更新] gpio Demo
 >
 > 2022-08-25 : 
-> * Release easyeai-c-demo-0.2.0
-> * update easyeai-api-0.2.0
->   * peripheral_api
-> 	  * [new] pwm Demo
-> 	  * [update] camera Demo
->   * common_api
-> 	  * [update] json parser Demo
+> * 发布 easyeai-c-demo-0.2.0
+> * 更新 easyeai-api-0.2.0
+>   * 外设组件
+> 	  * [新增] pwm Demo
+> 	  * [更新] 摄像头 Demo
+>   * 通用组件
+> 	  * [更新] json格式处理 Demo
 >
 > 2022-05-25 : 
-> * Release easyeai-c-demo-0.1.3
-> * update easyeai-api-0.1.3
->   * algorithm_api
-> 	  * [new] geometry Demo
-> 	  * [new] helmet_detect Demo
-> 	  * [update] face_detect Demo
->   * peripheral_api
-> 	  * [update] display Demo
->   * common_api
-> 	  * [update] Linux system operation Demo
->   * media_api
-> 	  * [update] stream media encode & decode Demo
+> * 发布 easyeai-c-demo-0.1.3
+> * 更新 easyeai-api-0.1.3
+>   * 算法组件
+> 	  * [新增] 平面几何 Demo
+> 	  * [新增] 安全帽检测 Demo
+> 	  * [更新] 人脸检测 Demo
+>   * 外设组件
+> 	  * [更新] 显示控制 Demo
+>   * 通用组件
+> 	  * [更新] Linux系统设置 Demo
+>   * 媒体组件
+> 	  * [更新] 解码器 Demo
 >
 > 2022-04-13 : 
-> * Release easyeai-c-demo-0.1.2
-> * update easyeai-api-0.1.2
->   * algorithm_api
-> 	  * [new] face_detect Demo
-> 	  * [new] face_recognition Demo
-> 	  * [new] person_detect Demo
-> 	  * [new] self_learning Demo
->   * peripheral_api
-> 	  * [new] gpio Demo
-> 	  * [new] serialport Demo
-> 	  * [new] socketcan Demo
-> 	  * [update] audio Demo
-> 	  * [update] socket Demo
-> 	  * [update] camera Demo
->   * media_api
-> 	  * [update] DeCoder Demo
+> * 发布 easyeai-c-demo-0.1.2
+> * 更新 easyeai-api-0.1.2
+>   * 算法组件
+> 	  * [新增] 人脸检测 Demo
+> 	  * [新增] 人脸识别 Demo
+> 	  * [新增] 人员检测 Demo
+> 	  * [新增] 自学习算法 Demo
+>   * 外设组件
+> 	  * [新增] gpio Demo
+> 	  * [新增] 串口 Demo
+> 	  * [新增] socketcan Demo
+> 	  * [更新] wav录制和播放 Demo
+> 	  * [更新] socket Demo
+> 	  * [更新] 摄像头 Demo
+>   * 媒体组件
+> 	  * [更新] 解码器 Demo
 >
 > 2022-03-15 : 
-> * update easyeai-api-0.1.1
+> * 更新easyeai-api-0.1.1
 >
 > 2022-01-30 : 
-> * Release easyeai-c-demo-0.1.0
->   * peripheral_api
-> 	  * [new] audio Demo
-> 	  * [new] backlight Demo
-> 	  * [new] display Demo
-> 	  * [new] camera Demo
-> 	  * [new] socket Demo
->   * common_api
-> 	  * [new] string operation Demo
-> 	  * [new] Linux system operation Demo
-> 	  * [new] base64 encode & decode Demo
-> 	  * [new] data check Demo
-> 	  * [new] encode QRCode Demo
-> 	  * [new] json parser Demo
-> 	  * [new] *.ini file operation Demo
->   * netProtocol_api
-> 	  * [new] https Demo
-> 	  * [new] rtsp Demo
->   * algorithm_api Demo
-> 	  * [new] decode QRCode Demo
+> * 发布easyeai-c-demo-0.1.0
+>   * 外设组件
+> 	  * [新增] 音频播放 Demo
+> 	  * [新增] 背光灯设置 Demo
+> 	  * [新增] 显示控制 Demo
+> 	  * [新增] 摄像头 Demo
+> 	  * [新增] socket Demo
+>   * 通用组件
+> 	  * [新增] 字符串处理 Demo
+> 	  * [新增] Linux系统设置 Demo
+> 	  * [新增] base64转换 Demo
+> 	  * [新增] 数据校验 Demo
+> 	  * [新增] 二维码生成 Demo
+> 	  * [新增] json格式处理 Demo
+> 	  * [新增] ini文件处理 Demo
+>   * 网络协议组件
+> 	  * [新增] https Demo
+> 	  * [新增] rtsp Demo
+>   * 算法组件
+> 	  * [新增] 二维码解码 Demo
 >
 > 2021-10-28 : 
-> * create this project
+> * 创建本项目
