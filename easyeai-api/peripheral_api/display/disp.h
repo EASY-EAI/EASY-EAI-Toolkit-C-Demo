@@ -43,6 +43,8 @@ typedef struct disp_win {
 } disp_win_t;
 
 typedef struct disp_screen {
+	int screen_x;
+	int screen_y;
     int screen_width;
 	int screen_height;
 	disp_win_t wins[VMIX_MAX_CHN_NUM];
@@ -52,7 +54,7 @@ typedef struct disp_screen {
 void disp_preset_uiLayer(int enable);
 
 /* 适合初次使用 */
-int disp_init(int width, int height); //默认输入RGB888
+int disp_init(int width, int height); //默认输入BGR888
 void disp_exit(void);
 void disp_commit(void *ptr, int data_len);
 
