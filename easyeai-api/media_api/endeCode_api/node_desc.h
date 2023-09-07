@@ -1,16 +1,16 @@
  /**
- *
- * Copyright 2021 by Guangzhou Easy EAI Technologny Co.,Ltd.
- * website: www.easy-eai.com
- *
- * Author: Jiehao.Zhong <zhongjiehao@easy-eai.com>
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * License file for more details.
- * 
- */
+  *
+  * Copyright 2021 by Guangzhou Easy EAI Technologny Co.,Ltd.
+  * website: www.easy-eai.com
+  *
+  * Author: Jiehao.Zhong <zhongjiehao@easy-eai.com>
+  * 
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  * License file for more details.
+  * 
+  */
 
 #ifndef NODE_DESC_H
 #define NODE_DESC_H
@@ -33,6 +33,19 @@
 #define     MEM_BLOCK_SIZE_32K              0x8000
 #define     MEM_BLOCK_SIZE_4K               (4 * 1024)
 
+#define     AAC_BITRATE_96K     96000
+#define     AAC_BITRATE_64K     64000
+#define     AAC_BITRATE_48K     48000
+#define     AAC_BITRATE_32K     32000
+#define     AAC_BITRATE_24K     24000
+#define     AAC_BITRATE_16K     16000
+#define     AAC_BITRATE_12K     12000
+#define     AAC_BITRATE_8K      8000
+#define     AAC_BITRATE_88200   88200
+#define     AAC_BITRATE_44100   44100
+#define     AAC_BITRATE_22050   22050
+#define     AAC_BITRATE_11025   11025
+#define     AAC_BITRATE_7350    7350
 
 //解码帧压缩算法类型
 typedef enum
@@ -48,18 +61,20 @@ typedef enum
     ADEC_CHN_FORMAT_G711_A, //G.711 A律(PCMA)
     ADEC_CHN_FORMAT_G711_U, //G.711 μ律(PCMU)
     ADEC_CHN_FORMAT_G726,   //G.726
+    ADEC_CHN_FORMAT_AAC_LATM, //AAC LATM封装
+    ADEC_CHN_FORMAT_AAC_ADIF, //AAC ADIF封装
     ADEC_CHN_FORMAT_AAC_ADTS, //AAC ADTS封装
     ADEC_CHN_FORMAT_AAC_MPEG4_GENERIC, //AAC MPEG4 Generic(裸数据)
     ADEC_CHN_FORMAT_INVALID,
 }
 ADEC_CHN_FORMAT_E;
 
-typedef	struct
+typedef struct
 {
-	uint32_t dwX;
-	uint32_t dwY;
-	uint32_t dwWidth;
-	uint32_t dwHeight;
+    uint32_t dwX;
+    uint32_t dwY;
+    uint32_t dwWidth;
+    uint32_t dwHeight;
 }VDIS_REGION_S;
 
 typedef struct {
@@ -81,17 +96,20 @@ typedef struct {
 
 #define MAX_CONFIG_SIZE 64
 typedef struct {
-    uint32_t            dwStreamId;     //随机数，用于识别信号流
+    uint32_t            dwStreamId;       //随机数，用于识别信号流
     ADEC_CHN_FORMAT_E   ePayloadType;
     uint32_t            dwFrameIndex;
-    uint32_t            dwSampleRateHz; //采样率，单位Hz，例如8000
-    uint32_t            dwBitRate;      //比特率，单位bps, 例如64000
+    uint32_t            dwChannelNums;    //声道数，单声道，双声道，多声道
+    uint32_t            dwSampleRateHz;   //采样率，单位Hz，例如48000
+    uint32_t            dwBitRate;        //比特率，单位bps, 例如32、64、96、128、192kbps
+    uint8_t             byAACHeader[10];  //如果【PayloadType】的值[是ADTS,这个就是ADTS头；是ADIF,这个就是ADIF头。]
+    uint16_t            wAACHeaderLen;
     uint32_t            dwDataLen;
     uint64_t            ddwTimeStamp;
-    uint16_t            wProfile;       // rtsp SDP profile
+    uint16_t            wProfile;         // rtsp SDP profile
     int8_t              strConfig[MAX_CONFIG_SIZE + 1];  //rtsp SDP config
 }AudioNodeDesc;
 
 
 #endif // NODE_DESC_H
-
+ 

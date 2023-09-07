@@ -41,10 +41,11 @@ typedef	void (*printMessage)(const char *);
 typedef struct {
     uint16_t uDecChn;       // 被绑定的解码通道
 	char progName[128];
-	char rtspUrl[128];
-	char userName[32];
-	char password[32];
+	char rtspUrl[512];
+	char userName[64];
+	char password[64];
     bool bUseTcpConnect;    // 默认为false[使用UDP连接]，但使用UDP链接会因丢包导致解码失败(直到下一个IDR帧)。
+	bool bNoSPSPPSInStream; // 默认为false。裸流为非标准流时填ture，会在I帧前面补插SPS和PPS序列。
     bool bOutputTestRecordFile; /* 除了该标志为true以外，还需要确保存在/tmp/rtspRecFiles目录 */
 
     bool bIsRunning;
@@ -60,7 +61,6 @@ typedef struct {
     uint32_t uAllHeight;    // 总高度
     uint32_t uFrameRate;    // 帧率
     int32_t sStreamDecType; // 码流格式类型
-	uint8_t byCheckSDPSps;
 } RTSP_Chn_t;
 
 // It is used to set the internal print output callback function of the toolikit interface --- (just ignore)
@@ -132,6 +132,7 @@ extern int32_t close_rtsp_client_channel(RTSP_Chn_t *pChnInfo);
 
 
 //Server
+#define MAX_RTSPSTRAM_NUM 4 //服务器可发出的最大RTSP流路数，此值不允许更改。
 typedef struct{
     bool bEnable;
     char strName[16];
@@ -140,7 +141,7 @@ typedef struct{
 }Stream_t;
 typedef struct{
     uint16_t port;
-    Stream_t stream[1];
+    Stream_t stream[MAX_RTSPSTRAM_NUM];
 }RtspServer_t;
 /*********************************************************************
 Function:  create_rtsp_Server

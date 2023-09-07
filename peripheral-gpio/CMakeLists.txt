@@ -14,16 +14,23 @@ if("${arch_value}" STREQUAL "armv7l")
 else()
 	include ($ENV{HOME}/configs/cross.cmake)
 endif()
-	
-	
+
+
 project(${CURRENT_FOLDER})
 
 add_definitions(-Wall)
 
 set(toolkit_root ${CMAKE_CURRENT_SOURCE_DIR}/../easyeai-api)
 
+# -I
+set(api_inc
+	${toolkit_root}/peripheral_api/gpio
+	)
+
 #--------------------------
 # test-gpio
 #--------------------------
+link_directories(${toolkit_root}/peripheral_api/gpio)	#-L
 add_executable(test-gpio test-gpio.c)		#-o
-target_link_libraries(test-gpio gpiod pthread)	#-l
+target_link_libraries(test-gpio gpio gpiod pthread)	#-l
+target_include_directories(test-gpio PRIVATE ${api_inc})	#-I

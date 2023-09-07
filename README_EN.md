@@ -22,6 +22,20 @@ How to use：
 
 important update log:
 ---
+> 2023-09-07 : 
+> * Release easyeai-c-demo-1.1.0
+> * update easyeai-api-1.1.0
+>   * algorithm_api
+> 	  * [new] OCR Demo
+>   * common_api
+> 	  * [new] yaml operation Demo
+>   * media_api
+> 	  * [update] stream media encode Demo
+>   * peripheral
+> 	  * [update] GPIO Demo
+> 	  * [update] Watch Dog Demo
+> 	  * [update] Audio Demo
+>
 > 2023-03-31 : 
 > * Release easyeai-c-demo-1.0.0
 >   * Adapting ubuntu firmware
@@ -31,7 +45,7 @@ important update log:
 > 2023-01-09 : 
 > * Release easyeai-c-demo-0.2.2
 > * update easyeai-api-0.2.2
->   * algorithm
+>   * algorithm_api
 > 	  * [new] face_pose_estimation Demo
 > 	  * [update] face landmark98 Demo
 > 	  * [update] face_recognition Demo
@@ -39,7 +53,7 @@ important update log:
 > 	  * [update] stream media encode & decode Demo
 >   * netProtocol_api
 > 	  * [update] rtsp Demo
->   * peripheral
+>   * peripheral_api
 > 	  * [new] netwrk Demo
 >
 > 2022-11-24 : 

@@ -57,6 +57,7 @@ typedef struct {
     uint16_t        audioChnId;  //音频通道号
     AUDIO_TYPE_E    frameFormat;
     uint32_t        frameIndex;
+    uint32_t        channelNums; //声道数，单声道，双声道，多声道
     uint32_t        sampleRateHz;//采样率，单位Hz，例如8000
     uint32_t        bitRate;     //比特率，单位bps, 例如64000
     uint32_t        dataLen;     //帧数据长度
@@ -74,18 +75,22 @@ typedef	int32_t (*RtspClientAudioCB)(void *, RTSPAudioDesc_t *, uint8_t *);
 
 // Server
 //============
-typedef	void (*VideoConnect)();
-typedef	int32_t (*VideoDataIn)(RTSPVideoDesc_t *, uint8_t *);
+typedef	void (*VideoConnect)(void *pCustomData);
+typedef	int32_t (*VideoDataIn)(void *pCustomData, RTSPVideoDesc_t *, uint8_t *);
 typedef struct {
+    VDEC_FORMAT_E eDateFmt;
     VideoConnect pConnectHook;
     VideoDataIn pDataInHook;
+    void *pCustomData;
 }RtspServerVideoHooks;
 
-typedef	void (*AudioConnect)();
-typedef	int32_t (*AudioDataIn)(RTSPAudioDesc_t *, uint8_t *);
+typedef	void (*AudioConnect)(void *pCustomData);
+typedef	int32_t (*AudioDataIn)(void *pCustomData, RTSPAudioDesc_t *, uint8_t *);
 typedef struct {
+    AUDIO_TYPE_E eDateFmt;
     AudioConnect pConnectHook;
     AudioDataIn pDataInHook;
+    void *pCustomData;
 }RtspServerAudioHooks;
 // ==========================================================================================
 
