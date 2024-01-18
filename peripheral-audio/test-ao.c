@@ -24,30 +24,32 @@ static int get_wavHeader_info(int fd, wav_format *wav)
 // ============================== 以上代码与声卡播放无关 ==============================
 // ====================================================================================
 // ============================ 以下代码为声卡播放调用逻辑 ============================
-
-int get_bits_per_sample(wav_format *wav, snd_pcm_format_t *snd_format)
+static snd_pcm_format_t get_pcmFormat(wav_format *pWavInfo)
 {
-    if((LE_SHORT(wav->format.fmt) != WAV_FMT_PCM) &&
-       (LE_SHORT(wav->format.fmt) != WAV_FMT_FLOAT))
-        return -1;
+    snd_pcm_format_t snd_format = SND_PCM_FORMAT_UNKNOWN;
+    
+    if((LE_SHORT(pWavInfo->format.fmt) != WAV_FMT_PCM) &&
+       (LE_SHORT(pWavInfo->format.fmt) != WAV_FMT_FLOAT))
+        return snd_format;
 
-    switch(LE_SHORT(wav->format.bits_per_sample))
+    switch(LE_SHORT(pWavInfo->format.bits_per_sample))
     {
         case 64:
-            *snd_format = SND_PCM_FORMAT_FLOAT64; break;
+            snd_format = SND_PCM_FORMAT_FLOAT64; break;
         case 32:    //同是32位还有: SND_PCM_FORMAT_U32、SND_PCM_FORMAT_S32
-            *snd_format = SND_PCM_FORMAT_FLOAT; break;
+            snd_format = SND_PCM_FORMAT_FLOAT; break;
         case 24:    //同是24位还有: SND_PCM_FORMAT_U24
-            *snd_format = SND_PCM_FORMAT_S24; break;
+            snd_format = SND_PCM_FORMAT_S24; break;
         case 16:    //同是24位还有: SND_PCM_FORMAT_U16
-            *snd_format = SND_PCM_FORMAT_S16; break;
+            snd_format = SND_PCM_FORMAT_S16; break;
         case 8:
-            *snd_format = SND_PCM_FORMAT_U8; break;
+            snd_format = SND_PCM_FORMAT_U8; break;
         default:
-            *snd_format = SND_PCM_FORMAT_UNKNOWN; break;
+            snd_format = SND_PCM_FORMAT_UNKNOWN; break;
     }
-    return 0;
+    return snd_format;
 }
+
 
 int main(int argc, char *argv[])
 {
@@ -66,11 +68,10 @@ int main(int argc, char *argv[])
     // 2:读取wav头并，从中提取描述该wav数据的信息，用于声卡初始化
     wav_format *wav = (wav_format *)calloc(1, sizeof(wav_format));
     get_wavHeader_info(fd, wav);    
-    snd_pcm_format_t format;
-    get_bits_per_sample(wav, &format);
+    snd_pcm_format_t format = get_pcmFormat(wav);
 
     // 3: 声卡初始化
-    ao_init(wav->format.sample_rate, wav->format.channels, format);
+    ao_init(0, wav->format.sample_rate, wav->format.channels, format);   //帧率参数填0，pcm采样周期以最大周期的1/4作为标准
 
     // 4: 读取文件数据，并送入声卡
     uint32_t written = 0;
@@ -108,6 +109,7 @@ int main(int argc, char *argv[])
     free(wav);
     
     ao_exit();
-
+    close(fd);
+    
 	return 0;
 }

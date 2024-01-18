@@ -4,42 +4,6 @@
 #include "audio.h"
 #include "wavHeader.h"
 
-// 根据[常见]采样格式计算位深度
-static uint16_t bitDepth(snd_pcm_format_t fmt)
-{
-    uint16_t depth;
-    switch (fmt){
-        case SND_PCM_FORMAT_UNKNOWN:
-            depth = 0;  break;
-        case SND_PCM_FORMAT_S8:
-        case SND_PCM_FORMAT_U8:
-            depth = 8;  break;
-        case SND_PCM_FORMAT_S16_LE:
-        case SND_PCM_FORMAT_S16_BE:
-        case SND_PCM_FORMAT_U16_LE:
-        case SND_PCM_FORMAT_U16_BE:
-            depth = 16;  break;
-        case SND_PCM_FORMAT_S24_LE:
-        case SND_PCM_FORMAT_S24_BE:
-        case SND_PCM_FORMAT_U24_LE:
-        case SND_PCM_FORMAT_U24_BE:
-            depth = 24;  break;
-        case SND_PCM_FORMAT_S32_LE:
-        case SND_PCM_FORMAT_S32_BE:
-        case SND_PCM_FORMAT_U32_LE:
-        case SND_PCM_FORMAT_U32_BE:
-        case SND_PCM_FORMAT_FLOAT_LE:
-        case SND_PCM_FORMAT_FLOAT_BE:
-            depth = 32;  break;
-        case SND_PCM_FORMAT_FLOAT64_LE:
-        case SND_PCM_FORMAT_FLOAT64_BE:
-            depth = 64;  break;
-        default: 
-            depth = 0; break;
-    }
-    return depth;
-}
-
 // 根据[常见]采样格式转换为WAV文件格式
 static uint16_t wavFmt(snd_pcm_format_t fmt)
 {
@@ -49,53 +13,52 @@ static uint16_t wavFmt(snd_pcm_format_t fmt)
             wavFmt = WAV_FMT_UNKNOW;  break;
         case SND_PCM_FORMAT_S8:
         case SND_PCM_FORMAT_U8:
-        case SND_PCM_FORMAT_S16_LE:
-        case SND_PCM_FORMAT_S16_BE:
-        case SND_PCM_FORMAT_U16_LE:
-        case SND_PCM_FORMAT_U16_BE:
-        case SND_PCM_FORMAT_S24_LE:
-        case SND_PCM_FORMAT_S24_BE:
-        case SND_PCM_FORMAT_U24_LE:
-        case SND_PCM_FORMAT_U24_BE:
-        case SND_PCM_FORMAT_S32_LE:
-        case SND_PCM_FORMAT_S32_BE:
-        case SND_PCM_FORMAT_U32_LE:
-        case SND_PCM_FORMAT_U32_BE:
+        case SND_PCM_FORMAT_S16:
+        case SND_PCM_FORMAT_U16:
+        case SND_PCM_FORMAT_S24:
+        case SND_PCM_FORMAT_U24:
+        case SND_PCM_FORMAT_S32:
+        case SND_PCM_FORMAT_U32:
             wavFmt = WAV_FMT_PCM; break;
-        case SND_PCM_FORMAT_FLOAT_LE:
-        case SND_PCM_FORMAT_FLOAT_BE:
-        case SND_PCM_FORMAT_FLOAT64_LE:
-        case SND_PCM_FORMAT_FLOAT64_BE:
+        case SND_PCM_FORMAT_FLOAT:
+        case SND_PCM_FORMAT_FLOAT64:
             wavFmt = WAV_FMT_FLOAT; break;
         default: 
             wavFmt = WAV_FMT_UNKNOW; break;
     }
     return wavFmt;
 }
-
-// 准备WAV格式参数
-#define DURATION_TIME 5
-void prepare_wav_params(wav_format *wav, uint32_t sampleRate, uint16_t channels, snd_pcm_format_t fmt)
+static wav_format *create_wavInfo(uint32_t sampleRate, uint16_t channels, snd_pcm_format_t fmt, int32_t recTimes)
 {
-    uint16_t frameSize = channels * (bitDepth(fmt)>>3); //一帧音频数据所占的内存大小
-    uint32_t pcm1sSize = sampleRate * frameSize;   //一秒音频数据所占的内存大小
-    wav->format.fmt_id   = FMT;
-    wav->format.fmt_size = LE_INT(16);
-    wav->format.fmt      = LE_SHORT(wavFmt(fmt));
-    wav->format.channels = LE_SHORT(channels);
-    wav->format.sample_rate     = LE_INT(sampleRate);
-    wav->format.byte_rate       = LE_INT(pcm1sSize);
-    wav->format.block_align     = LE_SHORT(frameSize);
-    wav->format.bits_per_sample = LE_SHORT(bitDepth(fmt));
-
-    uint32_t dataSize = DURATION_TIME * pcm1sSize;
-    wav->data.data_id   = DATA;
-    wav->data.data_size = LE_INT(dataSize);
+    wav_format *pWavIno = calloc(1, sizeof(wav_format));
+    if(NULL == pWavIno){
+        printf("create wavInfo faild!\n");
+        return NULL;
+    }
     
-    wav->head.id     = RIFF;
-    wav->head.size   = LE_INT(36 + dataSize);
-    wav->head.format = WAVE;
+    size_t bitDepth = snd_pcm_format_physical_width(fmt);
+    uint16_t frameSize = channels * (bitDepth>>3); //一帧音频数据所占的内存大小
+    uint32_t pcm1sSize = sampleRate * frameSize;   //一秒音频数据所占的内存大小
+    pWavIno->format.fmt_id   = FMT;
+    pWavIno->format.fmt_size = LE_INT(16);
+    pWavIno->format.fmt      = LE_SHORT(wavFmt(fmt));
+    pWavIno->format.channels = LE_SHORT(channels);
+    pWavIno->format.sample_rate     = LE_INT(sampleRate);
+    pWavIno->format.byte_rate       = LE_INT(pcm1sSize);
+    pWavIno->format.block_align     = LE_SHORT(frameSize);
+    pWavIno->format.bits_per_sample = LE_SHORT(bitDepth);
+
+    uint32_t dataSize = recTimes * pcm1sSize;
+    pWavIno->data.data_id   = DATA;
+    pWavIno->data.data_size = LE_INT(dataSize);
+    
+    pWavIno->head.id     = RIFF;
+    pWavIno->head.size   = LE_INT(36 + dataSize);
+    pWavIno->head.format = WAVE;
+
+    return pWavIno;
 }
+
 
 // ============================== 以上代码与声卡采集无关 ==============================
 // ====================================================================================
@@ -111,7 +74,7 @@ int main(int argc, char *argv[])
     // PCM音频3大关键参数：
     snd_pcm_format_t format = SND_PCM_FORMAT_FLOAT_LE;   //采样格式
     uint32_t sampleRate = 44100;    //采样率
-    uint16_t channels   = 2;        //通道数
+    uint16_t channels   = 1;        //通道数
 
     // 1: 打开WAV格式文件
     int fd = open(argv[1], O_CREAT|O_WRONLY|O_TRUNC, 0777);
@@ -121,14 +84,17 @@ int main(int argc, char *argv[])
     }
 
     // 2: 写WAV格式的文件头
-    wav_format *wav = calloc(1, sizeof(wav_format));
-    prepare_wav_params(wav, sampleRate, channels, format);
+    wav_format *wav = create_wavInfo(sampleRate, channels, format, 10);
+    if(NULL == wav){
+        perror("create_wavInfo() error");
+        exit(1);
+    }
     write(fd, &wav->head, sizeof(wav->head));
     write(fd, &wav->format, sizeof(wav->format));
     write(fd, &wav->data, sizeof(wav->data));
 
     // 3: 初始化声卡
-	ai_init(sampleRate, channels, format);
+	ai_init(0, sampleRate, channels, format);   //帧率参数填0，pcm采样周期以最大周期的1/4作为标准
 
     // 4: 读取声卡数据并写入wav文件。
     uint32_t total_bytes = wav->data.data_size;
@@ -142,6 +108,7 @@ int main(int argc, char *argv[])
     }
 
 	ai_exit();
+    free(wav);
 
 	return 0;
 }

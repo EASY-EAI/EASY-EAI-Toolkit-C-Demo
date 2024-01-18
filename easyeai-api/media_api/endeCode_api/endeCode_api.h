@@ -95,6 +95,7 @@ typedef struct {
     uint32_t channel;
     uint32_t buf_size;
     uint32_t frameIndex;
+    uint32_t eos;
     uint32_t width;
     uint32_t height;
     uint32_t hor_stride;
@@ -133,7 +134,7 @@ extern int32_t create_decMedia_channel(uint32_t *u32ChannelId);
 extern int32_t close_decMedia_channel(uint32_t u32ChannelId);
 extern int32_t set_decMedia_channel_callback(uint32_t u32ChannelId, VideoFrameCB pFunc, void *pRecObj);
 extern int32_t push_node_in_decMedia_channel(uint32_t u32ChannelId, VideoNodeDesc *pNodeDesc, uint8_t *pData);
-extern int32_t push_buff_in_decMedia_channel(uint32_t u32ChannelId, uint8_t *pData, VDEC_CHN_FORMAT_E vFmt, uint32_t dataLen, uint8_t isEOS);
+extern int32_t push_buff_in_decMedia_channel(uint32_t u32ChannelId, uint8_t *pData, VDEC_CHN_FORMAT_E vFmt, uint32_t dataLen, uint8_t isEOS, uint32_t fps);
 
 extern int32_t create_decMedia_audio_channel(uint32_t *u32ChannelId);
 extern int32_t close_decMedia_audio_channel(uint32_t u32ChannelId);
@@ -212,9 +213,9 @@ extern int32_t create_encMedia_channel(int32_t *i32ChannelId);
 extern int32_t close_encMedia_channel(int32_t i32ChannelId);
 extern int32_t set_encMedia_channel_callback(int32_t i32ChannelId, VideoStreamCB pFunc, void *pRecObj);
 extern int32_t set_encMedia_channel_workPara(int32_t i32ChannelId, WorkPara *wp, AdvanceWorkPara *awp);
-extern int32_t push_frame_to_encMedia_channel(int32_t i32ChannelId, void *pData, uint32_t dataLen);
+extern int32_t push_frame_to_encMedia_channel(int32_t i32ChannelId, void *pData, uint32_t dataLen, uint8_t bIsEOS);
 extern   void *map_inBuffer_from_encMedia_channel(int32_t i32ChannelId, size_t *maxbufSize);
-extern int32_t commit_buffer_to_encMedia_channel(int32_t i32ChannelId);
+extern int32_t commit_buffer_to_encMedia_channel(int32_t i32ChannelId, uint8_t bIsEOS);
 extern int32_t request_encMedia_channel_outIFrame(int32_t i32ChannelId);
 
 

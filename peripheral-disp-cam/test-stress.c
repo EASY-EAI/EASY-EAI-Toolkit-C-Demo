@@ -22,7 +22,7 @@ int main()
 	int ret = 0;
 
 	/* display init */
-	ret = disp_init(DISP_WIDTH, DISP_HEIGHT); //RGB888 default
+	ret = disp_init(DISP_WIDTH, DISP_HEIGHT); //BGR888 default
 	if (ret) {
 		printf("error func:%s, line:%d\n", __func__, __LINE__);
 		goto exit1;

@@ -44,7 +44,7 @@ int main()
 	screen.screen_width = DISP_WIDTH;
 	screen.screen_height = DISP_HEIGHT;
 	screen.wins[0].enable = 1;
-	screen.wins[0].in_fmt = IMAGE_TYPE_RGB888;
+	screen.wins[0].in_fmt = IMAGE_TYPE_BGR888;
 	screen.wins[0].in_w = CAMERA_WIDTH;
 	screen.wins[0].in_h = CAMERA_HEIGHT;
 	screen.wins[0].rotation = 0;
@@ -53,7 +53,7 @@ int main()
 	screen.wins[0].win_w = 360;
 	screen.wins[0].win_h = 640;
 	screen.wins[1].enable = 1;
-	screen.wins[1].in_fmt = IMAGE_TYPE_RGB888;
+	screen.wins[1].in_fmt = IMAGE_TYPE_BGR888;
 	screen.wins[1].in_w = CAMERA_WIDTH;
 	screen.wins[1].in_h = CAMERA_HEIGHT;
 	screen.wins[1].rotation = 0;

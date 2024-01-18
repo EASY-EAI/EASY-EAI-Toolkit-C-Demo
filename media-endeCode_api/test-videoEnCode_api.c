@@ -44,7 +44,6 @@ int32_t StreamOutpuHandle(void *obj, VideoNodeDesc *pNodeDesc, uint8_t *pNALUDat
     if(fp_output){
         fwrite(pNALUData, 1, pNodeDesc->dwDataLen, fp_output);
     }
-
     return 0;
 }
 
@@ -101,12 +100,13 @@ int main(int argc, char **argv)
     }
 
     /* ============================ 送帧进入编码通道 ============================= */
+    uint8_t isEOS = false;
     while(1){
         if(0 < fread(pbuf, IMAGE_SIZE, 1, fp_input)){
             count++;    
             //printf("put [%03d] frame in enCoder ...\n", count);
-        
-    		push_frame_to_encMedia_channel(encodeChn_Id, pbuf, IMAGE_SIZE);
+            isEOS = (256 <= count) ? true : false;
+    		push_frame_to_encMedia_channel(encodeChn_Id, pbuf, IMAGE_SIZE, isEOS);
             usleep(10*1000);
         }else{
             usleep(100*1000);

@@ -113,7 +113,7 @@ void readFrameToDecodeQueue(uint32_t chnId, const char *filename)
 
 			if(dataLen){
 				//成功取流，送流进入解码器的输入队列
-				push_buff_in_decMedia_channel(chnId, (uint8_t *)pBuf, VDEC_CHN_FORMAT_H264, dataLen, (uint8_t)bIsEndOfStream);
+				push_buff_in_decMedia_channel(chnId, (uint8_t *)pBuf, VDEC_CHN_FORMAT_H264, dataLen, (uint8_t)bIsEndOfStream, 25);
 			}
 		}
 		// 4.取流完毕关闭文件
@@ -128,11 +128,12 @@ static int frame_count = 0;
 int32_t VideoFrameHandle(void *pRecObj, VideoFrameData *pFrame)
 {
 	frame_count++;
-	printf("[frame][%03d] -- [stride[width x height]] = [%u x %u[%u x %u]], pts[%lld] size = %u\n", frame_count, 
+	printf("[frame][%03d] -- [stride[width x height]] = [%u x %u[%u x %u]], pts[%lld] size = %u, eos:%u\n", frame_count, 
         pFrame->hor_stride, pFrame->ver_stride, 
         pFrame->width, pFrame->height, 
         pFrame->pts,
-        pFrame->buf_size);
+        pFrame->buf_size,
+        pFrame->eos);
     
 	if(250 == frame_count){
 		// 可用该命令播放：mplayer -demuxer rawvideo -rawvideo w=720:h=576:format=nv12 pic.nv12 -loop 0

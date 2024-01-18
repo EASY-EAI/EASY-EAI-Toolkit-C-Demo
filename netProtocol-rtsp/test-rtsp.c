@@ -56,7 +56,19 @@ void open_record_file_by_time(uint64_t time_stamp)
 //  ===============================  以下是rtsp必要代码  ===============================
 void myPrintFunction(const char *strMsg)
 {
-	printf("[myPrintFunction]----%s", strMsg);
+#if 1
+    static char strOut[2048] = {0};
+
+    int strTail = strlen(strOut);
+    if('\n' == strOut[strTail-1]){
+	    printf("[myPrintFunction]----%s", strOut);
+        bzero(strOut, sizeof(strOut));
+    }else{
+        strcpy(strOut+strTail, strMsg);
+    }
+#else
+    printf("%s", strMsg);
+#endif
 }
 
 int32_t VideoHandle(void *pCapturer, RTSPVideoDesc_t *pNodeDesc, uint8_t *pData)

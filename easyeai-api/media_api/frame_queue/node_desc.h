@@ -56,6 +56,20 @@ typedef enum
     VDEC_CHN_FORMAT_H265,
 } VDEC_CHN_FORMAT_E;
 
+/*
+ * G.711是国际电信联盟ITU-T定制出来的一套语音压缩标准，它代表了对数PCM（logarithmic pulse-code modulation）抽样标准，是主流的波形声音编解码标准，主要用于电话。
+ *     1,主要用脉冲编码调制对音频采样，采样率为8k每秒。它利用一个 64Kbps 未压缩通道传输语音讯号。
+ *     2,压缩率为1：2， 即把16位成8位。
+ 
+ * G.711 标准下主要有两种压缩算法。
+ *     1,u-law algorithm （又称u-law, ulaw, mu-law），主要运用于北美和日本。
+ *     2,A-law algorithm，主要运用于欧洲和世界其他地区。特别设计用来方便计算机处理的。
+ 
+ * G.711将14bit(uLaw)或者13bit(aLaw)采样的PCM数据编码成8bit的数据流，播放的时候在将此8bit的数据还原成14bit或者13bit进行播放，
+   不同于MPEG这种对于整体或者一段数据进行考虑再进行编解码的做法，G711是波形编解码算法，就是一个sample对应一个编码，所以压缩比固定为：
+ *     1,8/14 = 57% (uLaw)
+ *     2,8/13 = 62% (aLaw)
+ */
 typedef enum
 {
     ADEC_CHN_FORMAT_G711_A, //G.711 A律(PCMA)

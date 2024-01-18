@@ -22,6 +22,17 @@ How to use：
 
 important update log:
 ---
+> 2024-01-18 : 
+> * Release easyeai-c-demo-1.2.0
+> * update easyeai-api-1.2.10
+>   * media_api
+> 	  * [update] stream media codec Demo
+>   * netProtocol_api
+> 	  * [update] rtsp Demo
+>   * peripheral
+> 	  * [update] camera Demo
+> 	  * [update] audio Demo
+>
 > 2023-09-07 : 
 > * Release easyeai-c-demo-1.1.0
 > * update easyeai-api-1.1.0

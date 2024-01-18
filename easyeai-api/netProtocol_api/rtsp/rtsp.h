@@ -44,6 +44,7 @@ typedef struct {
 	char rtspUrl[512];
 	char userName[64];
 	char password[64];
+    uint32_t uStreamWaitTimeOut; // 发送PLAY后的等流超时：默认为2秒，若超过这个时间RtspServer还没有流过来，则Clinet端会发起重连流程。
     bool bUseTcpConnect;    // 默认为false[使用UDP连接]，但使用UDP链接会因丢包导致解码失败(直到下一个IDR帧)。
 	bool bNoSPSPPSInStream; // 默认为false。裸流为非标准流时填ture，会在I帧前面补插SPS和PPS序列。
     bool bOutputTestRecordFile; /* 除了该标志为true以外，还需要确保存在/tmp/rtspRecFiles目录 */

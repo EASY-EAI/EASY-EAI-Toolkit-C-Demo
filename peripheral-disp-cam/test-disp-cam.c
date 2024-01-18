@@ -40,7 +40,7 @@ int main()
 	}
 
 	/* display init */
-	ret = disp_init(DISP_WIDTH, DISP_HEIGHT); //RGB888 default
+	ret = disp_init(DISP_WIDTH, DISP_HEIGHT); //BGR888 default
 	if (ret) {
 		printf("error func:%s, line:%d\n", __func__, __LINE__);
 		goto exit2;
@@ -59,7 +59,7 @@ int main()
 #ifdef MIPICAMERA
 		ret = rgbcamera_getframe(pbuf);
 #else
-		//ret = usbcamera_getframe(USB2_0, USB_DIRECT, pbuf);
+		ret = usbcamera_getframe(USB2_0, USB_DIRECT, pbuf);
 #endif
 		if (!ret) {
 			/* display */
