@@ -87,6 +87,11 @@ void ircamera_exit(void);
 int ircamera_getframe(char *pbuf);
 void ircamera_set_format(int format);
 
+int mipicamera_init(int cam_index, uint32_t out_width, uint32_t out_height, int rotation);
+void mipicamera_exit(int cam_index);
+int mipicamera_getframe(int cam_index, char *pbuf);
+void mipicamera_set_format(int cam_index, int format);
+
 #ifdef __cplusplus
 }
 #endif

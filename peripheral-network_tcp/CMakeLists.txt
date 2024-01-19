@@ -29,23 +29,19 @@ add_definitions(-Wall)
 
 set(toolkit_root ${CMAKE_CURRENT_SOURCE_DIR}/../easyeai-api)
 
-# -I
-set(api_inc
-	${toolkit_root}/peripheral_api/tcpsocket
-	)
 
 #--------------------------
 # client
 #--------------------------
+set(tcpclient test-tcpclient)
 link_directories(${toolkit_root}/peripheral_api/tcpsocket)	#-L
-add_executable(tcpclient tcpclient.c)		#-o
-target_link_libraries(tcpclient pthread)	#-l
-target_include_directories(tcpclient PRIVATE ${api_inc})	#-I
+add_executable(${tcpclient} test-tcpclient.c)		#-o
+target_link_libraries(${tcpclient} pthread)	#-l
 
 #--------------------------
 # server
 #--------------------------
+set(tcpserver test-tcpserver)
 link_directories(${toolkit_root}/peripheral_api/tcpsocket)	#-L
-add_executable(tcpserver tcpserver.c)		#-o
-target_link_libraries(tcpserver pthread)	#-l
-target_include_directories(tcpserver PRIVATE ${api_inc})	#-I
+add_executable(${tcpserver} test-tcpserver.c)		#-o
+target_link_libraries(${tcpserver} pthread)	#-l

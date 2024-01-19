@@ -113,7 +113,7 @@ void readFrameToDecodeQueue(uint32_t chnId, const char *filename)
 
 			if(dataLen){
 				//成功取流，送流进入解码器的输入队列
-				push_buff_in_decMedia_channel(chnId, (uint8_t *)pBuf, VDEC_CHN_FORMAT_H264, dataLen, (uint8_t)bIsEndOfStream);
+				push_buff_in_decMedia_channel(chnId, (uint8_t *)pBuf, VDEC_CHN_FORMAT_H264, dataLen, (uint8_t)bIsEndOfStream, 25);
 			}
 		}
 		// 4.取流完毕关闭文件

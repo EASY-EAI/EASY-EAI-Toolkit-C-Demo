@@ -23,6 +23,7 @@ set(toolkit_root ${CMAKE_CURRENT_SOURCE_DIR}/../easyeai-api)
 
 # -L
 link_directories(${toolkit_root}/common_api/system_opt)
+
 # -I
 set(api_inc
 	${CMAKE_SYSROOT}/usr/include/rkfacial
@@ -43,17 +44,4 @@ add_executable(test-thread-opt test-thread-opt.c) #-o
 target_link_libraries(test-thread-opt system_opt pthread ini stdc++) #-l
 target_include_directories(test-thread-opt PRIVATE ${api_inc}) #-I
 
-#--------------------------
-# test-IPC-opt_Client
-#--------------------------
-add_executable(test-IPC-opt_Client test-IPC-opt_Client.c) #-o
-target_link_libraries(test-IPC-opt_Client system_opt pthread ini stdc++) #-l
-target_include_directories(test-IPC-opt_Client PRIVATE ${api_inc}) #-I
-
-#--------------------------
-# test-IPC-opt_Server
-#--------------------------
-add_executable(test-IPC-opt_Server test-IPC-opt_Server.c) #-o
-target_link_libraries(test-IPC-opt_Server system_opt pthread ini stdc++) #-l
-target_include_directories(test-IPC-opt_Server PRIVATE ${api_inc}) #-I
 

@@ -32,7 +32,7 @@ set(api_inc
 #--------------------------
 link_directories(${toolkit_root}/common_api/base64) #-L
 add_executable(test-base64 test-base64.c) #-o
-target_link_libraries(test-base64 stdc++ pthread base64) #-l
+target_link_libraries(test-base64  pthread base64 stdc++) #-l
 target_include_directories(test-base64 PRIVATE ${api_inc}) #-I
 
 

@@ -30,9 +30,11 @@ set(api_inc
 #--------------------------
 # test-rtsp
 #--------------------------
+link_directories(${toolkit_root}/common_api/log_manager)
 link_directories(${toolkit_root}/netProtocol_api/rtsp) #-L
+
 add_executable(test-rtsp test-rtsp.c) #-o
-target_link_libraries(test-rtsp rtsp liveMedia groupsock BasicUsageEnvironment UsageEnvironment crypto ssl stdc++) #-l
+target_link_libraries(test-rtsp rtsp    log_manager  ini pthread stdc++) #-l
 target_include_directories(test-rtsp PRIVATE ${api_inc}) #-I
 
 

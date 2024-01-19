@@ -41,9 +41,9 @@ void close_record_file()
 
 uint64_t get_time_stamp()
 {
-    struct timeval tv;	
-	gettimeofday(&tv, NULL);	
-	return (uint64_t)tv.tv_sec;
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    return (uint64_t)tv.tv_sec;
 }
 void open_record_file_by_time(uint64_t time_stamp)
 {
@@ -60,7 +60,7 @@ void myPrintFunction(const char *strMsg)
 }
 
 int32_t VideoHandle(void *pCapturer, RTSPVideoDesc_t *pNodeDesc, uint8_t *pData)
-{	
+{
 	if(1 == pNodeDesc->frameType){	
 		if(0 == g_IFrame_cout){
 			open_record_file_by_time(get_time_stamp());
@@ -105,7 +105,7 @@ int main(void)
 	
 	set_rtsp_client_printf(myPrintFunction);
 	
-	set_rtsp_client_video_callback(VideoHandle, NULL);
+	set_rtsp_client_callback(VideoHandle, NULL, NULL);
 	
 	create_rtsp_client_channel(&rtspChn);
 

@@ -2,6 +2,7 @@
 #define SELF_LEARNING_H
 
 #include "rknn_api.h"
+#include <opencv2/opencv.hpp>
 
 struct self_learning_data
 {

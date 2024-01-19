@@ -34,7 +34,7 @@ link_directories(${toolkit_root}/algorithm_api/qrdecode)
 #--------------------------
 add_executable(test-qrdecode test-qrdecode.cpp)		#-o
 target_include_directories(test-qrdecode PRIVATE ${api_inc})	#-I
-target_link_libraries(test-qrdecode pthread qrdecode zbar  
+target_link_libraries(test-qrdecode pthread qrdecode 
     -lopencv_calib3d 
     -lopencv_core 
     -lopencv_dnn 

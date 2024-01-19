@@ -22,6 +22,9 @@
 extern "C" {
 #endif
 
+extern bool string_is_json_object(const char *json_str);
+
+
 extern int32_t get_int32_from_json(const char *json_str, const char *key);
 extern int32_t get_string_from_json(const char *json_str, const char *key, char *data, uint32_t dataLen);
 extern int32_t get_object_from_json(const char *json_str, const char *key, char *data, uint32_t dataLen);
@@ -42,11 +45,12 @@ extern void  add_string_to_object(void *pObj, const char * const key, const char
 extern void *add_object_to_object(void *pParentObj, const char * const subObjName);
 extern void  add_object_to_object2(void *pParentObj, const char * const subObjName, void *pSubObj);
 extern void  add_object_to_object3(void *pParentObj, const char * const subObjName, char *pSubObjSrt);
+extern void *create_item_object(const char *contents);
 extern void *create_list_object();
 extern void  add_item_to_list(void *pList, void *pItem);
 extern void *add_list_to_object(void *pParentObj, const char * const listName);
 extern void  add_list_to_object2(void *pParentObj, const char * const listName, void *pListObj);
-extern char *object_data(void *pObject);
+extern char *object_data(void *pObject, bool bIsUnformatted);
 extern void  free_data(char *pData);
 // 说明：
 //     1、该接口类似于free。

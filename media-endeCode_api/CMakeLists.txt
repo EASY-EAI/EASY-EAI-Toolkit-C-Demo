@@ -24,22 +24,29 @@ set(toolkit_root ${CMAKE_CURRENT_SOURCE_DIR}/../easyeai-api)
 # -I
 set(api_inc
 	${CMAKE_SYSROOT}/usr/include/rkfacial
+	${toolkit_root}/common_api/log_manager
 	${toolkit_root}/media_api/endeCode_api
 	)
 
 #--------------------------
 # test-videoDeCode_api.c
 #--------------------------
+link_directories(${toolkit_root}/common_api/system_opt)
+link_directories(${toolkit_root}/common_api/log_manager)
 link_directories(${toolkit_root}/media_api/endeCode_api) #-L
+
 add_executable(test-videoDeCode_api test-videoDeCode_api.c) #-o
-target_link_libraries(test-videoDeCode_api endeCode_api rockchip_mpp pthread stdc++ rt) #-l
+target_link_libraries(test-videoDeCode_api endeCode_api system_opt log_manager ini rockchip_mpp avcodec avutil swresample pthread stdc++ rt) #-l
 target_include_directories(test-videoDeCode_api PRIVATE ${api_inc}) #-I
 
 #--------------------------
 # test-videoEnCode_api.c
 #--------------------------
+link_directories(${toolkit_root}/common_api/system_opt)
+link_directories(${toolkit_root}/common_api/log_manager)
 link_directories(${toolkit_root}/media_api/endeCode_api) #-L
+
 add_executable(test-videoEnCode_api test-videoEnCode_api.c) #-o
-target_link_libraries(test-videoEnCode_api endeCode_api rockchip_mpp pthread stdc++) #-l
+target_link_libraries(test-videoEnCode_api endeCode_api system_opt log_manager ini rockchip_mpp avcodec avutil swresample pthread stdc++) #-l
 target_include_directories(test-videoEnCode_api PRIVATE ${api_inc}) #-I
 

@@ -38,12 +38,15 @@ set(api_inc
    ${CMAKE_SYSROOT}/usr/include/rkfacial
    ${toolkit_root}/peripheral_api/iic
 )
-link_directories(${toolkit_root}/peripheral_api/iic) #-L
-add_executable(test_can-reception test-can-reception.c) #-o
-target_link_libraries(test_can-reception stdc++ iic) #-l
-target_include_directories(test_can-reception PRIVATE ${api_inc}) #-I
 
+set(can_reception test-can_reception)
 link_directories(${toolkit_root}/peripheral_api/iic) #-L
-add_executable(test_can-send test-can-send.c) #-o
-target_link_libraries(test_can-send stdc++ iic) #-l
-target_include_directories(test_can-send PRIVATE ${api_inc}) #-I
+add_executable(${can_reception} test-can_reception.c) #-o
+target_link_libraries(${can_reception} stdc++ iic) #-l
+target_include_directories(${can_reception} PRIVATE ${api_inc}) #-I
+
+set(can_send test-can_send)
+link_directories(${toolkit_root}/peripheral_api/iic) #-L
+add_executable(${can_send} test-can_send.c) #-o
+target_link_libraries(${can_send} stdc++ iic) #-l
+target_include_directories(${can_send} PRIVATE ${api_inc}) #-I

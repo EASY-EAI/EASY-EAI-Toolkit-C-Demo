@@ -41,16 +41,19 @@ typedef	void (*printMessage)(const char *);
 typedef struct {
     uint16_t uDecChn;       // 被绑定的解码通道
 	char progName[128];
-	char rtspUrl[128];
-	char userName[32];
-	char password[32];
+	char rtspUrl[512];
+	char userName[64];
+	char password[64];
+    uint32_t uStreamWaitTimeOut; // 发送PLAY后的等流超时：默认为2秒，若超过这个时间RtspServer还没有流过来，则Clinet端会发起重连流程。
     bool bUseTcpConnect;    // 默认为false[使用UDP连接]，但使用UDP链接会因丢包导致解码失败(直到下一个IDR帧)。
+	bool bNoSPSPPSInStream; // 默认为false。裸流为非标准流时填ture，会在I帧前面补插SPS和PPS序列。
     bool bOutputTestRecordFile; /* 除了该标志为true以外，还需要确保存在/tmp/rtspRecFiles目录 */
 
     bool bIsRunning;
     bool bSkipNOIFrame;
     bool bHaveGetSPSInfo;   //h265 get resolution from sps frame flag
 	void *pAuthenticator;
+    uint16_t rtspSupOPTIONS;
 	pid_t rtspClientPid;
     
     uint32_t uWidth;        // 实际宽度
@@ -59,7 +62,6 @@ typedef struct {
     uint32_t uAllHeight;    // 总高度
     uint32_t uFrameRate;    // 帧率
     int32_t sStreamDecType; // 码流格式类型
-	uint8_t byCheckSDPSps;
 } RTSP_Chn_t;
 
 // It is used to set the internal print output callback function of the toolikit interface --- (just ignore)
@@ -84,24 +86,30 @@ Return:
 extern void set_rtsp_client_printf(printMessage pPrintFunc);
 
 /*********************************************************************
-Function:  set_rtsp_client_video_callback
+Function:  set_rtsp_client_callback
 Description:
 	设置rtsp取流回调函数，rtsp客户端从服务器获取的码流数据会送入回调函数
 Example:
-    int32_t video_handle(void *pCapturer, VideoNodeDesc_t *pNodeDesc, uint8_t *pData)
+    int32_t video_handle(void *pCapturer, RTSPVideoDesc_t *pNodeDesc, uint8_t *pData)
     {
     	printf("Width = %u, Height = %u\n", pNodeDesc->u32_Width, pNodeDesc->u32_Height);
     	return 0;
     }
-    set_rtsp_client_video_callback(video_handle, NULL);
+    int32_t audio_handle(void *pCapturer, RTSPAudioDesc_t *pNodeDesc, uint8_t *pData)
+    {
+    	printf("Width = %u, Height = %u\n", pNodeDesc->u32_Width, pNodeDesc->u32_Height);
+    	return 0;
+    }
+    set_rtsp_client_callback(video_handle, audio_handle, NULL);
 parameter:
-    pCBFunc: 回调函数入口。
-    *para:   回调函数的传入参数，可以为解码器等指针，也可以为NULL。
+    pVideoCBFunc: 视频回调函数入口。
+    pAudioCBFunc: 音频回调函数入口。
+    *para:   回调函数的传入参数，可以为取流器等指针，也可以为NULL。
 Return:
 	0：成功
 	-1：失败
 ********************************************************************/
-extern int32_t set_rtsp_client_video_callback(RtspClientVideoCB pCBFunc, void *para);
+extern int32_t set_rtsp_client_callback(RtspClientVideoCB pVideoCBFunc, RtspClientAudioCB pAudioCBFunc, void *para);
 
 /*********************************************************************
 Function:  create_rtsp_client_channel
@@ -125,6 +133,7 @@ extern int32_t close_rtsp_client_channel(RTSP_Chn_t *pChnInfo);
 
 
 //Server
+#define MAX_RTSPSTRAM_NUM 4 //服务器可发出的最大RTSP流路数，此值不允许更改。
 typedef struct{
     bool bEnable;
     char strName[16];
@@ -133,7 +142,7 @@ typedef struct{
 }Stream_t;
 typedef struct{
     uint16_t port;
-    Stream_t stream[1];
+    Stream_t stream[MAX_RTSPSTRAM_NUM];
 }RtspServer_t;
 /*********************************************************************
 Function:  create_rtsp_Server

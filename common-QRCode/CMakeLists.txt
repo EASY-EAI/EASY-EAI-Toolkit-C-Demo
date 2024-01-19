@@ -32,7 +32,7 @@ set(api_inc
 #--------------------------
 link_directories(${toolkit_root}/common_api/qrencode) #-L
 add_executable(test-QRCode test-QRCode.c) #-o
-target_link_libraries(test-QRCode stdc++ pthread qrencode opencv_core opencv_highgui opencv_imgproc opencv_imgcodecs ) #-l
+target_link_libraries(test-QRCode qrencode stdc++ pthread  opencv_core opencv_highgui opencv_imgproc opencv_imgcodecs ) #-l
 target_include_directories(test-QRCode PRIVATE ${api_inc}) #-I
 
 

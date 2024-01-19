@@ -29,24 +29,21 @@ add_definitions(-Wall)
 
 set(toolkit_root ${CMAKE_CURRENT_SOURCE_DIR}/../easyeai-api)
 
+
 #--------------------------
 # test-spi
 #--------------------------
 
-# -I
 set(api_inc
-   ${CMAKE_SYSROOT}/usr/include/rkfacial
    ${toolkit_root}/peripheral_api/spi
    ${CMAKE_CURRENT_SOURCE_DIR}/include/
-)
+)# -I
 
+link_directories(${toolkit_root}/peripheral_api/spi) #-L
 
 aux_source_directory(./src dir_srcs)
 
-link_directories(${toolkit_root}/peripheral_api/spi) #-L
-add_executable(test_spi ${dir_srcs})  #-o
-target_link_libraries(test_spi spi stdc++) #-l
-target_include_directories(test_spi PRIVATE ${api_inc}) #-I
-
-
+add_executable(test-spi ${dir_srcs})  #-o
+target_link_libraries(test-spi spi stdc++) #-l
+target_include_directories(test-spi PRIVATE ${api_inc}) #-I
 

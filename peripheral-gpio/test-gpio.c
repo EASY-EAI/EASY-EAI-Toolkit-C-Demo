@@ -1,55 +1,32 @@
-#include <gpiod.h>
-#include <stdio.h>
-#include <unistd.h>
+#include "stdio.h"
+#include "gpio.h"
 
-#ifndef	CONSUMER
-#define	CONSUMER	"Consumer"
-#endif
+#define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
+static const GPIOCfg_t gpioCfg_tab[] = {
+	{
+		.pinName   = "GPIO3_B2",
+		.direction = DIR_OUTPUT,
+		.val       = 0,
+	}, {
+		.pinName   = "GPIO3_B3",
+		.direction = DIR_OUTPUT,
+		.val       = 0,
+	}, {
+		.pinName   = "GPIO3_C4",
+		.direction = DIR_INPUT,
+		.val       = 0,
+	}
+};
 
 int main(int argc, char **argv)
 {
-	char *chipname = "gpiochip3";
-	unsigned int line_num = 11;	// GPIO GPIO3_B3
-	unsigned int val;
-	struct gpiod_chip *chip;
-	struct gpiod_line *line;
-	int i, ret;
+    gpio_init(gpioCfg_tab, ARRAY_SIZE(gpioCfg_tab));
+    
+    pin_out_val("GPIO3_B2", 0);
+    pin_out_val("GPIO3_B3", 1);
+    
+    int val = read_pin_val("GPIO3_C4");
+    printf("GPIO3_C4 val : %d\n", val);
 
-	chip = gpiod_chip_open_by_name(chipname);
-	if (!chip) {
-		perror("Open chip failed\n");
-		goto end;
-	}
-
-	line = gpiod_chip_get_line(chip, line_num);
-	if (!line) {
-		perror("Get line failed\n");
-		goto close_chip;
-	}
-
-	ret = gpiod_line_request_output(line, CONSUMER, 0);
-	if (ret < 0) {
-		perror("Request line as output failed\n");
-		goto release_line;
-	}
-
-	/* Blink 20 times */
-	val = 0;
-	for (i = 20; i > 0; i--) {
-		ret = gpiod_line_set_value(line, val);
-		if (ret < 0) {
-			perror("Set line output failed\n");
-			goto release_line;
-		}
-		printf("Output %u on line #%u\n", val, line_num);
-		sleep(1);
-		val = !val;
-	}
-
-release_line:
-	gpiod_line_release(line);
-close_chip:
-	gpiod_chip_close(chip);
-end:
 	return 0;
 }

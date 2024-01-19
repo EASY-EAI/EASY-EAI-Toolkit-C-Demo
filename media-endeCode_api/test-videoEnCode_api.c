@@ -24,6 +24,7 @@
 #include <aio.h>
 
 #include "endeCode_api.h"
+#include "log_manager.h"
 
 #define SOURCE_FILE "./video.nv12"
 #define OUTPUT_FILE "./output.264"
@@ -47,7 +48,7 @@ int32_t StreamOutpuHandle(void *obj, VideoNodeDesc *pNodeDesc, uint8_t *pNALUDat
     return 0;
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
     int ret = 0, count = 0;
 
@@ -59,13 +60,14 @@ int main(void)
     WorkPara wp;
     //AdvanceWorkPara awp;
 	
-	uint32_t encodeChn_Id;
+	int32_t encodeChn_Id;
     create_encoder(MAXCHNNUM);
+#if 1 //正常编码逻辑
 	create_encMedia_channel(&encodeChn_Id);
 	if((0 <= encodeChn_Id) && (encodeChn_Id < MAXCHNNUM)){
-		printf("decode channel create succ, channel Id = %u \n", encodeChn_Id);
+		printf("encode channel create succ, channel Id = %u \n", encodeChn_Id);
 	}else{
-		printf("decode channel create faild !\n");
+		printf("encode channel create faild !\n");
         goto exit3;
 	}
 
@@ -89,7 +91,7 @@ int main(void)
 	set_encMedia_channel_callback(encodeChn_Id, StreamOutpuHandle, NULL);
     memset(&wp, 0, sizeof(WorkPara));
     wp.in_fmt  = VFRAME_TYPE_NV12;
-    wp.out_fmt = VCODING_TYPE_AVC;
+    wp.out_fmt = VDEC_CHN_FORMAT_H264;
     wp.width   = FRAME_WIDTH;
     wp.height  = FRAME_HEIGHT;
     wp.out_fps = 25;
@@ -104,7 +106,7 @@ int main(void)
             count++;    
             //printf("put [%03d] frame in enCoder ...\n", count);
         
-    		push_frame_to_encMedia_channel(encodeChn_Id, pbuf, IMAGE_SIZE);
+            push_frame_to_encMedia_channel(encodeChn_Id, pbuf, IMAGE_SIZE, false);
             usleep(10*1000);
         }else{
             usleep(100*1000);
@@ -116,10 +118,44 @@ int main(void)
         fclose(fp_output);
         fp_output = NULL;
     }
-
     
     close_encMedia_channel(encodeChn_Id);
-
+#else //压力测试
+    pid_t pid = getpid();
+    char showFd_cmd[16]={0};
+    sprintf(showFd_cmd,"ls /proc/%d/fd", pid);
+    
+    // 0-初始化日志管理系统
+    log_manager_init("./", argv[0]);
+    
+    for(int i = 0; i < 500; i++){
+    	create_encMedia_channel(&encodeChn_Id);
+    	if((0 <= encodeChn_Id) && (encodeChn_Id < MAXCHNNUM)){
+    		printf("encode channel create succ, channel Id = %u \n", encodeChn_Id);
+    	}else{
+    		printf("encode channel create faild !\n");
+            goto exit3;
+    	}
+    	set_encMedia_channel_callback(encodeChn_Id, StreamOutpuHandle, NULL);
+        memset(&wp, 0, sizeof(WorkPara));
+        wp.in_fmt  = VFRAME_TYPE_NV12;
+        wp.out_fmt = VDEC_CHN_FORMAT_H264;
+        wp.width   = FRAME_WIDTH;
+        wp.height  = FRAME_HEIGHT;
+        wp.out_fps = 25;
+    	ret = set_encMedia_channel_workPara(encodeChn_Id, &wp, NULL);
+        if(ret){
+            goto exit3;
+        }
+        close_encMedia_channel(encodeChn_Id);
+        printf("\033[42mcreate chn(%d) %d times\033[0m\n", encodeChn_Id, i+1);
+        encodeChn_Id = -1;
+        system("cat /proc/meminfo | grep MemAvailable");
+        system(showFd_cmd);
+        printf("\n");
+        usleep(100*1000);
+    }
+#endif
 exit1:
     free(pbuf);
     pbuf = NULL;

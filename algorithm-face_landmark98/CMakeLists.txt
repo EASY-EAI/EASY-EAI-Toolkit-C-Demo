@@ -31,7 +31,7 @@ set(api_inc
 # -L
 link_directories(${toolkit_root}/algorithm_api/face_detect
 		 ${toolkit_root}/algorithm_api/face_alignment 
-		${toolkit_root}/algorithm_api/face_landmark98)
+		 ${toolkit_root}/algorithm_api/face_landmark98)
 
 #--------------------------
 # test-face-recognition

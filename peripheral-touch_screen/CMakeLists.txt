@@ -35,9 +35,9 @@ link_directories(${toolkit_root}/peripheral_api/touchscreen) #-L
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib) #-L
 
 
-add_executable(peripheral-touch_screen test-ts.c) #-o
-target_link_libraries(peripheral-touch_screen touchscreen ts pthread stdc++) #-l
-target_include_directories(peripheral-touch_screen PRIVATE ${api_inc}) #-I
+add_executable(test-ts test-ts.c) #-o
+target_link_libraries(test-ts touchscreen ts pthread stdc++) #-l
+target_include_directories(test-ts PRIVATE ${api_inc}) #-I
 
 
 

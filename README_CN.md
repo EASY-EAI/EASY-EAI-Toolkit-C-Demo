@@ -22,6 +22,10 @@
 
 重要更新：
 ---
+> 2024-01-19 : 
+> * 发布 easyeai-c-demo-0.3.10
+> * 更新 easyeai-api-0.3.10
+>
 > 2023-01-09 : 
 > * 发布 easyeai-c-demo-0.2.2
 > * 更新 easyeai-api-0.2.2

@@ -39,10 +39,12 @@ set(api_inc
    ${toolkit_root}/peripheral_api/iic
    include/
 )
+
+set(ads1115 test-ads1115)
 link_directories(${toolkit_root}/peripheral_api/iic) #-L
-add_executable(test_ads1115 test-ads1115.c) #-o
-target_link_libraries(test_ads1115 iic stdc++) #-l
-target_include_directories(test_ads1115 PRIVATE ${api_inc}) #-I
+add_executable(${ads1115} test-ads1115.c) #-o
+target_link_libraries(${ads1115} iic stdc++) #-l
+target_include_directories(${ads1115} PRIVATE ${api_inc}) #-I
 
 
 

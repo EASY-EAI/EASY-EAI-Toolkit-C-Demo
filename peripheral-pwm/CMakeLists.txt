@@ -38,8 +38,10 @@ set(api_inc
    ${CMAKE_SYSROOT}/usr/include/rkfacial
    ${toolkit_root}/peripheral_api/pwm
 )
+
+set(pwmTag test-pwm)
 link_directories(${toolkit_root}/peripheral_api/pwm) #-L
-add_executable(test_pwm test_pwm.c) #-o
-target_link_libraries(test_pwm pwm stdc++) #-l
-target_include_directories(test_pwm PRIVATE ${api_inc}) #-I
+add_executable(${pwmTag} test-pwm.c) #-o
+target_link_libraries(${pwmTag} pwm stdc++) #-l
+target_include_directories(${pwmTag} PRIVATE ${api_inc}) #-I
 

@@ -37,8 +37,9 @@ set(api_inc
 #--------------------------
 # test_bl_ctl
 #--------------------------
+set(bl_ctl test-bl_ctl)
 link_directories(${toolkit_root}/peripheral_api/backlight)		#-L
-add_executable(test_bl_ctl test_bl_ctl.c)						#-o
-target_link_libraries(test_bl_ctl backlight pthread)			#-l
-target_include_directories(test_bl_ctl PRIVATE ${api_inc})		#-I
+add_executable(${bl_ctl} test-bl_ctl.c)						#-o
+target_link_libraries(${bl_ctl} backlight pthread)			#-l
+target_include_directories(${bl_ctl} PRIVATE ${api_inc})		#-I
 

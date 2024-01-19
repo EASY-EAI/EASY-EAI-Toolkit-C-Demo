@@ -19,17 +19,23 @@
 extern "C" {
 #endif
 
-#include <rkmedia/rkmedia_api.h>
+#include <stdint.h>
+#include <stdbool.h>
 
-int ao_init(SAMPLE_FORMAT_E fmt, int rate, int chn, int vol);
-int ao_exit(void);
-int ao_start(char *path);
-int ao_stop(void);
+#include <alsa/asoundlib.h>
 
-int ai_init(SAMPLE_FORMAT_E fmt, int rate, int chn, int vol);
-int ai_start(char * path);
-int ai_exit(void);
-int ai_stop(void);
+// ai: audioIn
+extern int32_t  ai_init(uint32_t fps, uint32_t sampleRate, uint16_t channels, snd_pcm_format_t fmt);
+extern int32_t  ai_exit(void);
+extern uint32_t ai_pcmPeriodSize(void);
+extern uint32_t ai_readpcmData(uint32_t dataLen);
+extern uint8_t *ai_pcmBufptr(void);
+    
+// ao: audioOut
+extern int32_t  ao_init(uint32_t fps, uint32_t sampleRate, uint16_t channels, snd_pcm_format_t fmt);
+extern int32_t  ao_exit(void);
+extern int32_t  ao_writepcmBuf(uint8_t *pData, uint32_t dataLen, bool bEOS);
+
 
 #ifdef __cplusplus
 }

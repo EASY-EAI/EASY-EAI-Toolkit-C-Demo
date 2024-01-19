@@ -29,23 +29,19 @@ add_definitions(-Wall)
 
 set(toolkit_root ${CMAKE_CURRENT_SOURCE_DIR}/../easyeai-api)
 
-# -I
-set(api_inc
-	${toolkit_root}/peripheral_api/tcpsocket
-	)
 
 #--------------------------
 # client
 #--------------------------
+set(udpclient test-udpclient)
 link_directories(${toolkit_root}/peripheral_api/tcpsocket)	#-L
-add_executable(udpclient udpclient.c)		#-o
-target_link_libraries(udpclient pthread)	#-l
-target_include_directories(udpclient PRIVATE ${api_inc})	#-I
+add_executable(${udpclient} test-udpclient.c)		#-o
+target_link_libraries(${udpclient} pthread)	#-l
 
 #--------------------------
 # server
 #--------------------------
+set(udpserver test-udpserver)
 link_directories(${toolkit_root}/peripheral_api/tcpsocket)	#-L
-add_executable(udpserver udpserver.c)		#-o
-target_link_libraries(udpserver pthread)	#-l
-target_include_directories(udpserver PRIVATE ${api_inc})	#-I
+add_executable(${udpserver} test-udpserver.c)		#-o
+target_link_libraries(${udpserver} pthread)	#-l

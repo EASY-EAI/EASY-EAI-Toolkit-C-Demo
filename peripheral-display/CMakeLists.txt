@@ -41,7 +41,7 @@ set(api_inc
 #--------------------------
 link_directories(${toolkit_root}/peripheral_api/display)	#-L
 add_executable(test-display test-display.c)			#-o
-target_link_libraries(test-display display easymedia pthread)	#-l
+target_link_libraries(test-display display easymedia rga pthread)	#-l
 target_include_directories(test-display PRIVATE ${api_inc})	#-I
 
 
@@ -50,5 +50,5 @@ target_include_directories(test-display PRIVATE ${api_inc})	#-I
 #--------------------------
 link_directories(${toolkit_root}/peripheral_api/display)		#-L
 add_executable(test-display-pro test-display-pro.c)			#-o
-target_link_libraries(test-display-pro display easymedia pthread)	#-l
+target_link_libraries(test-display-pro display easymedia rga pthread)	#-l
 target_include_directories(test-display-pro PRIVATE ${api_inc})		#-I

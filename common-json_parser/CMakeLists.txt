@@ -32,7 +32,7 @@ set(api_inc
 #--------------------------
 link_directories(${toolkit_root}/common_api/json_parser) #-L
 add_executable(test-json-parser test-json-parser.c) #-o
-target_link_libraries(test-json-parser stdc++ pthread json_parser) #-l
+target_link_libraries(test-json-parser json_parser stdc++ pthread ) #-l
 target_include_directories(test-json-parser PRIVATE ${api_inc}) #-I
 
 

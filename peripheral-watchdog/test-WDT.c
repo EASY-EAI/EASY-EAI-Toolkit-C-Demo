@@ -1,7 +1,7 @@
 #include <peripheral-watchdog.h>
 #include <stdio.h>
 #include <unistd.h>
-#include<signal.h>
+#include <signal.h>
 
 void handler()
 {
@@ -16,14 +16,16 @@ void handler()
 
 int main()
 {
-    int timeout = 20;
+    int timeout = 60;
     int ret = wdt_open(timeout);
     if(ret < 0){
         printf("看门狗使能失败！！！\n");
-    }else if(ret == 0){
-        printf("看门狗使能成功，溢出时间：%d（秒）\n",timeout);
+    }else{
+        printf("看门狗使能成功，溢出时间：%d（秒）\n", ret);
     }
-    signal(2,handler);
+    
+    // 捕捉ctrl+c信号
+    signal(SIGINT, handler);
     while (1)
     {
         sleep(3);

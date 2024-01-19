@@ -27,16 +27,12 @@
 extern "C" {
 #endif
 
-// It is used to set the internal print output callback function of the toolikit interface --- (just ignore)
-// 用于设置该Toolikit接口的内部打印输出回调函数 --- (无须关心)
-extern void setFrameQueue_print(int32_t (* )(char const *filePath, int lineNum, char const *funcName, int logLevel, char const *logCon, va_list args));
-
 /*
  * 注意：
  * 1、本队列为H264、H265、AAC传输专用共享内存队列，不适合用作其他用途。
  * 2、本队列通过共享内存实现，因此在任意进程内，都为同一对象；只要通道号一样，无论在哪条进程，数据都会写入同一条通道。
  * 3、每一条进程都需要调用create_video_frame_queue_pool，进行内存在本进程的地址空间进行映射。
- * 4、本队列为循环队列，只用作数据缓冲。因此过快写入，解码不及时，同一条通道内的旧数据将会被覆盖。
+ * 4、本队列只用作数据缓冲。因此过快写入，解码不及时，会因队列被写满，新的数据无法写入而丢帧。
  * 4.1、建议使用“完整未解码帧”的方式送入队列，若以“数据流”方式送入，则有丢帧风险。
  * 5、9500-9600的key_t已被本队列占用。用户若另外有使用共享内存的需求，应避免与本队列的key冲突。
  */
@@ -45,16 +41,16 @@ extern void setFrameQueue_print(int32_t (* )(char const *filePath, int lineNum, 
 extern int32_t create_video_frame_queue_pool(uint32_t channelNum);
 extern bool    video_channel_is_empty(uint32_t videoChnId);
 extern int32_t flush_video_channel(uint32_t videoChnId);
-extern int32_t push_node_to_video_channel(uint32_t videoChnId, VideoNodeDesc *pNodeDesc, uint8_t *pbyFrameData);
-extern int32_t push_buff_to_video_channel(uint32_t videoChnId, uint8_t *pbyFrameData, VDEC_CHN_FORMAT_E vFmt, uint32_t dwDataLen, uint8_t byIsEOS);
-extern int32_t get_node_from_video_channel(uint32_t videoChnId, VideoNodeDesc *pNodeDesc, uint8_t *pbyFrameData);
+extern int32_t push_node_to_video_channel(uint32_t videoChnId, VideoNodeDesc *pNodeDesc, uint8_t *pFrameData);
+extern int32_t push_buff_to_video_channel(uint32_t videoChnId, uint8_t *pFrameData, VDEC_CHN_FORMAT_E vFmt, uint32_t u32DataLen, uint8_t u8IsEOS);
+extern int32_t get_node_from_video_channel(uint32_t videoChnId, VideoNodeDesc *pNodeDesc, uint8_t *pFrameData);
 
 
 extern int32_t create_audio_frame_queue_pool(uint32_t channelNum);
-extern bool    audio_channel_is_empty(uint32_t videoChnId);
-extern int32_t flush_audio_channel(uint32_t videoChnId);
-//extern int32_t push_node_to_audio_channel(uint32_t audioChnId, AudioNodeDesc *pNodeDesc, uint8_t *pbyFrameData);
-extern int32_t get_node_from_audio_channel(uint32_t audioChnId, AudioNodeDesc *pNodeDesc, uint8_t *pbyFrameData);
+extern bool    audio_channel_is_empty(uint32_t audioChnId);
+extern int32_t flush_audio_channel(uint32_t audioChnId);
+extern int32_t push_node_to_audio_channel(uint32_t audioChnId, AudioNodeDesc *pNodeDesc, uint8_t *pFrameData);
+extern int32_t get_node_from_audio_channel(uint32_t audioChnId, AudioNodeDesc *pNodeDesc, uint8_t *pFrameData);
 
 
 

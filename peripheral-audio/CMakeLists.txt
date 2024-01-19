@@ -31,15 +31,19 @@ set(toolkit_root ${CMAKE_CURRENT_SOURCE_DIR}/../easyeai-api)
 # -I
 set(api_inc
 	${toolkit_root}/peripheral_api/audio
-	)
+)
 
-link_directories(${toolkit_root}/peripheral_api/audio)        #-L
-add_executable(test_ao test_ao.c)				#-o
-target_link_libraries(test_ao audio easymedia pthread)		#-l
-target_include_directories(test_ao PRIVATE ${api_inc})	#-I
 
-link_directories(${toolkit_root}/peripheral_api/audio)        #-L
-add_executable(test_ai test_ai.c)				#-o
-target_link_libraries(test_ai audio easymedia pthread)		#-l
-target_include_directories(test_ai PRIVATE ${api_inc})	#-I
+set(aiTag test-ai)
+link_directories(${toolkit_root}/peripheral_api/audio)  #-L
+add_executable(${aiTag} test-ai.c)                      #-o
+target_link_libraries(${aiTag} audio asound)            #-l
+target_include_directories(${aiTag} PRIVATE ${api_inc})	#-I
+
+set(aoTag test-ao)
+link_directories(${toolkit_root}/peripheral_api/audio)  #-L
+add_executable(${aoTag} test-ao.c)                      #-o
+target_link_libraries(${aoTag} audio asound)            #-l
+target_include_directories(${aoTag} PRIVATE ${api_inc})	#-I
+
 

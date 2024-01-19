@@ -53,6 +53,9 @@ int main(int argc, char **argv)
 	rknn_context detect_ctx, face_pose_estimation_ctx;
 	std::vector<det> detect_result;
 	int ret;
+	struct timeval start;
+	struct timeval end;
+	float time_use=0;
 
 	cv::Mat src;
 	src = cv::imread(argv[1], 1);
@@ -100,7 +103,11 @@ int main(int argc, char **argv)
 
 		/* 人脸姿态估计运行 */
 		float pose_result[3];
+		gettimeofday(&start,NULL); 
 		face_pose_estimation_run(face_pose_estimation_ctx, &reize_img_rgb, pose_result);
+		gettimeofday(&end,NULL);
+		time_use=(end.tv_sec-start.tv_sec)*1000000+(end.tv_usec-start.tv_usec);//微秒
+		printf("time_use is %f\n",time_use/1000);
 
 		printf("yaw(偏航角):%f, pitch(俯仰角):%f, roll(翻滚角):%f\n", pose_result[0], pose_result[1], pose_result[2]);
 

@@ -2,6 +2,7 @@
 #define _FACE_LANDMARK98_H_
 
 #include "rknn_api.h"
+#include <opencv2/opencv.hpp>
 
 /* Declarative Area */
 typedef struct KeyPoint{

@@ -5,15 +5,21 @@ set -e
 SHELL_FOLDER=$(cd "$(dirname "$0")";pwd)
 cd $SHELL_FOLDER
 
+# clear
 if [ "$1" = "clear" ]; then
 	rm -rf build
+	rm Release/test-* -f
 	exit 0
 fi
 
+# build
 rm -rf build
 mkdir build
 cd build
 cmake ..
 make -j24
 
-cp test-qrdecode ../test-qrdecode-release
+# release
+chmod 777 test-*
+mkdir -p "../Release" && mv test-* ../Release
+
