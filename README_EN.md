@@ -22,6 +22,17 @@ How to use：
 
 important update log:
 ---
+> 2024-05-06 : 
+> * Release easyeai-c-demo-1.2.1
+> * update easyeai-api-1.2.18
+>   * algorithm_api
+> 	  * [new] BSD Demo
+> 	  * [update] body pose detect Demo
+> 	  * [update] car detect Demo
+> 	  * [update] decode QRCode Demo
+>   * peripheral_api
+> 	  * [update] iic Demo
+>
 > 2024-01-18 : 
 > * Release easyeai-c-demo-1.2.0
 > * update easyeai-api-1.2.10

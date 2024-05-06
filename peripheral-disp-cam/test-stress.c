@@ -22,7 +22,7 @@ int main()
 	int ret = 0;
 
 	/* display init */
-	ret = disp_init(DISP_WIDTH, DISP_HEIGHT); //BGR888 default
+	ret = disp_init(DISP_WIDTH, DISP_HEIGHT);
 	if (ret) {
 		printf("error func:%s, line:%d\n", __func__, __LINE__);
 		goto exit1;
@@ -46,7 +46,7 @@ int main()
         printf(">>>================================== the %d times init start \n", i);
     	/* camera init */
     	ret = rgbcamera_init(CAMERA_WIDTH, CAMERA_HEIGHT, 90);
-        ret =  ircamera_init(CAMERA_WIDTH, CAMERA_HEIGHT, 90);
+        ret = ircamera_init(CAMERA_WIDTH, CAMERA_HEIGHT, 90);
     	if (ret) {
     		printf("error func:%s, line:%d\n", __func__, __LINE__);
     	}

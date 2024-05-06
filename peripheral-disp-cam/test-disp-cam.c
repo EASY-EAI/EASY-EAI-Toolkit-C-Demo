@@ -30,7 +30,7 @@ int main()
 
 	/* camera init */
 #ifdef MIPICAMERA
-	ret = rgbcamera_init(CAMERA_WIDTH, CAMERA_HEIGHT, 0);
+	ret = rgbcamera_init(CAMERA_WIDTH, CAMERA_HEIGHT, 90);
 #else
 	ret = usbcamera_init(USB2_0, USB_DIRECT, CAMERA_WIDTH, CAMERA_HEIGHT, 0);
 #endif
@@ -40,7 +40,7 @@ int main()
 	}
 
 	/* display init */
-	ret = disp_init(DISP_WIDTH, DISP_HEIGHT); //BGR888 default
+	ret = disp_init(DISP_WIDTH, DISP_HEIGHT);
 	if (ret) {
 		printf("error func:%s, line:%d\n", __func__, __LINE__);
 		goto exit2;

@@ -2,7 +2,7 @@
 #include <opencv2/opencv.hpp>
 #include <stdio.h>
 #include <sys/time.h>
-#include"car_detect.h"
+#include"person_detect.h"
 
 using namespace cv;
 using namespace std;
@@ -40,11 +40,11 @@ int plot_one_box(Mat src, int x1, int x2, int y1, int y2, char *label, char colo
 int main(int argc, char **argv)
 {
 	/* 参数初始化 */
-	car_detect_result_group_t detect_result_group;
+	person_detect_result_group_t detect_result_group;
 
 	/* 算法模型初始化 */
 	rknn_context ctx;
-	car_detect_init(&ctx, "./car_detect.model");
+	person_detect_init(&ctx, "./bsd_person.model");
 
 	/* 算法运行 */
 	cv::Mat src;
@@ -55,7 +55,7 @@ int main(int argc, char **argv)
 	float time_use=0;
 
 	gettimeofday(&start,NULL); 
-	car_detect_run(ctx, src, &detect_result_group);
+	person_detect_run(ctx, src, &detect_result_group);
 
 	gettimeofday(&end,NULL);
 	time_use=(end.tv_sec-start.tv_sec)*1000000+(end.tv_usec-start.tv_usec);//微秒
@@ -64,14 +64,14 @@ int main(int argc, char **argv)
 	/* 算法结果在图像中画出并保存 */
 	for (int i = 0; i < detect_result_group.count; i++)
 	{
-		car_detect_result_t *det_result = &(detect_result_group.results[i]);
+		person_detect_result_t *det_result = &(detect_result_group.results[i]);
 		
-		
-		if( det_result->prop < 0.4 )
+		/*
+		if( det_result->prop < 0.3 )
 		{
 			continue;
 		}
-		
+		*/
 
 		printf("%s @ (%d %d %d %d) %f\n",
 			   det_result->name,
@@ -92,7 +92,7 @@ int main(int argc, char **argv)
 
 
 	/* 算法模型空间释放 */
-	car_detect_release(ctx);
+	person_detect_release(ctx);
 
 	return 0;
 }

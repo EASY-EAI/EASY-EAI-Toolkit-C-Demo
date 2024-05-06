@@ -5,7 +5,7 @@
 
 #define CAR_NAME_MAX_SIZE 16
 #define CAR_NUMB_MAX_SIZE 200
-#define CAR_CLASS_NUM     80
+#define CAR_CLASS_NUM     1
 #define CAR_PROP_BOX_SIZE     (5+CAR_CLASS_NUM)
 
 typedef struct

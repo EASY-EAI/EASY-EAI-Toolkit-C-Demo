@@ -23,7 +23,7 @@ int body_pose_detect_init(rknn_context *ctx, const char * path);
  * detectedKeypoints:依照keyPointsList的顺序将骨骼点存入的数组
  * personwiseKeypoints:按照detectedKeypoints的顺序给骨骼点进行匹配
  */
-int body_pose_detect_run(rknn_context ctx, cv::Mat input_image, std::vector<KeyPoint>& keyPointsList, std::vector<std::vector<KeyPoint>>& detectedKeypoints, std::vector<std::vector<int>>& personwiseKeypoints);
+int body_pose_detect_run(rknn_context ctx, cv::Mat input_image, std::vector<KeyPoint_body>& keyPointsList, std::vector<std::vector<KeyPoint_body>>& detectedKeypoints, std::vector<std::vector<int>>& personwiseKeypoints);
 
 
 /* 

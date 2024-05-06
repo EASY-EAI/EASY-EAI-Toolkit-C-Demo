@@ -54,8 +54,8 @@ int main(int argc, char **argv)
 	body_pose_detect_init(&ctx, "./body_pose_detect.model");
 
 	/* 算法结果在图像中画出并保存 */
-	std::vector<std::vector<KeyPoint>> detectedKeypoints;   //按组存放检测出的各部位keypoints关节点
-	std::vector<KeyPoint> keyPointsList;    //将detectedKeypoints依次存入keyPointsList
+	std::vector<std::vector<KeyPoint_body>> detectedKeypoints;   //按组存放检测出的各部位keypoints关节点
+	std::vector<KeyPoint_body> keyPointsList;    //将detectedKeypoints依次存入keyPointsList
 	std::vector<std::vector<int>> personwiseKeypoints;      //按骨骼顺序给keypoints配对
 
 	body_pose_detect_run(ctx, src, keyPointsList, detectedKeypoints, personwiseKeypoints);
@@ -99,8 +99,8 @@ int main(int argc, char **argv)
 				continue;
 			}
 			
-			const KeyPoint& kpA=keyPointsList[indexA];
-			const KeyPoint& kpB=keyPointsList[indexB];
+			const KeyPoint_body& kpA=keyPointsList[indexA];
+			const KeyPoint_body& kpB=keyPointsList[indexB];
 			
 			std::cout<<"kpA = "<<kpA<<"kpB = "<<kpB<<std::endl;
 			

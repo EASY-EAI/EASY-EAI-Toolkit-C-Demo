@@ -1,23 +1,13 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <string.h>
 #include <unistd.h>
 
+#include "iic.h"
+#include "ads1115.h"
 
-#include <linux/i2c.h>
-#include <linux/i2c-dev.h>
-
-#include <iic.h>
-#include <test-ads1115.h>
-
-
-int32_t ads1115_config_register(uint32_t mfd, uint8_t pointADD,uint8_t configH,uint8_t configL)
+static int32_t ads1115_config_register(uint32_t mfd, uint8_t pointADD,uint8_t configH,uint8_t configL)
 {
     uint8_t reg_data[3] = {pointADD, configH, configL};
-    bool ret = iic_write(mfd, ADS1115_ADDRESS, reg_data, 3);
+    int32_t ret = iic_write(mfd, ADS1115_ADDRESS, reg_data, 3);
 
     if(ret)
         return 0;
@@ -25,9 +15,9 @@ int32_t ads1115_config_register(uint32_t mfd, uint8_t pointADD,uint8_t configH,u
         return -1;
 }
 
-int16_t ads1115_read_data(uint32_t mfd)
+static int16_t ads1115_read_data(uint32_t mfd)
 {
-    bool ret = false;
+    int32_t ret = false;
     /*读取数据*/
     uint8_t tx_data[1];
     tx_data[0] = ADS1015_REG_POINTER_CONVERT;
@@ -47,8 +37,7 @@ int16_t ads1115_read_data(uint32_t mfd)
     return data;
 }
 
-
-double ads1115_get_voltage_val(uint32_t mfd, uint8_t pointADD,uint8_t configH,uint8_t configL)
+static double ads1115_get_voltage_val(uint32_t mfd, uint8_t pointADD,uint8_t configH,uint8_t configL)
 {
     double val;
     int16_t ad_val;
@@ -88,24 +77,21 @@ double ads1115_get_voltage_val(uint32_t mfd, uint8_t pointADD,uint8_t configH,ui
     return val;
 }
 
-
-
 int main(int argc, char const *argv[])
 {
-    bool ret = false;
     double val;
     int fd = iic_init("/dev/i2c-5");
-    if(-1 == fd){
+    if(fd < 0){
         printf("iic init faild \n");
+        return -1;
     }
     
-    ret = iic_set_addr_len(fd,7);
-    if(!ret){
-        exit(-1);
+    if(0 != iic_set_addr_len(fd, 7)){
+        return -1;
     }
-    ret = iic_set_addr(fd,ADS1115_ADDRESS);
-    if(!ret){
-        exit(-1);
+    
+    if(0 != iic_set_addr(fd, ADS1115_ADDRESS)){
+        return -1;
     }    
     
     while (1) {

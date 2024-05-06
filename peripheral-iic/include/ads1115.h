@@ -1,41 +1,31 @@
-#ifndef     TEST_ADS1115_H
-#define    TEST_ADS1115_H
+#ifndef __ADS1115_H__
+#define __ADS1115_H__
 
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 
-#if defined(__cplusplus)
-extern "C"{
-#endif
+#define ADS1115_ADDRESS  0x48//芯片地址
 
-#define ADS1115_ADDRESS        0x48//芯片地址
-//以下两个预处理作为配置寄存器预处理要更改其配在这里更改
-//也可以添加新的预处理对不同通道的采集或者选取不同的采样速率等
-#define CONFIG_REG_H     ADS1115_REG_CONFIG_OS_START|\
-                         ADS1115_REG_CONFIG_MUX_Diff_01|\
-                         ADS1115_REG_CONFIG_PGA_4|\
-                         ADS1115_REG_CONFIG_MODE_SINGLE
-#define CONFIG_REG_L    ADS1115_REG_CONFIG_DR_128|\
-                        ADS1115_REG_CONFIG_COMP_MODE_TRADITIONAL|\
-                        ADS1115_REG_CONFIG_COMP_POL_LOW|\
-                        ADS1115_REG_CONFIG_COMP_LAT_NONLATCH|\
-                        ADS1115_REG_CONFIG_COMP_QUE_DIS
+//地址指针寄存器
+#define ADS1015_REG_POINTER_CONVERT     (0x00)
+#define ADS1015_REG_POINTER_CONFIG      (0x01)
+#define ADS1015_REG_POINTER_LOWTHRESH   (0x02)
+#define ADS1015_REG_POINTER_HITHRESH    (0x03)
 
-
-/***************/
-//配置寄存器说明
-
-//config register
-/*CRH[15:8](R/W)
+/************************************************************************************/
+// 配置寄存器说明
+/*  
+config register:
+--------------------------------------------------------------------------------------
+CRH[15:8](R/W)
    BIT      15      14      13      12      11      10      9       8
    NAME     OS      MUX2    MUX1    MUX0    PGA2    PGA1    PGA0    MODE
 CRL[7:0] (R/W)
    BIT      7       6       5       4       3       2       1       0
    NAME    DR0     DR1     DR0   COM_MODE COM_POL COM_LAT COM_QUE1 COM_QUE0
 
-
-   -----------------------------------------------------------------------------------
+ * -----------------------------------------------------------------------------------
  * 15    | OS             |  运行状态会单词转换开始
  *       |                | 写时:
  *       |                | 0   : 无效
@@ -99,41 +89,44 @@ CRL[7:0] (R/W)
 */
 
 
-
-//地址指针寄存器
-
-#define ADS1015_REG_POINTER_CONVERT     (0x00)
-#define ADS1015_REG_POINTER_CONFIG      (0x01)
-#define ADS1015_REG_POINTER_LOWTHRESH   (0x02)
-#define ADS1015_REG_POINTER_HITHRESH    (0x03)
+//以下两个预处理作为配置寄存器预处理要更改其配在这里更改
+//也可以添加新的预处理对不同通道的采集或者选取不同的采样速率等
+#define CONFIG_REG_H  ADS1115_REG_CONFIG_OS_START|\
+                      ADS1115_REG_CONFIG_MUX_SINGLE_0|\
+                      ADS1115_REG_CONFIG_PGA_4|\
+                      ADS1115_REG_CONFIG_MODE_SINGLE
+                      
+#define CONFIG_REG_L  ADS1115_REG_CONFIG_DR_128|\
+                      ADS1115_REG_CONFIG_COMP_MODE_TRADITIONAL|\
+                      ADS1115_REG_CONFIG_COMP_POL_LOW|\
+                      ADS1115_REG_CONFIG_COMP_LAT_NONLATCH|\
+                      ADS1115_REG_CONFIG_COMP_QUE_DIS
+//------------------------------------------------------------------------------------------------//
 // 单次转换开始
-#define ADS1115_REG_CONFIG_OS_START                     (0x1U << 7)//设备单词转换开启 高字节的最高位
-#define ADS1115_REG_CONFIG_OS_NULL                      (0x0U << 7)
-//输入引脚选择和输入方式选择
-#define ADS1115_REG_CONFIG_MUX_Diff_01                  (0x0U << 4)  // 差分输入0引脚和1引脚
-#define ADS1115_REG_CONFIG_MUX_Diff_03                  (0x1U << 4)  // 差分输入0引脚和3引脚
-#define ADS1115_REG_CONFIG_MUX_Diff_13                  (0x2U << 4)  // 差分输入1引脚和3引脚
-#define ADS1115_REG_CONFIG_MUX_Diff_23                  (0x3U << 4)  // 差分输入2引脚和3引脚
-#define ADS1115_REG_CONFIG_MUX_SINGLE_0                 (0x4U << 4)  //单端输入 0
-#define ADS1115_REG_CONFIG_MUX_SINGLE_1                 (0x5U << 4)  //单端输入 1
-#define ADS1115_REG_CONFIG_MUX_SINGLE_2                 (0x6U << 4)  //单端输入 2
-#define ADS1115_REG_CONFIG_MUX_SINGLE_3                 (0x7U << 4)  //单端输入 3
-
-//量程选择
-#define ADS1115_REG_CONFIG_PGA_6                        (0x0U << 1) // +/- 6.1144
-#define ADS1115_REG_CONFIG_PGA_4                        (0x1U << 1) // +/- 4.096
-#define ADS1115_REG_CONFIG_PGA_2                        (0x2U << 1) // +/- 2.048
-#define ADS1115_REG_CONFIG_PGA_1                        (0x3U << 1) // +/- 1.024
-#define ADS1115_REG_CONFIG_PGA_05                       (0x4U << 1) // +/- 0.512
-#define ADS1115_REG_CONFIG_PGA_02                       (0x5U << 1) // +/- 0.256
-
-//运行方式
-
-#define ADS1115_REG_CONFIG_MODE_SINGLE              (0x1U << 0)  //  单次
+#define ADS1115_REG_CONFIG_OS_START                 (0x1U << 7)//设备单词转换开启 高字节的最高位
+#define ADS1115_REG_CONFIG_OS_NULL                  (0x0U << 7)
+// 输入引脚选择和输入方式选择
+#define ADS1115_REG_CONFIG_MUX_Diff_01              (0x0U << 4)  // 差分输入0引脚和1引脚
+#define ADS1115_REG_CONFIG_MUX_Diff_03              (0x1U << 4)  // 差分输入0引脚和3引脚
+#define ADS1115_REG_CONFIG_MUX_Diff_13              (0x2U << 4)  // 差分输入1引脚和3引脚
+#define ADS1115_REG_CONFIG_MUX_Diff_23              (0x3U << 4)  // 差分输入2引脚和3引脚
+#define ADS1115_REG_CONFIG_MUX_SINGLE_0             (0x4U << 4)  //单端输入 0
+#define ADS1115_REG_CONFIG_MUX_SINGLE_1             (0x5U << 4)  //单端输入 1
+#define ADS1115_REG_CONFIG_MUX_SINGLE_2             (0x6U << 4)  //单端输入 2
+#define ADS1115_REG_CONFIG_MUX_SINGLE_3             (0x7U << 4)  //单端输入 3
+// 量程选择
+#define ADS1115_REG_CONFIG_PGA_6                    (0x0U << 1) // +/- 6.1144
+#define ADS1115_REG_CONFIG_PGA_4                    (0x1U << 1) // +/- 4.096
+#define ADS1115_REG_CONFIG_PGA_2                    (0x2U << 1) // +/- 2.048
+#define ADS1115_REG_CONFIG_PGA_1                    (0x3U << 1) // +/- 1.024
+#define ADS1115_REG_CONFIG_PGA_05                   (0x4U << 1) // +/- 0.512
+#define ADS1115_REG_CONFIG_PGA_02                   (0x5U << 1) // +/- 0.256
+// 运行方式
+#define ADS1115_REG_CONFIG_MODE_SINGLE              (0x1U << 0)  //单次
 #define ADS1115_REG_CONFIG_MODE_CONTIN              (0x0U << 0)  //连续转换
 
-//转换速率
-
+//------------------------------------------------------------------------------------------------//
+// 转换速率
 #define ADS1115_REG_CONFIG_DR_8                     (0x0U << 5)
 #define ADS1115_REG_CONFIG_DR_16                    (0x1U << 5)
 #define ADS1115_REG_CONFIG_DR_32                    (0x2U << 5)
@@ -142,36 +135,20 @@ CRL[7:0] (R/W)
 #define ADS1115_REG_CONFIG_DR_250                   (0x5U << 5)
 #define ADS1115_REG_CONFIG_DR_475                   (0x6U << 5)
 #define ADS1115_REG_CONFIG_DR_860                   (0x7U << 5)
-
-//比较器模式
+// 比较器模式
 #define ADS1115_REG_CONFIG_COMP_MODE_TRADITIONAL    (0x0U << 4)//默认
 #define ADS1115_REG_CONFIG_COMP_MODE_WINDOW         (0x1U << 4)
 
-
-#define ADS1115_REG_CONFIG_COMP_POL_LOW         (0x0U << 3)//默认
-#define ADS1115_REG_CONFIG_COMP_POL_HIG         (0x1U << 3)
-
+#define ADS1115_REG_CONFIG_COMP_POL_LOW             (0x0U << 3)//默认
+#define ADS1115_REG_CONFIG_COMP_POL_HIG             (0x1U << 3)
 
 #define ADS1115_REG_CONFIG_COMP_LAT_NONLATCH        (0x0U << 2)
 #define ADS1115_REG_CONFIG_COMP_LAT_LATCH           (0x1U << 2)
 
-
-#define ADS1115_REG_CONFIG_COMP_QUE_ONE         (0x0U << 0)
-#define ADS1115_REG_CONFIG_COMP_QUE_TWO         (0x1U << 0)
-#define ADS1115_REG_CONFIG_COMP_QUE_THR         (0x2U << 0)
-#define ADS1115_REG_CONFIG_COMP_QUE_DIS         (0x3U << 0)
-
-int32_t ads1115_config_register(uint32_t mfd,uint8_t pointADD,uint8_t configH,uint8_t configL);
-int16_t ads1115_read_data(uint32_t mfd);
-double ads1115_get_voltage_val(uint32_t mfd, uint8_t pointADD,uint8_t configH,uint8_t configL);
-
-
+#define ADS1115_REG_CONFIG_COMP_QUE_ONE             (0x0U << 0)
+#define ADS1115_REG_CONFIG_COMP_QUE_TWO             (0x1U << 0)
+#define ADS1115_REG_CONFIG_COMP_QUE_THR             (0x2U << 0)
+#define ADS1115_REG_CONFIG_COMP_QUE_DIS             (0x3U << 0)
+    
 #endif
-
-
-#if defined(__cplusplus)
-}
-#endif
-
-
 
