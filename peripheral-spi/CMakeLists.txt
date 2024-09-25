@@ -22,24 +22,34 @@ add_definitions(-Wall)
 
 set(toolkit_root ${CMAKE_CURRENT_SOURCE_DIR}/../easyeai-api)
 
-#--------------------------
-# test-spi
-#--------------------------
-
 # -I
 set(api_inc
-   ${CMAKE_SYSROOT}/usr/include/rkfacial
-   ${toolkit_root}/peripheral_api/spi
-   ${CMAKE_CURRENT_SOURCE_DIR}/include/
-)
+	${toolkit_root}/peripheral_api/spi
+	${CMAKE_CURRENT_SOURCE_DIR}/include/
+	)
 
-
-aux_source_directory(./src dir_srcs)
-
+#--------------------------
+# test-rfid
+#--------------------------
 link_directories(${toolkit_root}/peripheral_api/spi) #-L
-add_executable(test-spi ${dir_srcs})  #-o
-target_link_libraries(test-spi spi stdc++) #-l
-target_include_directories(test-spi PRIVATE ${api_inc}) #-I
+add_executable(test-rfid rfid.c dev/rc522.c)  #-o
+target_link_libraries(test-rfid spi stdc++) #-l
+target_include_directories(test-rfid PRIVATE ${api_inc}) #-I
 
 
+#--------------------------
+# test-fram
+#--------------------------
+link_directories(${toolkit_root}/peripheral_api/spi) #-L
+add_executable(test-fram fram.c dev/mb85rs64.c)  #-o
+target_link_libraries(test-fram spi stdc++) #-l
+target_include_directories(test-fram PRIVATE ${api_inc}) #-I
 
+
+#--------------------------
+# test-spidev
+#--------------------------
+link_directories(${toolkit_root}/peripheral_api/spi) #-L
+add_executable(test-spidev spidev_test.c)  #-o
+target_link_libraries(test-spidev spi stdc++) #-l
+target_include_directories(test-spidev PRIVATE ${api_inc}) #-I

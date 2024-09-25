@@ -28,6 +28,7 @@ extern "C" {
 int usbcamera_init(int bus, int port, int width, int height, int rot);
 void usbcamera_exit(int bus, int port);
 int usbcamera_getframe(int bus, int port, char *pbuf);
+void usbcamera_set_format(int bus, int port, int format);
 void usbcamera_preset_fps(int fps);
 
 /* support format:

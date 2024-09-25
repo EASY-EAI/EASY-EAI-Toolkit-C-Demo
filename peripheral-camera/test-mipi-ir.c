@@ -16,7 +16,7 @@ int main()
 	int skip = 0;
 	FILE *fp = NULL;
 
-	ret = ircamera_init(CAMERA_WIDTH, CAMERA_HEIGHT, 90);
+	ret = ircamera_init(CAMERA_WIDTH, CAMERA_HEIGHT, 270);
 	if (ret) {
 		printf("error: %s, %d\n", __func__, __LINE__);
 		goto exit3;

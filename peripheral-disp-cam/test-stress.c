@@ -45,8 +45,8 @@ int main()
     for(int i = 0; i < 1000; i++){
         printf(">>>================================== the %d times init start \n", i);
     	/* camera init */
-    	ret = rgbcamera_init(CAMERA_WIDTH, CAMERA_HEIGHT, 90);
-        ret = ircamera_init(CAMERA_WIDTH, CAMERA_HEIGHT, 90);
+    	ret = rgbcamera_init(CAMERA_WIDTH, CAMERA_HEIGHT, 270);
+        ret = ircamera_init(CAMERA_WIDTH, CAMERA_HEIGHT, 270);
     	if (ret) {
     		printf("error func:%s, line:%d\n", __func__, __LINE__);
     	}

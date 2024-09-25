@@ -22,6 +22,13 @@
 
 重要更新：
 ---
+> 2024-09-25 : 
+> * 发布 easyeai-c-demo-2.0.0
+> * 更新 easyeai-api-2.0.0(兼容性可查看[https://github.com/EASY-EAI/EASY-EAI-Toolkit-C-SDK](https://github.com/EASY-EAI/EASY-EAI-Toolkit-C-SDK))
+>   * 外设组件
+> 	  * [更新] 摄像头 Demo
+> 	  * [更新] spi Demo
+>
 > 2024-05-06 : 
 > * 发布 easyeai-c-demo-1.2.1
 > * 更新 easyeai-api-1.2.18

@@ -30,7 +30,7 @@ int main()
 
 	/* camera init */
 #ifdef MIPICAMERA
-	ret = rgbcamera_init(CAMERA_WIDTH, CAMERA_HEIGHT, 90);
+	ret = rgbcamera_init(CAMERA_WIDTH, CAMERA_HEIGHT, 270);
 #else
 	ret = usbcamera_init(USB2_0, USB_DIRECT, CAMERA_WIDTH, CAMERA_HEIGHT, 0);
 #endif

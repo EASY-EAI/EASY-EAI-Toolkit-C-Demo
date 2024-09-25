@@ -22,6 +22,13 @@ How to use：
 
 important update log:
 ---
+> 2024-09-25 : 
+> * Release easyeai-c-demo-2.0.0
+> * update easyeai-api-2.0.0(Compatibility Description: [https://github.com/EASY-EAI/EASY-EAI-Toolkit-C-SDK](https://github.com/EASY-EAI/EASY-EAI-Toolkit-C-SDK))
+>   * peripheral_api
+> 	  * [update] camera Demo
+> 	  * [update] spi Demo
+>
 > 2024-05-06 : 
 > * Release easyeai-c-demo-1.2.1
 > * update easyeai-api-1.2.18

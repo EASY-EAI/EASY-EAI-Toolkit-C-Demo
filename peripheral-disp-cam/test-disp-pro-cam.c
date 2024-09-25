@@ -29,7 +29,7 @@ int main()
 	signal(SIGINT, sigterm_handler);
 
 	/* camera init */
-	ret = rgbcamera_init(CAMERA_WIDTH, CAMERA_HEIGHT, 90);
+	ret = rgbcamera_init(CAMERA_WIDTH, CAMERA_HEIGHT, 270);
 	if (ret) {
 		printf("error func:%s, line:%d\n", __func__, __LINE__);
 		goto exit1;
